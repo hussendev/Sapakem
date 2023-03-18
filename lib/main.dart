@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,6 +60,19 @@ class MyApp extends StatelessWidget {
             // '/notifications_screen': (context) => Notifications(),
             // '/edit_phone_screen_screen': (context) => EditPhoneNumber(),
           },
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('en', ''), // English
+            const Locale('ar', ''), // Arabic
+            const Locale('he', ''), // Hebrew
+          ],
+          locale: const Locale('ar', '')
+
+
         );
       },
     );
