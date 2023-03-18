@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'flutter';
 
 extension contextExtenssion on BuildContext {
   void ShowSnackBar({required String message, bool error = false}) {
@@ -17,4 +18,6 @@ extension contextExtenssion on BuildContext {
       ),
     );
   }
+
+  // AppLocalization
 }
