@@ -31,11 +31,11 @@ class MyApp extends StatelessWidget {
                   color: Colors.black),
             ),
           ),
-          initialRoute: '/launch_screen',
+          initialRoute: '/login_screen',
           routes: {
             // '/launch_screen': (context) => LaunchScreen(),
             // '/on_boarding_screen': (context) => OnBoardingScreen(),
-            '/login_screen': (context) => LoginScreen(),
+            '/login_screen': (context) => const LoginScreen(),
             // '/register_screen': (context) => RegisterScreen(),
             // '/register_success_screen': (context) => RegisterSuccess(),
             // '/forgot_password_screen': (context) => ForgetPasswordScreen(),
