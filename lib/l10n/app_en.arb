@@ -20,6 +20,9 @@
   "send": "Send",
   "didnot_receive_the_code": "Didn't receive the code?",
   "resend": "Resend",
-  "code": "Code"
+  "code": "Code",
+  "new_password": "New password",
+  "enter_the_new_password": "Enter the new password",
+  "save": "Save"
 
 }

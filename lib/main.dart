@@ -5,6 +5,7 @@ import 'package:sapakem/screens/auth/forgot_password_screen.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sapakem/screens/auth/new_password_screen.dart';
 import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
 
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
               '/forgot_password_screen': (context) =>
                   const ForgetPasswordScreen(),
               '/otp_screen': (context) => const OTPScreen(),
+              '/new_password_screen': (context) => const NewPasswordScreen(),
             },
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic
               Locale('he', ''), // Hebrew
             ],
-            locale: const Locale('he', ''));
+            locale: const Locale('en', ''));
       },
     );
   }

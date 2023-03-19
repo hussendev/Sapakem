@@ -20,5 +20,8 @@
   "send": "إرسال",
   "didnot_receive_the_code": "لم تتلقى الرمز؟",
   "resend": "إعادة إرسال",
-  "code": "الرمز"
+  "code": "الرمز",
+  "new_password" : "كلمة المرور الجديدة",
+  "enter_the_new_password": "أدخل كلمة المرور الجديدة",
+  "save": "حفظ"
 }

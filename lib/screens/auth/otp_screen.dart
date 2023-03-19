@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
-
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/otp_widget.dart';
@@ -125,7 +124,10 @@ class OTPScreen extends StatelessWidget {
                           40.ph(),
                           AppButton(
                               text: context.localizations.send,
-                              onPressed: () {}),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/new_password_screen');
+                              }),
                         ],
                       ),
                     ),
