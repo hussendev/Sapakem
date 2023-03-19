@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +22,7 @@ class AppButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: Color.fromARGB(255, 22, 134, 199),
+          backgroundColor: const Color.fromARGB(255, 22, 134, 199),
           minimumSize: Size(double.infinity, 60.h)),
       child: AppText(
           text: text,

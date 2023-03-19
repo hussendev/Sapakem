@@ -186,7 +186,7 @@ class RegisterScreen extends StatelessWidget {
                                   text: context
                                       .localizations.do_you_have_an_account,
                                   fontSize: 15.sp,
-                                  color: Color(0xff222222)),
+                                  color: const Color(0xff222222)),
                             ],
                           ),
                         ),
