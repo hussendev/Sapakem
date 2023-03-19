@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
-
 import '../../widgets/app_text_field.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -31,7 +30,7 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 240.h,
+            height: 290.h,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -59,7 +58,8 @@ class LoginScreen extends StatelessWidget {
                     height: 100.h,
                     width: 100.w,
                     // ignore: sort_child_properties_last
-                    child: SvgPicture.asset('assets/logo.svg', semanticsLabel: 'A red up arrow'),
+                    child: SvgPicture.asset('assets/logo.svg',
+                        semanticsLabel: 'A red up arrow'),
 
                     // ignore: prefer_const_constructors
                     decoration: const BoxDecoration(shape: BoxShape.circle),
@@ -74,20 +74,39 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  // alignment: Alignment.topRight,
-                  height: 89,
                   // width: 162,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [AppText(text: context.localizations.lets_start, fontSize: 35.sp, color: const Color(0xff1C8ABB)), 14.ph(), AppText(text: 'Sign in to your account', fontSize: 18.sp, color: const Color(0xff222222))],
+                    children: [
+                      AppText(
+                          text: context.localizations.lets_start,
+                          fontSize: 35.sp,
+                          color: const Color(0xff1C8ABB)),
+                      14.ph(),
+                      AppText(
+                          text: context.localizations.sing_in_to_your_account,
+                          fontSize: 18.sp,
+                          color: const Color(0xff222222))
+                    ],
                   ),
                 ),
                 24.ph(),
-                AppText(text: 'Mobile', fontSize: 16.sp, color: const Color(0xff222222)),
+                AppText(
+                    text: context.localizations.mobile,
+                    fontSize: 16.sp,
+                    color: const Color(0xff222222)),
                 14.ph(),
-                AppTextField(hinttext: '594  358  404', labeltext: 'labeltext', keyboardType: TextInputType.phone, controller: TextEditingController(), obscureText: false),
+                AppTextField(
+                    hinttext: '594  358  404',
+                    labeltext: 'labeltext',
+                    keyboardType: TextInputType.phone,
+                    controller: TextEditingController(),
+                    obscureText: false),
                 11.ph(),
-                AppText(text: 'Password', fontSize: 16.sp, color: const Color(0xff222222)),
+                AppText(
+                    text: context.localizations.password,
+                    fontSize: 16.sp,
+                    color: const Color(0xff222222)),
                 14.ph(),
                 AppTextField(
                     hinttext: '***********',
@@ -104,19 +123,28 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    AppText(text: 'Forgot Password?', fontSize: 16.sp, color: const Color(0xff1C8ABB)),
+                    AppText(
+                        text: context.localizations.forgot_password,
+                        fontSize: 16.sp,
+                        color: const Color(0xff1C8ABB)),
                   ],
                 ),
                 35.ph(),
-                AppButton(text: 'Login', onPressed: () {}),
+                AppButton(text: context.localizations.login, onPressed: () {}),
                 // Spacer(),
-                120.ph(),
+                110.ph(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AppText(text: 'Don\'t have an account?', fontSize: 16.sp, color: const Color(0xff222222)),
+                    AppText(
+                        text: context.localizations.dont_have_an_account,
+                        fontSize: 16.sp,
+                        color: const Color(0xff222222)),
                     10.ph(),
-                    AppText(text: 'Sign Up', fontSize: 16.sp, color: const Color(0xff1C8ABB)),
+                    AppText(
+                        text: context.localizations.sign_up,
+                        fontSize: 16.sp,
+                        color: const Color(0xff1C8ABB)),
                   ],
                 )
               ],
@@ -142,8 +170,16 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)), backgroundColor: Color.fromARGB(255, 22, 134, 199), minimumSize: Size(double.infinity, 60.h)),
-      child: AppText(text: text, fontSize: 18.sp, color: Colors.white, fontWeight: FontWeight.w500),
+      style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          backgroundColor: Color.fromARGB(255, 22, 134, 199),
+          minimumSize: Size(double.infinity, 60.h)),
+      child: AppText(
+          text: text,
+          fontSize: 18.sp,
+          color: Colors.white,
+          fontWeight: FontWeight.w500),
     );
   }
 }

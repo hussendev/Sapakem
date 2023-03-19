@@ -1,4 +1,11 @@
 {
   "language": "اللغة",
-  "lets_start": "لنبدأ"
+  "lets_start": "لنبدأ",
+  "sing_in_to_your_account": "تسجيل الدخول إلى حسابك",
+  "mobile":"رقم الجوال",
+  "password":"كلمة المرور",
+  "forgot_password":"نسيت كلمة المرور",
+  "login":"تسجيل الدخول",
+  "dont_have_an_account":"ليس لديك حساب؟",
+  "sign_up":"سجل"
 }

@@ -1,4 +1,11 @@
 {
   "language": "language",
-  "lets_start": "Let's start"
+  "lets_start": "Let's start",
+  "sing_in_to_your_account": "Sign in to your account",
+  "mobile": "Mobile",
+  "password":"Password",
+  "forgot_password": "Forgot password?",
+  "login":"Login",
+  "dont_have_an_account": "Don't have an account?",
+  "sign_up": "Sign up"
 }
