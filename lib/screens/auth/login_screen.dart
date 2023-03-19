@@ -110,29 +110,46 @@ class LoginScreen extends StatelessWidget {
                             text: context.localizations.password,
                             hinttext: '***********',
                             labeltext: 'labeltext',
-                            keyboardType: TextInputType.phone,
+                            keyboardType: TextInputType.visiblePassword,
                             controller: TextEditingController(),
                             suffixIcon: const Icon(
                               Icons.visibility_off_outlined,
                               size: 25,
                               color: const Color(0xff1E2434),
                             ),
-                            obscureText: false),
+                            obscureText: true),
                         10.ph(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            AppText(
-                                text: context.localizations.forgot_password,
-                                fontSize: 16.sp,
-                                color: const Color(0xff1C8ABB)),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, '/forgot_password_screen');
+                              },
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  minimumSize: const Size(50, 30),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  alignment: Alignment.centerLeft),
+                              child: AppText(
+                                  text: context.localizations.forgot_password,
+                                  fontSize: 16.sp,
+                                  color: const Color(0xff1C8ABB)),
+                            ),
+                            // TextButton(
+                            //   style:
+                            //   onPressed: () {},
+                            //   child:
+                            // )
                           ],
                         ),
                         35.ph(),
                         AppButton(
                             text: context.localizations.login,
                             onPressed: () {}),
-                        Spacer(),
+                        const Spacer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
