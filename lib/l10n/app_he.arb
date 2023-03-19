@@ -1,3 +1,11 @@
 {
-  "language": "השפה"
+  "language": "השפה",
+  "lets_start": "בואו נתחיל",
+  "sing_in_to_your_account":"התחבר לחשבונך",
+  "mobile":"נייד",
+  "password":"סיסמא",
+  "forgot_password":"שכחתי סיסמא",
+  "login":"התחברות",
+  "dont_have_an_account":"אין לך חשבון?",
+  "sign_up":"התחבר"
 }

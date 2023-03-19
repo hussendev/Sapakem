@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
-
 import '../../widgets/app_text_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -29,8 +30,9 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 240,
+            height: 290.h,
             child: Stack(
+              clipBehavior: Clip.none,
               children: [
                 Positioned(
                   top: -215.h,
@@ -72,19 +74,17 @@ class LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  // alignment: Alignment.topRight,
-                  height: 89,
                   // width: 162,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                          text: 'Lets Start',
+                          text: context.localizations.lets_start,
                           fontSize: 35.sp,
                           color: const Color(0xff1C8ABB)),
                       14.ph(),
                       AppText(
-                          text: 'Sign in to your account',
+                          text: context.localizations.sing_in_to_your_account,
                           fontSize: 18.sp,
                           color: const Color(0xff222222))
                     ],
@@ -92,7 +92,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 24.ph(),
                 AppText(
-                    text: 'Mobile',
+                    text: context.localizations.mobile,
                     fontSize: 16.sp,
                     color: const Color(0xff222222)),
                 14.ph(),
@@ -104,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                     obscureText: false),
                 11.ph(),
                 AppText(
-                    text: 'Password',
+                    text: context.localizations.password,
                     fontSize: 16.sp,
                     color: const Color(0xff222222)),
                 14.ph(),
@@ -124,25 +124,25 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     AppText(
-                        text: 'Forgot Password?',
+                        text: context.localizations.forgot_password,
                         fontSize: 16.sp,
                         color: const Color(0xff1C8ABB)),
                   ],
                 ),
                 35.ph(),
-                AppButton(text: 'Login', onPressed: () {}),
+                AppButton(text: context.localizations.login, onPressed: () {}),
                 // Spacer(),
-                120.ph(),
+                110.ph(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppText(
-                        text: 'Don\'t have an account?',
+                        text: context.localizations.dont_have_an_account,
                         fontSize: 16.sp,
                         color: const Color(0xff222222)),
                     10.ph(),
                     AppText(
-                        text: 'Sign Up',
+                        text: context.localizations.sign_up,
                         fontSize: 16.sp,
                         color: const Color(0xff1C8ABB)),
                   ],
@@ -162,6 +162,7 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     required this.text,
   });
+
   late String text;
   late VoidCallback onPressed;
 

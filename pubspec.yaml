@@ -33,7 +33,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  intl: ^0.17.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +48,10 @@ dependencies:
 
   #svg_reader
   flutter_svg: ^2.0.4
+  
+  #translate
+  intl: ^0.17.0
+
 
 dev_dependencies:
   flutter_test:
