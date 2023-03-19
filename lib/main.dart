@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sapakem/screens/auth/register_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
               // '/launch_screen': (context) => LaunchScreen(),
               // '/on_boarding_screen': (context) => OnBoardingScreen(),
               '/login_screen': (context) => const LoginScreen(),
-              // '/register_screen': (context) => RegisterScreen(),
+              '/register_screen': (context) => const RegisterScreen(),
               // '/register_success_screen': (context) => RegisterSuccess(),
               // '/forgot_password_screen': (context) => ForgetPasswordScreen(),
               // '/reset_password_screen': (context) => ResetPasswordScreen(),
