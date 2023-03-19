@@ -20,5 +20,8 @@
   "send": "שלח",
   "didnot_receive_the_code": "לא קיבלת את הקוד?",
   "resend": "שלח שוב",
-  "code": "קוד"
+  "code": "קוד",
+  "new_password": "סיסמא חדשה",
+  "enter_the_new_password": "הכנס את הסיסמא החדשה",
+  "save": "שמור"
 }

@@ -11,10 +11,9 @@ class AppTextField extends StatelessWidget {
     required this.text,
     required this.labeltext,
     required this.keyboardType,
-    this.obscuresText = false,
+    required this.obscureText,
     required this.controller,
     this.suffixIcon,
-    required obscureText,
   }) : super(key: key);
   final String text;
   final String hinttext;
@@ -22,7 +21,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final Widget? suffixIcon;
-  final bool obscuresText;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class AppTextField extends StatelessWidget {
         TextField(
           controller: controller,
           keyboardType: keyboardType,
-          obscureText: obscuresText,
+          obscureText: obscureText,
           decoration: InputDecoration(
             // labelText: labeltext,
             hintText: hinttext,
