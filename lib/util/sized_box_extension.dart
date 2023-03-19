@@ -7,7 +7,7 @@ extension sizedBoxExtension on int {
   Widget ph() => SizedBox(
         height: this.h,
       );
-  Widget pw(double width) => SizedBox(
+  Widget pw() => SizedBox(
         width: this.w,
       );
 }
