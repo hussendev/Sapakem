@@ -8,6 +8,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:sapakem/screens/auth/new_password_screen.dart';
 import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
+import 'package:sapakem/screens/chose_language.dart';
+import 'package:sapakem/screens/launch_screen.dart';
+import 'package:sapakem/screens/on_boarding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-            initialRoute: '/login_screen',
+            initialRoute: '/lunch_screen',
             routes: {
               '/login_screen': (context) => const LoginScreen(),
               '/register_screen': (context) => const RegisterScreen(),
@@ -45,6 +48,9 @@ class MyApp extends StatelessWidget {
                   const ForgetPasswordScreen(),
               '/otp_screen': (context) => const OTPScreen(),
               '/new_password_screen': (context) => const NewPasswordScreen(),
+              '/lunch_screen': (context) => const LunchScreen(),
+              '/on_boarding': (context) => const OnBoarding(),
+              '/chose_language': (context) => const ChoseLanguage(),
             },
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,

@@ -23,5 +23,6 @@
   "code": "الرمز",
   "new_password" : "كلمة المرور الجديدة",
   "enter_the_new_password": "أدخل كلمة المرور الجديدة",
-  "save": "حفظ"
+  "save": "حفظ",
+  "chose_language": "اختر اللغة"
 }

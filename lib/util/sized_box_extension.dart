@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-extension sizedBoxExtension on int {
+extension sizedBoxExtension on num {
   Widget ph() => SizedBox(
         height: this.h,
       );
