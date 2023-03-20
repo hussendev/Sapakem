@@ -15,7 +15,7 @@ class _LunchScreenState extends State<LunchScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushNamed(context, '/chose_language');
+      Navigator.pushReplacementNamed(context, '/chose_language');
     });
   }
   @override
