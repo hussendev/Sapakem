@@ -24,6 +24,11 @@
   "new_password": "New password",
   "enter_the_new_password": "Enter the new password",
   "save": "Save",
-  "chose_language": "Chose Language"
+  "chose_language": "Chose Language",
+  "skip": "Skip",
+  "get_started": "Get Started",
+  "continue_as_visitor": "Continue as visitor",
+  "welcome_for_you": "Welcome For You",
+  "enjoy_the_fastest_and_best_network_in_the_world": "Enjoy the fastest and best network in the world"
 
 }

@@ -24,5 +24,10 @@
   "new_password" : "كلمة المرور الجديدة",
   "enter_the_new_password": "أدخل كلمة المرور الجديدة",
   "save": "حفظ",
-  "chose_language": "اختر اللغة"
+  "chose_language": "اختر اللغة",
+  "skip": "تخطي",
+  "get_started": "ابدأ",
+  "continue_as_visitor": "الاستمرار كزائر",
+  "welcome_for_you": "مرحبا بك",
+  "enjoy_the_fastest_and_best_network_in_the_world": "استمتع بأسرع وأفضل شبكة في العالم"
 }

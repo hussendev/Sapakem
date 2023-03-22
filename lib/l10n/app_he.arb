@@ -24,5 +24,10 @@
   "new_password": "סיסמא חדשה",
   "enter_the_new_password": "הכנס את הסיסמא החדשה",
   "save": "שמור",
-  "chose_language": "בחר שפה"
+  "chose_language": "בחר שפה",
+  "skip": "דלג",
+  "get_started": "התחל",
+  "continue_as_visitor": "המשך כמבקר",
+  "welcome_for_you": "ברוכים הבאים",
+  "enjoy_the_fastest_and_best_network_in_the_world": "הנסיעה המהירה והטובה ביותר בעולם"
 }

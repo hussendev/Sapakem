@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sapakem/screens/auth/chose_sign_up_register_screen.dart';
 import 'package:sapakem/screens/auth/forgot_password_screen.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -49,8 +50,9 @@ class MyApp extends StatelessWidget {
               '/otp_screen': (context) => const OTPScreen(),
               '/new_password_screen': (context) => const NewPasswordScreen(),
               '/lunch_screen': (context) => const LunchScreen(),
-              '/on_boarding': (context) => const OnBoarding(),
+              '/on_boarding': (context) => OnBoarding(),
               '/chose_language': (context) => const ChoseLanguage(),
+              '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
             },
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
