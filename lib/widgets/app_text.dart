@@ -8,20 +8,28 @@ class AppText extends StatelessWidget {
   final double fontSize;
   final Color color;
   FontWeight fontWeight;
+  TextAlign? textAlign;
 
   AppText({
     Key? key,
     required this.text,
     required this.fontSize,
     required this.color,
+    this.textAlign,
     this.fontWeight = FontWeight.normal,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text(text,
-        style: GoogleFonts.poppins(
-            fontSize: fontSize, color: color, fontWeight: fontWeight));
+    return Text(
+      text,
+      textAlign: textAlign,
+      style: GoogleFonts.poppins(
+        fontSize: fontSize,
+        color: color,
+        fontWeight: fontWeight,
+      ),
+    );
     // );
   }
 }
