@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-            initialRoute: '/home_screen',
+            initialRoute: '/lunch_screen',
             routes: {
               '/login_screen': (context) => LoginScreen(),
               '/register_screen': (context) => const RegisterScreen(),
