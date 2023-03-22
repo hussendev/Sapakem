@@ -3,14 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sapakem/util/context_extenssion.dart';
+import 'package:sapakem/util/context_extenssion.dart' as c;
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                             hinttext: '594  358  404',
                             labeltext: 'labeltext',
                             keyboardType: TextInputType.phone,
-                            controller: TextEditingController(),
+                            controller: _phoneController,
                             obscureText: false),
                         11.ph(),
                         AppTextField(
@@ -111,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                             hinttext: '***********',
                             labeltext: 'labeltext',
                             keyboardType: TextInputType.visiblePassword,
-                            controller: TextEditingController(),
+                            controller: _passwordController,
                             suffixIcon: const Icon(
                               Icons.visibility_off_outlined,
                               size: 25,
@@ -148,7 +150,9 @@ class LoginScreen extends StatelessWidget {
                         35.ph(),
                         AppButton(
                             text: context.localizations.login,
-                            onPressed: () {}),
+                            onPressed: () {
+                              performLogin(context);
+                            }),
                         const Spacer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -184,5 +188,44 @@ class LoginScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  performLogin(BuildContext context) {
+    if (checkData(context)) {
+      login(
+          phone: _phoneController.text,
+          password: _passwordController.text,
+          context: context);
+    } else {
+      context.ShowSnackBar(message: 'Please enter your data', error: true);
+    }
+  }
+
+  bool checkData(BuildContext context) {
+    if (_phoneController.text.isEmpty && _passwordController.text.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  login(
+      {required String phone,
+      required String password,
+      required BuildContext context}) async {
+    // final response = await http.post(
+    //   Uri.parse('https://sapakem.com/api/login'),
+    //   body: {
+    //     'phone': phone,
+    //     'password': password,
+    //   },
+    // );
+    // final data = json.decode(response.body);
+    // print(data);
+    // if (data['status'] == 'success') {
+    Navigator.pushReplacementNamed(context, '/home_screen');
+    // } else {
+    //   context.ShowSnackBar(message: data['message']);
+    // }
   }
 }

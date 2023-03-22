@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sapakem/screens/app/home_screen.dart';
 import 'package:sapakem/screens/auth/forgot_password_screen.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -40,9 +41,9 @@ class MyApp extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-            initialRoute: '/lunch_screen',
+            initialRoute: '/home_screen',
             routes: {
-              '/login_screen': (context) => const LoginScreen(),
+              '/login_screen': (context) => LoginScreen(),
               '/register_screen': (context) => const RegisterScreen(),
               '/forgot_password_screen': (context) =>
                   const ForgetPasswordScreen(),
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
               '/lunch_screen': (context) => const LunchScreen(),
               '/on_boarding': (context) => const OnBoarding(),
               '/chose_language': (context) => const ChoseLanguage(),
+              '/home_screen': (context) => const HomeScreen(),
             },
             localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic
               Locale('he', ''), // Hebrew
             ],
-            locale: const Locale('en', ''));
+            locale: const Locale('he', ''));
       },
     );
   }

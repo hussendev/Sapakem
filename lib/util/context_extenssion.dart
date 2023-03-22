@@ -15,6 +15,7 @@ extension contextExtenssion on BuildContext {
         backgroundColor: error ? Colors.red.shade800 : Colors.green.shade800,
         duration: const Duration(seconds: 2),
         dismissDirection: DismissDirection.horizontal,
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }
