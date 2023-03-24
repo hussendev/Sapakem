@@ -191,7 +191,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   performLogin(BuildContext context) {
-    if (checkData(context)) {
+    if (checkData()) {
       login(
           phone: _phoneController.text,
           password: _passwordController.text,
@@ -201,12 +201,13 @@ class LoginScreen extends StatelessWidget {
     }
   }
 
-  bool checkData(BuildContext context) {
-    if (_phoneController.text.isEmpty && _passwordController.text.isEmpty) {
-      return false;
-    } else {
-      return true;
-    }
+  bool checkData() {
+    return true;
+    // if (_phoneController.text.isEmpty && _passwordController.text.isEmpty) {
+    //   return false;
+    // } else {
+    //   return true;
+    // }
   }
 
   login(

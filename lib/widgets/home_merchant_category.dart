@@ -13,12 +13,10 @@ class HomeMerchantCategory extends StatelessWidget {
     return SizedBox(
       // color: Colors.black,
       height: 370.h,
-      width: 364.w,
       child: Column(
         children: [
           SizedBox(
             height: 33.h,
-            width: 364.w,
             child: Row(
               children: [
                 AppText(
@@ -46,7 +44,6 @@ class HomeMerchantCategory extends StatelessWidget {
           SizedBox(
             // color: Colors.amber,
             height: 316.h,
-            width: 359.w,
             child: GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
