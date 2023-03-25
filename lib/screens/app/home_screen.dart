@@ -7,15 +7,21 @@ import 'package:sapakem/screens/btn/home_screen_widget.dart';
 import 'package:sapakem/screens/btn/order_screen_widget.dart';
 import 'package:sapakem/screens/btn/profile_screen_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<BNScreen> screens = [
     const BNScreen(title: 'home', widget: HomeScreenWidget()),
     const BNScreen(title: 'cart', widget: CartScreenWidget()),
     const BNScreen(title: 'order', widget: OrderScreenWidget()),
     const BNScreen(title: 'profile', widget: ProfileScreenWidget()),
   ];
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +54,17 @@ class HomeScreen extends StatelessWidget {
               label: 'פּרוֹפִיל',
             ),
           ],
-          currentIndex: 1,
+          currentIndex: currentIndex,
           iconSize: 25,
           selectedItemColor: Colors.blue,
           unselectedItemColor: const Color(0xffB6B7B7),
           showUnselectedLabels: true,
-          onTap: (index) {},
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
-        body: screens[1].widget);
+        body: screens[currentIndex].widget);
   }
 }
