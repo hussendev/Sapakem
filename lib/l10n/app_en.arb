@@ -29,6 +29,9 @@
   "get_started": "Get Started",
   "continue_as_visitor": "Continue as visitor",
   "welcome_for_you": "Welcome For You",
-  "enjoy_the_fastest_and_best_network_in_the_world": "Enjoy the fastest and best network in the world"
+  "enjoy_the_fastest_and_best_network_in_the_world": "Enjoy the fastest and best network in the world",
+  "my_requests": "My Requests",
+  "my_previous_requests": "My Previous Requests",
+  "my_current_requests": "My Current Requests"
 
 }

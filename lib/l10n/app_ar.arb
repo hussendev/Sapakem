@@ -29,5 +29,8 @@
   "get_started": "ابدأ",
   "continue_as_visitor": "الاستمرار كزائر",
   "welcome_for_you": "مرحبا بك",
-  "enjoy_the_fastest_and_best_network_in_the_world": "استمتع بأسرع وأفضل شبكة في العالم"
+  "enjoy_the_fastest_and_best_network_in_the_world": "استمتع بأسرع وأفضل شبكة في العالم",
+  "my_requests": "طلباتي",
+  "my_previous_requests": "طلباتي السابقة",
+  "my_current_requests": "طلباتي الحالية"
 }
