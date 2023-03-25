@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic
               Locale('he', ''), // Hebrew
             ],
-            locale: const Locale('he', ''));
+            locale: const Locale('en', ''));
       },
     );
   }
