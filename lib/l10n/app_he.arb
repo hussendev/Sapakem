@@ -35,6 +35,10 @@
   "my_current_requests": "הבקשות הנוכחיות שלי",
   "the_total": "הסך הכל",
   "quantity": "כמות",
-  "order_details": "פרטי ההזמנה"
+  "order_details": "פרטי ההזמנה",
+  "your_request_has_been_sent": "הבקשה שלך נשלחה",
+  "the_restaurant_has_started_processing_the_order": "המסעדה החלה בעיבוד ההזמנה",
+  "the_order_is_completed": "ההזמנה הושלמה",
+  "service_type": "סוג שירות"
 
 }

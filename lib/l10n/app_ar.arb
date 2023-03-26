@@ -35,5 +35,9 @@
   "my_current_requests": "طلباتي الحالية",
   "the_total": "المجمل",
   "quantity": "الكمية",
-  "order_details": "تفاصيل الطلب"
+  "order_details": "تفاصيل الطلب",
+  "your_request_has_been_sent": "تم إرسال طلبك",
+  "the_restaurant_has_started_processing_the_order": "بدأ المطعم بمعالجة الطلب",
+  "the_order_is_completed": "تم تنفيذ الطلب",
+  "service_type": "نوع الخدمة"
 }

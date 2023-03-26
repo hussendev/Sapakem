@@ -35,6 +35,10 @@
   "my_current_requests": "My Current Requests",
   "the_total": "The total",
   "quantity": "Quantity",
-  "order_details": "Order Details"
+  "order_details": "Order Details",
+  "your_request_has_been_sent": "Your request has been sent",
+  "the_restaurant_has_started_processing_the_order": "The restaurant has started processing the order",
+  "the_order_is_completed": "The order is completed",
+  "service_type": "Service Type"
 
 }
