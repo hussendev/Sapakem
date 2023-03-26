@@ -32,5 +32,8 @@
   "enjoy_the_fastest_and_best_network_in_the_world": "استمتع بأسرع وأفضل شبكة في العالم",
   "my_requests": "طلباتي",
   "my_previous_requests": "طلباتي السابقة",
-  "my_current_requests": "طلباتي الحالية"
+  "my_current_requests": "طلباتي الحالية",
+  "the_total": "المجمل",
+  "quantity": "الكمية",
+  "order_details": "تفاصيل الطلب"
 }

@@ -32,6 +32,9 @@
   "enjoy_the_fastest_and_best_network_in_the_world": "Enjoy the fastest and best network in the world",
   "my_requests": "My Requests",
   "my_previous_requests": "My Previous Requests",
-  "my_current_requests": "My Current Requests"
+  "my_current_requests": "My Current Requests",
+  "the_total": "The total",
+  "quantity": "Quantity",
+  "order_details": "Order Details"
 
 }
