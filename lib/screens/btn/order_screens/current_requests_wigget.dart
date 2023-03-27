@@ -37,7 +37,9 @@ class CurrentRequestsWidget extends StatelessWidget {
                     width: 35.w,
                     height: 35.w,
                     decoration: BoxDecoration(
-                      color: orderStatus >= 0 ? const Color(0xff1C8ABB) : const Color(0xffE2E4E4),
+                      color: orderStatus >= 0
+                          ? const Color(0xff1C8ABB)
+                          : const Color(0xffE2E4E4),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -48,16 +50,31 @@ class CurrentRequestsWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: VerticalDivider(
-                      color: Colors.grey.shade300,
-                      thickness: 1,
-                    ),
+                    child: CustomPaint(
+                        size: const Size(1, double.infinity),
+                        painter: DashedLineVerticalPainter()),
                   ),
+                  // Container(
+                  //   height: 10.h,
+                  //   width: 1.w,
+                  //   decoration: const BoxDecoration(
+                  //     color: Colors.blue,
+                  //     border: Border(
+                  //       top: BorderSide(
+                  //         style: BorderStyle.solid,
+                  //         color: Colors.grey,
+                  //         width: 1,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Container(
                     width: 35.w,
                     height: 35.w,
                     decoration: BoxDecoration(
-                      color: orderStatus >= 1 ? const Color(0xff1C8ABB) : const Color(0xffE2E4E4),
+                      color: orderStatus >= 1
+                          ? const Color(0xff1C8ABB)
+                          : const Color(0xffE2E4E4),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -68,16 +85,18 @@ class CurrentRequestsWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    child: VerticalDivider(
-                      color: Colors.grey.shade300,
-                      thickness: 1,
-                    ),
+                    child: CustomPaint(
+                        size: const Size(1, double.infinity),
+                        painter: DashedLineVerticalPainter()),
                   ),
+
                   Container(
                     width: 35.w,
                     height: 35.w,
                     decoration: BoxDecoration(
-                      color: orderStatus >= 2 ? const Color(0xff1C8ABB) : const Color(0xffE2E4E4),
+                      color: orderStatus >= 2
+                          ? const Color(0xff1C8ABB)
+                          : const Color(0xffE2E4E4),
                       shape: BoxShape.circle,
                     ),
                     child: Center(
@@ -97,7 +116,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 width: 259.w,
                 height: 74.h,
                 decoration: BoxDecoration(
-                  color: orderStatus >= 0 ? Color(0xff1C8ABB) : Colors.white,
+                  color:
+                      orderStatus >= 0 ? const Color(0xff1C8ABB) : Colors.white,
                   borderRadius: BorderRadius.circular(10.r),
                   boxShadow: [
                     BoxShadow(
@@ -110,7 +130,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 child: Center(
                   child: ListTile(
                     title: AppText(
-                      text: AppLocalizations.of(context)!.your_request_has_been_sent,
+                      text: AppLocalizations.of(context)!
+                          .your_request_has_been_sent,
                       color: orderStatus >= 0 ? Colors.white : Colors.black,
                       fontSize: 14.sp,
                     ),
@@ -126,7 +147,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 width: 259.w,
                 height: 74.h,
                 decoration: BoxDecoration(
-                  color: orderStatus >= 1 ? Color(0xff1C8ABB) : Colors.white,
+                  color:
+                      orderStatus >= 1 ? const Color(0xff1C8ABB) : Colors.white,
                   borderRadius: BorderRadius.circular(10.r),
                   boxShadow: [
                     BoxShadow(
@@ -139,7 +161,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 child: Center(
                   child: ListTile(
                     title: AppText(
-                      text: AppLocalizations.of(context)!.the_restaurant_has_started_processing_the_order,
+                      text: AppLocalizations.of(context)!
+                          .the_restaurant_has_started_processing_the_order,
                       color: orderStatus >= 1 ? Colors.white : Colors.black,
                       fontSize: 14.sp,
                     ),
@@ -155,7 +178,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 width: 259.w,
                 height: 74.h,
                 decoration: BoxDecoration(
-                  color: orderStatus >= 2 ? Color(0xff1C8ABB) : Colors.white,
+                  color:
+                      orderStatus >= 2 ? const Color(0xff1C8ABB) : Colors.white,
                   borderRadius: BorderRadius.circular(10.r),
                   boxShadow: [
                     BoxShadow(
@@ -168,7 +192,8 @@ class CurrentRequestsWidget extends StatelessWidget {
                 child: Center(
                   child: ListTile(
                     title: AppText(
-                      text: AppLocalizations.of(context)!.the_order_is_completed,
+                      text:
+                          AppLocalizations.of(context)!.the_order_is_completed,
                       color: orderStatus >= 2 ? Colors.white : Colors.black,
                       fontSize: 14.sp,
                     ),
@@ -185,4 +210,21 @@ class CurrentRequestsWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class DashedLineVerticalPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    double dashHeight = 5, dashSpace = 3, startY = 0;
+    final paint = Paint()
+      ..color = Colors.blue
+      ..strokeWidth = size.width;
+    while (startY < size.height) {
+      canvas.drawLine(Offset(0, startY), Offset(0, startY + dashHeight), paint);
+      startY += dashHeight + dashSpace;
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

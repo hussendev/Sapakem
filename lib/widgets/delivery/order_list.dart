@@ -10,7 +10,9 @@ class OrderList extends StatelessWidget {
   final List<Object> items;
   final bool withoutOrderDetails;
 
-  const OrderList({Key? key, required this.items, this.withoutOrderDetails = false}) : super(key: key);
+  const OrderList(
+      {Key? key, required this.items, this.withoutOrderDetails = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class OrderList extends StatelessWidget {
                   AppText(
                     text: '₪ 30.0',
                     fontSize: 21.sp,
-                    color: Color(0xff1C8ABB),
+                    color: const Color(0xff1C8ABB),
                     fontWeight: FontWeight.w700,
                   ),
                 ],
@@ -78,7 +80,7 @@ class OrderList extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.date_range,
-                          color: Color(0xff1C8ABB),
+                          color: const Color(0xff1C8ABB),
                           size: 20.w,
                         ),
                         9.pw(),
@@ -92,7 +94,8 @@ class OrderList extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/delivery/order.svg', color: Color(0xff1C8ABB), width: 20.w),
+                        SvgPicture.asset('assets/delivery/order.svg',
+                            color: const Color(0xff1C8ABB), width: 20.w),
                         AppText(
                           text: 'أحضر وجبتك الخاصة',
                           fontSize: 12.sp,
