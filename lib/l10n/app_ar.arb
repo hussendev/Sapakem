@@ -40,5 +40,9 @@
   "edit_profile": "تعديل الملف الشخصي",
   "logout": "تسجيل الخروج",
   "email": "البريد الإلكتروني",
-  "request_to_be_merchant": "طلب أن تكون تاجر"
+  "request_to_be_merchant": "طلب أن تكون تاجر",
+  "your_request_has_been_sent": "تم إرسال طلبك",
+  "the_restaurant_has_started_processing_the_order": "بدأ المطعم بمعالجة الطلب",
+  "the_order_is_completed": "تم تنفيذ الطلب",
+  "service_type": "نوع الخدمة"
 }

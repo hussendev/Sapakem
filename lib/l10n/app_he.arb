@@ -40,6 +40,10 @@
   "edit_profile": "ערוך פרופיל",
   "logout": "התנתק",
   "email": "אימייל",
-  "request_to_be_merchant": "בקש להיות סוחר"
+  "request_to_be_merchant": "בקש להיות סוחר",
+  "your_request_has_been_sent": "הבקשה שלך נשלחה",
+  "the_restaurant_has_started_processing_the_order": "המסעדה החלה בעיבוד ההזמנה",
+  "the_order_is_completed": "ההזמנה הושלמה",
+  "service_type": "סוג שירות"
 
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sapakem/model/bn_screen.dart';
 import 'package:sapakem/screens/btn/cart_screen_widget.dart';
 import 'package:sapakem/screens/btn/home_screen_widget.dart';
-import 'package:sapakem/screens/btn/order_screen_widget.dart';
+import 'package:sapakem/screens/btn/order_screens/order_screen_widget.dart';
 import 'package:sapakem/screens/btn/profile_screen_widget.dart';
 
 class HomeScreen extends StatefulWidget {
