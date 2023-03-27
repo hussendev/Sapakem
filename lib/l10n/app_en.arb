@@ -35,6 +35,10 @@
   "my_current_requests": "My Current Requests",
   "the_total": "The total",
   "quantity": "Quantity",
-  "order_details": "Order Details"
-
+  "order_details": "Order Details",
+  "profile": "Profile",
+  "edit_profile": "Edit Profile",
+  "logout": "Logout",
+  "email": "Email",
+  "request_to_be_merchant": "Request to be merchant"
 }

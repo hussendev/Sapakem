@@ -35,6 +35,11 @@
   "my_current_requests": "הבקשות הנוכחיות שלי",
   "the_total": "הסך הכל",
   "quantity": "כמות",
-  "order_details": "פרטי ההזמנה"
+  "order_details": "פרטי ההזמנה",
+  "profile": "פרופיל",
+  "edit_profile": "ערוך פרופיל",
+  "logout": "התנתק",
+  "email": "אימייל",
+  "request_to_be_merchant": "בקש להיות סוחר"
 
 }
