@@ -11,7 +11,7 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 10.w),
+      margin: EdgeInsets.only(right: 10.w, left: 10.w),
       decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.all(Radius.circular(10.r))),
@@ -22,8 +22,14 @@ class ProductWidget extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Container(
-                // color: Colors.amber,
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
+              ),
+            ),
           ),
           Expanded(
             flex: 1,

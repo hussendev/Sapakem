@@ -14,16 +14,16 @@ class HomeScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          CustomAppBar(isHome: true, title: 'الموقع'),
-          Padding(
+    return Column(
+      children: [
+        CustomAppBar(isHome: true, title: 'الموقع'),
+        Expanded(
+          child: Padding(
             padding: EdgeInsetsDirectional.only(
               start: 26.4.w,
               end: 38.6.w,
             ),
-            child: Column(
+            child: ListView(
               children: [
                 23.5.ph(),
                 const HomeCategoryWidget(),
@@ -79,13 +79,12 @@ class HomeScreenWidget extends StatelessWidget {
                 const HomeMerchantCategory(),
                 4.ph(),
                 const HomeMerchantCategory(),
-                4.ph(),
-                const HomeMerchantCategory(),
+                20.ph()
               ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

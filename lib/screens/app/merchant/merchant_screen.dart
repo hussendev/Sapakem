@@ -79,6 +79,7 @@ class MerchantScreen extends StatelessWidget {
                   const ProductsForMerchantWidget(),
                   20.ph(),
                   const ProductsForMerchantWidget(),
+                  20.ph(),
                 ],
               ),
             )
