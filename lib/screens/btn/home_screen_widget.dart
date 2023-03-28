@@ -42,7 +42,7 @@ class HomeScreenWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       AppText(
-                          text: 'הארוחות העיקריות',
+                          text: context.localizations.main_meals,
                           fontSize: 21.sp,
                           color: Colors.blue),
                       const Spacer(),
@@ -52,7 +52,7 @@ class HomeScreenWidget extends StatelessWidget {
                         child: Row(
                           children: [
                             AppText(
-                                text: 'להראות יותר',
+                                text: context.localizations.show_more,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12.sp,
                                 color: Colors.black),
