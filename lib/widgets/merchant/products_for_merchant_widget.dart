@@ -15,19 +15,13 @@ class ProductsForMerchantWidget extends StatelessWidget {
     return Container(
       height: 224.h,
       width: 377.w,
-      decoration: const BoxDecoration(
-          border: Border(
-              right: BorderSide(color: Color(0xff1C8ABB), width: 1),
-              left: BorderSide(color: Color(0xff1C8ABB), width: 1),
-              top: BorderSide(color: Color(0xff1C8ABB), width: 1),
-              bottom: BorderSide(color: Color(0xff1C8ABB), width: 1)),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      decoration: const BoxDecoration(border: Border(right: BorderSide(color: Color(0xff1C8ABB), width: 1), left: BorderSide(color: Color(0xff1C8ABB), width: 1), top: BorderSide(color: Color(0xff1C8ABB), width: 1), bottom: BorderSide(color: Color(0xff1C8ABB), width: 1)), borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(
-                top: 15.h, right: 10.w, bottom: 15.h, left: 10.w),
+            padding: EdgeInsets.only(top: 15.h, right: 10.w, bottom: 15.h, left: 10.w),
             child: AppText(
               text: context.localizations.most_wanted,
               fontSize: 20.sp,

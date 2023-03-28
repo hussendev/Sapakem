@@ -24,8 +24,7 @@ class MerchantScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 25.h),
+                        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
                         height: 44.h,
                         width: double.infinity,
                         child: Row(
@@ -34,22 +33,15 @@ class MerchantScreen extends StatelessWidget {
                               margin: const EdgeInsets.only(left: 10),
                               height: 30,
                               width: 30,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child:
-                                  const Icon(Icons.arrow_circle_right_outlined),
+                              decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                              child: const Icon(Icons.arrow_circle_right_outlined),
                             ),
                             const Spacer(),
                             Container(
                               margin: const EdgeInsets.only(left: 10),
                               height: 44.h,
                               width: 44.w,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
+                              decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                               child: const Icon(Icons.shopping_cart),
                             ),
                           ],
@@ -62,8 +54,7 @@ class MerchantScreen extends StatelessWidget {
                   margin: EdgeInsets.only(top: 220.h, left: 37.w, right: 37.w),
                   height: 111.h,
                   width: 112.w,
-                  decoration: const BoxDecoration(
-                      color: Colors.black, shape: BoxShape.circle),
+                  decoration: const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
                 )
               ],
             ),
@@ -79,7 +70,7 @@ class MerchantScreen extends StatelessWidget {
                   const ProductsForMerchantWidget(),
                   20.ph(),
                   const ProductsForMerchantWidget(),
-                  20.ph(),
+                  30.ph(),
                 ],
               ),
             )

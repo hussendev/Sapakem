@@ -53,8 +53,19 @@
   "orders": "Orders",
   "location": "Location",
   "favorite": "Favorite",
+  "add_to_cart": "Add to cart",
+  "bring_the_meal_with_the_sender": "Bring the meal with the sender",
+  "bring_your_own_meal": "Bring your own meal",
   "share_app": "Share App",
   "click_for_more_information": "Information",
   "estimated_time_of_arrival_of_your_order": "Estimated time of arrival of your order",
-  "send_a_request": "Send request"
+  "send_a_request": "Send request",
+  "order_cost": "Order Cost",
+  "postage": "Postage",
+  "final_amount_to_be_paid": "Final Amount To Be Paid",
+  "click_to_complete_payment": "Click To Complete Payment",
+  "the_order_will_be_sent_within_15_seconds": "The order will be sent within 15 seconds",
+  "change_the_request": "Change the request",
+  "once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order": "Once the order has been sent, it is not possible to reverse or change the order",
+  "complete_the_process": "Complete the process"
 }

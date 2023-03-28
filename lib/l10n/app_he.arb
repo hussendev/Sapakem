@@ -51,11 +51,21 @@
   "home": "בית",
   "cart": "עגלה",
   "orders": "הזמנות",
-
   "location": "מיקום",
   "favorite": "מועדף",
-  "share_app": "שתף את האפליקציה",
   "click_for_more_information": "מֵידָע",
   "estimated_time_of_arrival_of_your_order": " הזמן המשוער של הגעת ההזמנה שלך",
-  "send_a_request": " שלח בקשה"
+  "send_a_request": " שלח בקשה",
+  "share_app": "שתף את האפליקציה",
+  "add_to_cart": "הוסף לעגלה",
+  "bring_the_meal_with_the_sender": "הבא את המנה עם השולח",
+  "bring_your_own_meal": "הבא את המנה שלך",
+  "order_cost": "עלות הזמנה",
+  "postage": "משלוח",
+  "final_amount_to_be_paid": "סכום סופי לתשלום",
+  "click_to_complete_payment": "לחץ כדי להשלים את התשלום",
+  "the_order_will_be_sent_within_15_seconds": "ההזמנה תישלח בתוך 15 שניות",
+  "change_the_request": "שנה את הבקשה",
+  "once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order": "לא ניתן להפוך או לשנות את ההזמנה לאחר שהיא נשלחה",
+  "complete_the_process": "השלם את התהליך"
 }

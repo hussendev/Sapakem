@@ -53,8 +53,19 @@
   "orders": "الطلبات",
   "location": "الموقع",
   "favorite": "المفضلة",
+  "add_to_cart": "أضف إلى السلة",
+  "bring_the_meal_with_the_sender": "أحضر الوجبة مع المرسل",
+  "bring_your_own_meal": "أحضر وجبتك الخاصة",
   "share_app": "مشاركة التطبيق",
   "click_for_more_information": "معلومات",
   "estimated_time_of_arrival_of_your_order": " الوقت المتوقع لوصول طلبك",
-  "send_a_request": " ارسل طلب"
+  "send_a_request": " ارسل طلب",
+  "order_cost": "تكلفة الطلب",
+  "postage": "الشحن",
+  "final_amount_to_be_paid": "المبلغ النهائي المطلوب دفعه",
+  "click_to_complete_payment": "انقر لإكمال الدفع",
+  "the_order_will_be_sent_within_15_seconds": "سيتم إرسال الطلب خلال 15 ثانية",
+  "change_the_request": "تغيير الطلب",
+  "once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order": "بمجرد إرسال الطلب ، لا يمكن التراجع عنه أو تغييره",
+  "complete_the_process": "إكمال العملية"
 }
