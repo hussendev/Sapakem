@@ -45,7 +45,6 @@ class HomeScreenWidget extends StatelessWidget {
                           text: context.localizations.main_meals,
                           fontSize: 21.sp,
                           color: Colors.blue),
-                      AppText(text: 'הארוחות העיקריות', fontSize: 21.sp, color: Colors.blue),
                       const Spacer(),
                       SizedBox(
                         height: 20.04.h,
@@ -57,9 +56,9 @@ class HomeScreenWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12.sp,
                                 color: Colors.black),
-                            AppText(text: 'להראות יותר', fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
                             5.pw(),
-                            const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
+                            const Icon(Icons.arrow_forward_ios,
+                                color: Colors.black, size: 10),
                           ],
                         ),
                       )

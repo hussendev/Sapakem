@@ -10,7 +10,7 @@ import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/home/app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const const HomeScreen({super.key});
+  const  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
