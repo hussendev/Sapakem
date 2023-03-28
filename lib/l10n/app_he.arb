@@ -54,5 +54,8 @@
 
   "location": "מיקום",
   "favorite": "מועדף",
-  "share_app": "שתף את האפליקציה"
+  "share_app": "שתף את האפליקציה",
+  "click_for_more_information": "מֵידָע",
+  "estimated_time_of_arrival_of_your_order": " הזמן המשוער של הגעת ההזמנה שלך",
+  "send_a_request": " שלח בקשה"
 }

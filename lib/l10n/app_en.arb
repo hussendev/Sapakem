@@ -50,9 +50,11 @@
   "most_wanted": "Most Wanted",
   "home": "Home",
   "cart": "Cart",
-  "orders": "Orders"
-,
+  "orders": "Orders",
   "location": "Location",
   "favorite": "Favorite",
-  "share_app": "Share App"
+  "share_app": "Share App",
+  "click_for_more_information": "Information",
+  "estimated_time_of_arrival_of_your_order": "Estimated time of arrival of your order",
+  "send_a_request": "Send request"
 }

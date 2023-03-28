@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/screens/app/home/notification_screen.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
@@ -47,17 +48,47 @@ class CustomAppBar extends StatelessWidget {
                       },
                     ),
                     6.pw(),
-                    AppBarContainerWidget(width: 44.w, widget: const Icon(Icons.notifications, color: Color(0xff1C8ABB))),
+                    AppBarContainerWidget(
+                        width: 44.w,
+                        widget: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const NotificationScreen()),
+                              );
+                            },
+                            icon: const Icon(Icons.notifications,
+                                color: Color(0xff1C8ABB)))),
                     9.8.pw(),
-                    AppBarContainerWidget(widget: AppText(fontWeight: FontWeight.bold, text: title, fontSize: 13.sp, color: const Color(0xff000000)), width: 138.w),
+                    AppBarContainerWidget(
+                        widget: AppText(
+                            fontWeight: FontWeight.bold,
+                            text: title,
+                            fontSize: 13.sp,
+                            color: const Color(0xff000000)),
+                        width: 138.w),
                   ],
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppBarContainerWidget(widget: context.localizations.language == 'en' ? const Icon(Icons.arrow_circle_left_outlined, color: Colors.black) : const Icon(Icons.arrow_circle_right_outlined, color: Colors.black), width: 44.w),
+                    AppBarContainerWidget(
+                        widget: context.localizations.language == 'en'
+                            ? const Icon(Icons.arrow_circle_left_outlined,
+                                color: Colors.black)
+                            : const Icon(Icons.arrow_circle_right_outlined,
+                                color: Colors.black),
+                        width: 44.w),
                     50.pw(),
-                    AppBarContainerWidget(widget: AppText(fontWeight: FontWeight.bold, text: title, fontSize: 13.sp, color: const Color(0xff000000)), width: 138.w),
+                    AppBarContainerWidget(
+                        widget: AppText(
+                            fontWeight: FontWeight.bold,
+                            text: title,
+                            fontSize: 13.sp,
+                            color: const Color(0xff000000)),
+                        width: 138.w),
                   ],
                 ),
           SvgPicture.asset(

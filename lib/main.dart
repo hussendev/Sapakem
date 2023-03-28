@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sapakem/screens/app/merchants_by_category.dart';
+import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/screens/auth/chose_sign_up_register_screen.dart';
-import 'package:sapakem/screens/app/home_screen.dart';
+import 'package:sapakem/screens/app/home/home_screen.dart';
 import 'package:sapakem/screens/auth/forgot_password_screen.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,7 +13,7 @@ import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
 import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
-import 'package:sapakem/screens/on_boarding.dart';
+import 'package:sapakem/screens/onboarding/on_boarding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

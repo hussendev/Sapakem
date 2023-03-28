@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/custom_app_bar.dart';
 
-import 'merchant/merchant_screen.dart';
+import '../merchant/merchant_screen.dart';
 
 class MerchantsByCategory extends StatelessWidget {
   const MerchantsByCategory({super.key});

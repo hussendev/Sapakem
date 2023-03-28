@@ -53,5 +53,8 @@
   "orders": "الطلبات",
   "location": "الموقع",
   "favorite": "المفضلة",
-  "share_app": "مشاركة التطبيق"
+  "share_app": "مشاركة التطبيق",
+  "click_for_more_information": "معلومات",
+  "estimated_time_of_arrival_of_your_order": " الوقت المتوقع لوصول طلبك",
+  "send_a_request": " ارسل طلب"
 }

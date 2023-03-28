@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
 import '../app_button_widget.dart';
@@ -73,23 +74,27 @@ class InformationMerchantWidget extends StatelessWidget {
             ),
             SizedBox(
               height: 21.91.h,
-              width: 237.w,
+              // width: 237.w,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: Colors.blue,
-                    size: 20,
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.info_outline,
+                        color: Colors.blue,
+                        size: 20,
+                      ),
+                      4.4.pw(),
+                      AppText(
+                        text: context.localizations.click_for_more_information,
+                        fontSize: 14.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
                   ),
-                  4.4.pw(),
-                  AppText(
-                    text: "לחץ למידע נוסף",
-                    fontSize: 14.sp,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  12.pw(),
+                  22.pw(),
                   const Icon(
                     Icons.watch_later_outlined,
                     color: Colors.blue,
@@ -115,7 +120,7 @@ class InformationMerchantWidget extends StatelessWidget {
               height: 30.h,
               width: 107.w,
               onPressed: () {},
-              text: "ارسال طلب",
+              text: context.localizations.send_a_request,
             )
           ]),
         ),
@@ -136,7 +141,8 @@ class InformationMerchantWidget extends StatelessWidget {
               ),
               child: AppText(
                   textAlign: TextAlign.center,
-                  text: ' الزمن المقدر للوصول طلبك',
+                  text: context
+                      .localizations.estimated_time_of_arrival_of_your_order,
                   fontSize: 12.sp,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),

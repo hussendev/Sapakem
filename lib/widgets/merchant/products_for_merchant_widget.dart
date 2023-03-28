@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/merchant/product_widget.dart';
 
 import '../app_text.dart';
@@ -25,9 +26,10 @@ class ProductsForMerchantWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 15.h, right: 10.w, bottom: 15.h),
+            padding: EdgeInsets.only(
+                top: 15.h, right: 10.w, bottom: 15.h, left: 10.w),
             child: AppText(
-              text: 'الأكثر طلبا',
+              text: context.localizations.most_wanted,
               fontSize: 20.sp,
               color: Colors.blue,
             ),
@@ -38,7 +40,7 @@ class ProductsForMerchantWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 10,
               itemBuilder: (context, index) {
-                return ProductWidget();
+                return const ProductWidget();
               },
             ),
           ),
