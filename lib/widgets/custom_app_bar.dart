@@ -11,6 +11,7 @@ import 'app_bar_container_widget.dart';
 
 class CustomAppBar extends StatelessWidget {
   CustomAppBar({super.key, this.isHome = false, required this.title});
+
   bool isHome;
   String title;
 
@@ -39,42 +40,24 @@ class CustomAppBar extends StatelessWidget {
               ? Row(
                   children: [
                     AppBarContainerWidget(
-                        widget:
-                            const Icon(Icons.menu, color: Color(0xff1C8ABB)),
-                        width: 44.w),
+                      widget: const Icon(Icons.menu, color: Color(0xff1C8ABB)),
+                      width: 44.w,
+                      onTap: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    ),
                     6.pw(),
-                    AppBarContainerWidget(
-                        width: 44.w,
-                        widget: const Icon(Icons.notifications,
-                            color: Color(0xff1C8ABB))),
+                    AppBarContainerWidget(width: 44.w, widget: const Icon(Icons.notifications, color: Color(0xff1C8ABB))),
                     9.8.pw(),
-                    AppBarContainerWidget(
-                        widget: AppText(
-                            fontWeight: FontWeight.bold,
-                            text: title,
-                            fontSize: 13.sp,
-                            color: const Color(0xff000000)),
-                        width: 138.w),
+                    AppBarContainerWidget(widget: AppText(fontWeight: FontWeight.bold, text: title, fontSize: 13.sp, color: const Color(0xff000000)), width: 138.w),
                   ],
                 )
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppBarContainerWidget(
-                        widget: context.localizations.language == 'en'
-                            ? const Icon(Icons.arrow_circle_left_outlined,
-                                color: Colors.black)
-                            : const Icon(Icons.arrow_circle_right_outlined,
-                                color: Colors.black),
-                        width: 44.w),
+                    AppBarContainerWidget(widget: context.localizations.language == 'en' ? const Icon(Icons.arrow_circle_left_outlined, color: Colors.black) : const Icon(Icons.arrow_circle_right_outlined, color: Colors.black), width: 44.w),
                     50.pw(),
-                    AppBarContainerWidget(
-                        widget: AppText(
-                            fontWeight: FontWeight.bold,
-                            text: title,
-                            fontSize: 13.sp,
-                            color: const Color(0xff000000)),
-                        width: 138.w),
+                    AppBarContainerWidget(widget: AppText(fontWeight: FontWeight.bold, text: title, fontSize: 13.sp, color: const Color(0xff000000)), width: 138.w),
                   ],
                 ),
           SvgPicture.asset(
