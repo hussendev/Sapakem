@@ -19,9 +19,9 @@ class HomeScreenWidget extends StatelessWidget {
         children: [
           CustomAppBar(isHome: true, title: 'الموقع'),
           Padding(
-            padding: EdgeInsets.only(
-              left: context.localizations.language == 'en' ? 26.4.w : 38.6.w,
-              right: context.localizations.language == 'en' ? 38.6.w : 26.4.w,
+            padding: EdgeInsetsDirectional.only(
+              start: 26.4.w,
+              end: 38.6.w,
             ),
             child: Column(
               children: [
@@ -45,6 +45,7 @@ class HomeScreenWidget extends StatelessWidget {
                           text: context.localizations.main_meals,
                           fontSize: 21.sp,
                           color: Colors.blue),
+                      AppText(text: 'הארוחות העיקריות', fontSize: 21.sp, color: Colors.blue),
                       const Spacer(),
                       SizedBox(
                         height: 20.04.h,
@@ -56,9 +57,9 @@ class HomeScreenWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12.sp,
                                 color: Colors.black),
+                            AppText(text: 'להראות יותר', fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
                             5.pw(),
-                            const Icon(Icons.arrow_forward_ios,
-                                color: Colors.black, size: 10),
+                            const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
                           ],
                         ),
                       )

@@ -7,9 +7,10 @@ import 'package:sapakem/screens/btn/home_screen_widget.dart';
 import 'package:sapakem/screens/btn/order_screens/order_screen_widget.dart';
 import 'package:sapakem/screens/btn/profile_screen_widget.dart';
 import 'package:sapakem/util/context_extenssion.dart';
+import 'package:sapakem/widgets/home/app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
         // floatingActionButton: FloatingActionButton(
         //   mini: true,
         //   onPressed: () {},

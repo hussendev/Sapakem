@@ -3,11 +3,11 @@
   "lets_start": "Let's start",
   "sing_in_to_your_account": "Sign in to your account",
   "mobile": "Mobile",
-  "password":"Password",
+  "password": "Password",
   "confirm_password": "Confirm password",
   "forgot_password": "Forgot password?",
   "reset_the_forgotten_password": "Reset the forgotten password",
-  "login":"Login",
+  "login": "Login",
   "dont_have_an_account": "Don't have an account?",
   "sign_up": "Sign up",
   "create_your_account": "Create an account",
@@ -51,5 +51,8 @@
   "home": "Home",
   "cart": "Cart",
   "orders": "Orders"
-
+,
+  "location": "Location",
+  "favorite": "Favorite",
+  "share_app": "Share App"
 }
