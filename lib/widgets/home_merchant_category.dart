@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
@@ -20,14 +21,16 @@ class HomeMerchantCategory extends StatelessWidget {
             child: Row(
               children: [
                 AppText(
-                    text: 'המבוקש ביותר', fontSize: 21.sp, color: Colors.blue),
+                    text: context.localizations.most_wanted,
+                    fontSize: 21.sp,
+                    color: Colors.blue),
                 const Spacer(),
                 SizedBox(
                   height: 20.04.h,
                   child: Row(
                     children: [
                       AppText(
-                          text: 'להראות יותר',
+                          text: context.localizations.show_more,
                           fontWeight: FontWeight.bold,
                           fontSize: 12.sp,
                           color: Colors.black),
@@ -45,6 +48,7 @@ class HomeMerchantCategory extends StatelessWidget {
             // color: Colors.amber,
             height: 316.h,
             child: GridView.builder(
+              
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: EdgeInsets.zero,

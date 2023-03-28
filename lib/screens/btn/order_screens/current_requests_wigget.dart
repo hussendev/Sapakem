@@ -54,20 +54,6 @@ class CurrentRequestsWidget extends StatelessWidget {
                         size: const Size(1, double.infinity),
                         painter: DashedLineVerticalPainter()),
                   ),
-                  // Container(
-                  //   height: 10.h,
-                  //   width: 1.w,
-                  //   decoration: const BoxDecoration(
-                  //     color: Colors.blue,
-                  //     border: Border(
-                  //       top: BorderSide(
-                  //         style: BorderStyle.solid,
-                  //         color: Colors.grey,
-                  //         width: 1,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   Container(
                     width: 35.w,
                     height: 35.w,

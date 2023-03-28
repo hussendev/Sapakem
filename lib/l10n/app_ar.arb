@@ -45,6 +45,12 @@
   "the_restaurant_has_started_processing_the_order": "بدأ المطعم بمعالجة الطلب",
   "the_order_is_completed": "تم تنفيذ الطلب",
   "service_type": "نوع الخدمة",
+  "main_meals": "الوجبات الرئيسية",
+  "show_more": "عرض المزيد",
+  "most_wanted": "الأكثر طلباً",
+  "home": "الرئيسية",
+  "cart": "عربة التسوق",
+  "orders": "الطلبات",
   "location": "الموقع",
   "favorite": "المفضلة",
   "share_app": "مشاركة التطبيق"

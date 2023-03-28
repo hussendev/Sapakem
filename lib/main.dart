@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sapakem/screens/app/restaurants_by_category.dart';
+import 'package:sapakem/screens/app/merchants_by_category.dart';
 import 'package:sapakem/screens/auth/chose_sign_up_register_screen.dart';
 import 'package:sapakem/screens/app/home_screen.dart';
 import 'package:sapakem/screens/auth/forgot_password_screen.dart';
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
               '/chose_language': (context) => const ChoseLanguage(),
               '/chose_sign_up_or_register': (context) =>
                   const ChoseSignUpOrRegister(),
-              '/home_screen': (context) => HomeScreen(),
+              '/home_screen': (context) => const HomeScreen(),
               '/merchants_by_category': (context) =>
                   const MerchantsByCategory(),
             },
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic
               Locale('he', ''), // Hebrew
             ],
-            locale: const Locale('en', ''));
+            locale: const Locale('ar', ''));
       },
     );
   }

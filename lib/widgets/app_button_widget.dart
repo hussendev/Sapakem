@@ -10,7 +10,11 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.text,
+    this.width = double.infinity,
+    this.height = 60,
   });
+  double width;
+  double height;
 
   late String text;
   late VoidCallback onPressed;
@@ -23,7 +27,7 @@ class AppButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           backgroundColor: const Color.fromARGB(255, 22, 134, 199),
-          minimumSize: Size(double.infinity, 60.h)),
+          minimumSize: Size(width.w, height.h)),
       child: AppText(
           text: text,
           fontSize: 18.sp,

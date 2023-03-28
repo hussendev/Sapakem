@@ -45,6 +45,13 @@
   "logout": "Logout",
   "email": "Email",
   "request_to_be_merchant": "Request to be merchant",
+  "main_meals": "Main Meals",
+  "show_more": "Show more",
+  "most_wanted": "Most Wanted",
+  "home": "Home",
+  "cart": "Cart",
+  "orders": "Orders"
+,
   "location": "Location",
   "favorite": "Favorite",
   "share_app": "Share App"

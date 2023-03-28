@@ -45,6 +45,13 @@
   "the_restaurant_has_started_processing_the_order": "המסעדה החלה בעיבוד ההזמנה",
   "the_order_is_completed": "ההזמנה הושלמה",
   "service_type": "סוג שירות",
+  "main_meals": "ארוחות עיקריות",
+  "show_more": "הצג עוד",
+  "most_wanted": "הכי נצפים",
+  "home": "בית",
+  "cart": "עגלה",
+  "orders": "הזמנות",
+
   "location": "מיקום",
   "favorite": "מועדף",
   "share_app": "שתף את האפליקציה"

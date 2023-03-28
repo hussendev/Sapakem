@@ -6,10 +6,11 @@ import 'package:sapakem/screens/btn/cart_screen_widget.dart';
 import 'package:sapakem/screens/btn/home_screen_widget.dart';
 import 'package:sapakem/screens/btn/order_screens/order_screen_widget.dart';
 import 'package:sapakem/screens/btn/profile_screen_widget.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/home/app_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,22 +39,22 @@ class _HomeScreenState extends State<HomeScreen> {
         extendBody: true,
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'רָאשִׁי',
+              icon: const Icon(Icons.home_outlined),
+              label: context.localizations.home,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              label: 'סַל',
+              icon: const Icon(Icons.shopping_cart_outlined),
+              label: context.localizations.cart,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.bike_scooter_outlined),
-              label: 'הבקשות שלי',
+              icon: const Icon(Icons.bike_scooter_outlined),
+              label: context.localizations.orders,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined),
-              label: 'פּרוֹפִיל',
+              icon: const Icon(Icons.person_2_outlined),
+              label: context.localizations.profile,
             ),
           ],
           currentIndex: currentIndex,
