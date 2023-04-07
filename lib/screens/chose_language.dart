@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class ChoseLanguage extends StatelessWidget {
   const ChoseLanguage({Key? key}) : super(key: key);
+
+  // final cubit = LanguageCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +44,7 @@ class ChoseLanguage extends StatelessWidget {
             19.ph(),
             GestureDetector(
               onTap: () {
+                context.read<LanguageCubit>().changeLanguage('he');
                 Navigator.pushReplacementNamed(context, '/on_boarding');
               },
               child: Container(
@@ -64,6 +70,7 @@ class ChoseLanguage extends StatelessWidget {
             11.ph(),
             GestureDetector(
               onTap: () {
+                context.read<LanguageCubit>().changeLanguage('ar');
                 Navigator.pushReplacementNamed(context, '/on_boarding');
               },
               child: Container(
@@ -89,6 +96,7 @@ class ChoseLanguage extends StatelessWidget {
             11.ph(),
             GestureDetector(
               onTap: () {
+                context.read<LanguageCubit>().changeLanguage('en');
                 Navigator.pushReplacementNamed(context, '/on_boarding');
               },
               child: Container(
