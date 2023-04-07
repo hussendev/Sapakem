@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension contextExtenssion on BuildContext {
-  void ShowSnackBar({required String message, bool error = false}) {
+  void showSnackBar({required String message, bool error = false}) {
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         content: Text(

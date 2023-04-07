@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>645975068070-jjos60v0q3janh9fi4r7medpcg1dd84c.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.645975068070-jjos60v0q3janh9fi4r7medpcg1dd84c</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDgtuiG5bl9KrbRcpCw7RGB_wZw7qNpqKg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>645975068070</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.sapakem</string>
+	<key>PROJECT_ID</key>
+	<string>laravelfirebase-d5091</string>
+	<key>STORAGE_BUCKET</key>
+	<string>laravelfirebase-d5091.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:645975068070:ios:37c34a0ed8c1167f09d367</string>
+	<key>DATABASE_URL</key>
+	<string>https://laravelfirebase-d5091-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

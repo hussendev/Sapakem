@@ -1,6 +1,14 @@
+import 'dart:io';
+
+import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/screens/auth/chose_sign_up_register_screen.dart';
 import 'package:sapakem/screens/app/home/home_screen.dart';
@@ -14,9 +22,30 @@ import 'package:sapakem/screens/auth/register_screen.dart';
 import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
 import 'package:sapakem/screens/onboarding/on_boarding.dart';
+import 'package:sapakem/util/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefController().initPreferences();
+  Bloc.observer = MyBlocObserver();
+  int deviceType = Platform.isAndroid ? 0: 1;
+
+  await Firebase.initializeApp(
+  );
+  // Get the FCM token
+  String? fcmToken = await FirebaseMessaging.instance.getToken();
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
+    await Geolocator.getCurrentPosition(
+    desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!,lat:position.latitude,lng:position.longitude,deviceType:deviceType);
+    }).catchError((e) {
+      Logger().wtf(e);
+    });
+
   runApp(const MyApp());
 }
 
@@ -43,13 +72,13 @@ class MyApp extends StatelessWidget {
                     color: Colors.black),
               ),
             ),
-            initialRoute: '/home_screen',
+            initialRoute: '/lunch_screen',
             routes: {
               '/login_screen': (context) => LoginScreen(),
-              '/register_screen': (context) => const RegisterScreen(),
+              '/register_screen': (context) =>  RegisterScreen(),
               '/forgot_password_screen': (context) =>
                   const ForgetPasswordScreen(),
-              '/otp_screen': (context) => const OTPScreen(),
+              '/otp_screen': (context) =>  OTPScreen(),
               '/new_password_screen': (context) => const NewPasswordScreen(),
               '/lunch_screen': (context) => const LunchScreen(),
               '/on_boarding': (context) => OnBoarding(),
@@ -71,7 +100,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''), // Arabic
               Locale('he', ''), // Hebrew
             ],
-            locale: const Locale('ar', ''));
+            locale: const Locale('en', ''));
       },
     );
   }
