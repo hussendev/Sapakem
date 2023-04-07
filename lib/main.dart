@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
                   '/on_boarding': (context) => OnBoarding(),
                   '/chose_language': (context) => const ChoseLanguage(),
                   '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
-                  '/home_screen': (context) => const HomeScreen(),
+                  '/home_screen': (context) => HomeScreen(),
                   '/merchants_by_category': (context) => const MerchantsByCategory(),
                 },
                 localizationsDelegates: const [
