@@ -46,11 +46,36 @@ dependencies:
   #responive
   flutter_screenutil: ^5.7.0
 
+  #storage
+  shared_preferences: ^2.1.0
+
   #svg_reader
   flutter_svg: ^2.0.4
   
   #translate
   intl: ^0.17.0
+
+  #state management:
+  flutter_bloc: ^8.1.2
+  bloc: ^8.1.1
+  equatable: ^2.0.5
+
+  #firebase
+  firebase_messaging: ^14.4.0
+  firebase_core: ^2.9.0
+
+  #logger:
+  logger: ^1.3.0
+
+  #network
+  http: ^0.13.5
+
+  #maps
+  google_maps_flutter: ^2.2.5
+  geolocator: ^9.0.2
+
+  #permission
+  permission_handler: ^10.2.0
 
 
 dev_dependencies:
