@@ -4,6 +4,7 @@ class ApiSettings {
   static const String login = '${_basedUrl}auth/login';
   static const String register = '${_basedUrl}auth/register';
   static const String activate = '${_basedUrl}auth/activate';
+  static const String logout = '${_basedUrl}auth/logout';
   // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
   // static const String profile = '${_basedUrl}User/GetProfile';
   // static const String services = '${_basedUrl}ItemServices/Service/Get';

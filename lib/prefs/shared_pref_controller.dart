@@ -16,7 +16,7 @@ class SharedPrefController{
   }
 
   void save(User user){
-    _sharedPreferences.setString(PrefKeys.loggedIn.name, 'true');
+    _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     _sharedPreferences.setString(PrefKeys.id.name, user.userData!.id!.toString());
     _sharedPreferences.setString(PrefKeys.name.name, user.userData!.name!);
     _sharedPreferences.setString(PrefKeys.email.name, user.userData!.email!);
