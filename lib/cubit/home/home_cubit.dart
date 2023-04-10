@@ -49,5 +49,39 @@ class HomeCubit extends Cubit<HomeStates> {
 
   }
 
+  // void getMerchants()async {
+  //   emit(LoadingMerchantsState());
+  //   try {
+  //     List<Merchant> merchants = await homeApiController.getMerchants();
+  //     Logger().i(merchants);
+  //     if(merchants.length!=0){
+  //       emit(SuccessMerchantsState(merchants));
+  //     }else{
+  //       emit(ErrorMerchantByCategoryState("No Data"));
+  //     }
+  //
+  //   } catch (e) {
+  //     emit(ErrorHomeState(e.toString()));
+  //   }
+  //
+  // }
+
+  void getMerchant(int merchantId)async {
+    emit(LoadingMerchantsState());
+    try {
+      Merchant merchant = await homeApiController.getMerchant(merchantId);
+
+      if(merchant.id!=null){
+        emit(SuccessMerchantState(merchant));
+      }else{
+        emit(ErrorMerchantByCategoryState("No Data"));
+      }
+
+    } catch (e) {
+      emit(ErrorHomeState(e.toString()));
+    }
+
+  }
+
 
 }

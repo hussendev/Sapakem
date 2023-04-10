@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/model/home/merchant.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
@@ -17,10 +19,12 @@ class MerchantWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+
+        context.read<HomeCubit>().getMerchant(merchant.id!);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  MerchantScreen(merchants:this.merchant,),
+            builder: (context) =>  MerchantScreen(merchant:this.merchant,),
           ),
         );
       },
