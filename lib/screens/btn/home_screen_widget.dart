@@ -19,28 +19,6 @@ import '../../widgets/home_sub_category_widget.dart';
 
 class HomeScreenWidget extends StatelessWidget {
 
- late   Merchant _merchant;
-
- Future<Merchant?> getMerchantById(int id)async {
-   List<Merchant> merchants=await HomeApiController().getMerchants();
-
-   Merchant merchant;
-
-    merchants.map((e) {
-      if(e.id==id){
-        _merchant=e;
-        return _merchant;
-      }
-
-    });
-    return null;
-  }
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
@@ -86,35 +64,9 @@ class HomeScreenWidget extends StatelessWidget {
                                 aspectRatio: 2.0,
                               ),
                               items: state.homeDate.banners!.map((e) {
-
-
-                                // HomeCubit.get(context)./getMerchantById(e.id!).then((value) => Logger().i(value!.storeName));
-
-                             // HomeApiController().getMerchants().then((value){
-                             //   value.map((merchant){
-                             //     if(merchant.id == e.merchantId){
-                             //       _merchant=merchant;
-                             //       return _merchant;
-                             //     }
-                             //   });
-                             //
-                             //
-                             //    });
-                                // e.merchantId
                                 return InkWell(
                                   onTap: () async{
-                                    context.read<HomeCubit>().getMerchantById(e.merchantId!);
-                                    // final merchantId = e.merchantId!;
-                                    //
-                                    // List<Merchant>merchants  = await HomeApiController().getMerchants();
-                                    //
-                                    //
-                                    //   Merchant merchantData=merchants.firstWhere((element) => element.id==merchantId);
-                                    //
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>MerchantScreen() ));
+
                                     //
 
                                   },
