@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import 'package:sapakem/api/controller/auth_api_controller.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/login/login_states.dart';
 
 class LoginCubit extends Cubit<LoginStates>{

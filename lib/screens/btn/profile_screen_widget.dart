@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sapakem/api/controller/auth_api_controller.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';

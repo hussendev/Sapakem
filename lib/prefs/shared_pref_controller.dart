@@ -24,7 +24,7 @@ class SharedPrefController{
     _sharedPreferences.setString(PrefKeys.lat.name, user.userData!.lat.toString());
     _sharedPreferences.setString(PrefKeys.lng.name, user.userData!.lng.toString());
     _sharedPreferences.setString(PrefKeys.active.name, user.userData!.status!);
-    _sharedPreferences.setString(PrefKeys.token.name, user.userData!.token!);
+    _sharedPreferences.setString(PrefKeys.token.name,'Bearer ${user.userData!.token!}');
   }
 
   void savePhone(String mobile){

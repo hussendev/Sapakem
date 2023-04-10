@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/model/home/merchant.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
 import '../../../widgets/merchant/information_merchant_widget.dart';
 import '../../../widgets/merchant/products_for_merchant_widget.dart';
 
 class MerchantScreen extends StatelessWidget {
-  const MerchantScreen({super.key});
+   MerchantScreen({super.key, required this.merchants});
+  Merchant? merchants;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +65,7 @@ class MerchantScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 36.w),
               child: Column(
                 children: [
-                  const InformationMerchantWidget(),
+                   InformationMerchantWidget(merchant: merchants!, ),
                   31.ph(),
                   const ProductsForMerchantWidget(),
                   20.ph(),

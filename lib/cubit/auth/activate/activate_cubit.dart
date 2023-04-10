@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sapakem/api/controller/auth_api_controller.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/activate/activate_states.dart';
 
 class ActivateCubit extends Cubit<ActivateState> {

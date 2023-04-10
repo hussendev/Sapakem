@@ -3,13 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
+import '../../model/home/merchant.dart';
 import '../app_button_widget.dart';
 import '../app_text.dart';
 
 class InformationMerchantWidget extends StatelessWidget {
-  const InformationMerchantWidget({
+   InformationMerchantWidget({
     super.key,
+    required this.merchant
   });
+  Merchant merchant;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +26,16 @@ class InformationMerchantWidget extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'اسم التاجر',
-                  style: TextStyle(
+                 Text(
+                  merchant.storeName!,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                33.pw(),
+                // 33.pw(),
                 Container(
                   height: 20.16.h,
                   width: 81.5.w,
@@ -42,8 +46,8 @@ class InformationMerchantWidget extends StatelessWidget {
                       Container(
                         height: 10.h,
                         width: 10.w,
-                        decoration: const BoxDecoration(
-                            color: Color(0xff69DF57), shape: BoxShape.circle),
+                        decoration:  BoxDecoration(
+                            color: merchant.isOpen! ?Color(0xff69DF57) : Colors.red, shape: BoxShape.circle),
                       ),
                       Container(
                         decoration: const BoxDecoration(
@@ -67,7 +71,7 @@ class InformationMerchantWidget extends StatelessWidget {
               ],
             ),
             AppText(
-              text: "العنوان",
+              text:this.merchant.address!,
               fontSize: 14.sp,
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -101,7 +105,7 @@ class InformationMerchantWidget extends StatelessWidget {
                     size: 20,
                   ),
                   AppText(
-                    text: "12:00 - 8:00",
+                    text: "${merchant.businesHour!.first.from!} - ${this.merchant.businesHour!.first.to!}",
                     fontSize: 14.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
