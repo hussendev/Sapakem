@@ -181,7 +181,7 @@ class OTPScreen extends StatelessWidget {
      if (_checkData( context)) {
        _activate(context);
      }
-     //4751
+
    }
    bool _checkData(BuildContext context) {
      if (
@@ -192,7 +192,6 @@ class OTPScreen extends StatelessWidget {
      context.showSnackBar( message: 'Enter Required Data!', error: true);
      return false;
    }
-
    void _activate(BuildContext context) async {
      ActivateCubit.get(context).userActivate(phone: int.parse(SharedPrefController().getValueFor(PrefKeys.mobile.name)), context: context, code: int.parse(otp));
    }

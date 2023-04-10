@@ -16,7 +16,7 @@ class SharedPrefController{
   }
 
   void save(User user){
-    _sharedPreferences.setString(PrefKeys.loggedIn.name, 'true');
+    _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     _sharedPreferences.setString(PrefKeys.id.name, user.userData!.id!.toString());
     _sharedPreferences.setString(PrefKeys.name.name, user.userData!.name!);
     _sharedPreferences.setString(PrefKeys.email.name, user.userData!.email!);
@@ -24,7 +24,7 @@ class SharedPrefController{
     _sharedPreferences.setString(PrefKeys.lat.name, user.userData!.lat.toString());
     _sharedPreferences.setString(PrefKeys.lng.name, user.userData!.lng.toString());
     _sharedPreferences.setString(PrefKeys.active.name, user.userData!.status!);
-    _sharedPreferences.setString(PrefKeys.token.name, user.userData!.token!);
+    _sharedPreferences.setString(PrefKeys.token.name,'Bearer ${user.userData!.token!}');
   }
 
   void savePhone(String mobile){

@@ -1,9 +1,14 @@
 class ApiSettings {
-  static const String _basedUrl = "https://mstore.nahal2.me/api/";
+  static const String basedUrl = "https://mstore.nahal2.me/api/";
 
-  static const String login = '${_basedUrl}auth/login';
-  static const String register = '${_basedUrl}auth/register';
-  static const String activate = '${_basedUrl}auth/activate';
+  static const String login = '${basedUrl}auth/login';
+  static const String register = '${basedUrl}auth/register';
+  static const String activate = '${basedUrl}auth/activate';
+  static const String logout = '${basedUrl}auth/logout';
+  static const String home = '${basedUrl}home';
+
+  static const String merchant = '${basedUrl}merchants';
+
   // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
   // static const String profile = '${_basedUrl}User/GetProfile';
   // static const String services = '${_basedUrl}ItemServices/Service/Get';

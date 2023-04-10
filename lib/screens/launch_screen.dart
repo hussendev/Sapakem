@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 
 class LunchScreen extends StatefulWidget {
@@ -14,8 +15,11 @@ class _LunchScreenState extends State<LunchScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    String route = SharedPrefController().getValueFor<String>(PrefKeys.token.name) == null ? '/chose_language' : '/home_screen';
+
     Future.delayed(const Duration(seconds: 1), () {
-      Navigator.pushReplacementNamed(context, '/chose_language');
+      Navigator.pushReplacementNamed(context, route);
     });
   }
   @override

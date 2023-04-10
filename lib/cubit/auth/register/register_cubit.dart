@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sapakem/api/controller/auth_api_controller.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/login/login_states.dart';
 import 'package:sapakem/cubit/auth/register/register_states.dart';
 import 'package:sapakem/model/user_register.dart';

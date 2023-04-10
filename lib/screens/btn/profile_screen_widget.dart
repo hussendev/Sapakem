@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
@@ -53,7 +55,14 @@ class ProfileScreenWidget extends StatelessWidget {
                       20.ph(),
                       ProfileInformationWidget(icon: Icons.monetization_on_outlined, text: context.localizations.request_to_be_merchant),
                       20.ph(),
-                      ProfileInformationWidget(icon: Icons.login_outlined, text: context.localizations.logout,onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/login_screen', (route) => false)),
+                      ProfileInformationWidget(
+                          icon: Icons.login_outlined, text: context.localizations.logout,
+                          onTap: () {
+                            UsersApiController().logout();
+
+
+                        return Navigator.pushNamedAndRemoveUntil(context, '/login_screen', (route) => false);
+                      }),
                       20.ph(),
                     ],
                   ),

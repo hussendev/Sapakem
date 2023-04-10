@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
                   '/chose_language': (context) => const ChoseLanguage(),
                   '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) => const MerchantsByCategory(),
+                  '/merchants_by_category': (context) =>  MerchantsByCategory(categoryId: 0),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

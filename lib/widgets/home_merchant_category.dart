@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/model/home/titles.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
+import '../screens/app/merchant/merchant_screen.dart';
+import 'merchant/merchant_widget.dart';
+
 class HomeMerchantCategory extends StatelessWidget {
-  const HomeMerchantCategory({
+   HomeMerchantCategory({
     super.key,
+    required this.titles,
   });
+  Titles titles;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class HomeMerchantCategory extends StatelessWidget {
             child: Row(
               children: [
                 AppText(
-                    text: context.localizations.most_wanted,
+                    text: titles.title!,
                     fontSize: 21.sp,
                     color: Colors.blue),
                 const Spacer(),
@@ -44,29 +50,20 @@ class HomeMerchantCategory extends StatelessWidget {
             ),
           ),
           20.ph(),
-          SizedBox(
-            // color: Colors.amber,
-            height: 316.h,
+          Expanded(
             child: GridView.builder(
-              
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              itemCount: titles.merchants!.length,
               padding: EdgeInsets.zero,
-              itemCount: 6,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 19,
-                  childAspectRatio: 113 / 142),
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  width: 113.w,
-                  height: 141.h,
-                );
+                return MerchantWidget(merchant: titles.merchants![index],);
               },
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 170 / 214,
+                crossAxisSpacing: 17.w,
+                mainAxisSpacing: 20.h,
+              ),
             ),
           )
         ],

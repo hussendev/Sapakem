@@ -78,6 +78,10 @@ dependencies:
   permission_handler: ^10.2.0
 
 
+  #UI
+  carousel_slider: ^4.2.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

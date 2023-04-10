@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sapakem/api/controller/auth_api_controller.dart';
+import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/register/register_cubit.dart';
 import 'package:sapakem/cubit/auth/register/register_states.dart';
 import 'package:sapakem/model/process_response.dart';

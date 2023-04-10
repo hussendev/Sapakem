@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/api_setting.dart';
 import 'package:sapakem/model/process_response.dart';
@@ -79,27 +80,28 @@ class UsersApiController with Helpers{
     return errorResponse;
   }
 
+  Future<ProcessResponse> logout() async {
+    String token =
+    SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
+    Uri uri = Uri.parse(ApiSettings.logout);
+    var response = await http.get(uri, headers: {
+      HttpHeaders.authorizationHeader: token,
+      HttpHeaders.acceptHeader: 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      SharedPrefController().clear();
+      return ProcessResponse(message: json['message'], success:true);
+    }
+
+    return errorResponse;
+  }
+//qemu-system
 
   //
   //
-  // Future<ProcessResponse> logout() async {
-  //   String token =
-  //   SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
-  //   Uri uri = Uri.parse(ApiSettings.logout);
-  //   var response = await http.get(uri, headers: {
-  //     HttpHeaders.authorizationHeader: token,
-  //     HttpHeaders.acceptHeader: 'application/json',
-  //   });
-  //
-  //   if (response.statusCode == 200 || response.statusCode == 400) {
-  //     var json = jsonDecode(response.body);
-  //     SharedPrefController().clear();
-  //
-  //     return ProcessResponse(message: json['message'], success: json['status']);
-  //   }
-  //
-  //   return errorResponse;
-  // }
+
   //
   // Future<List<City>> getCities() async {
   //   Uri uri = Uri.parse(ApiSettings.cities);

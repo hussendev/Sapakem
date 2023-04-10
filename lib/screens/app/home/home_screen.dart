@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final List<BNScreen> screens = [
-    const BNScreen(title: 'home', widget: HomeScreenWidget()),
+     BNScreen(title: 'home', widget: HomeScreenWidget()),
     const BNScreen(title: 'cart', widget: CartScreenWidget()),
     const BNScreen(title: 'order', widget: OrderScreenWidget()),
     const BNScreen(title: 'profile', widget: ProfileScreenWidget()),
@@ -30,12 +30,6 @@ class HomeScreen extends StatelessWidget {
         builder: (context, page) {
           return Scaffold(
               drawer: const AppDrawer(),
-              // floatingActionButton: FloatingActionButton(
-              //   mini: true,
-              //   onPressed: () {},
-              //   backgroundColor: Colors.blue,
-              //   child: const Icon(Icons.person),
-              // ),
               extendBodyBehindAppBar: true,
               extendBody: true,
               bottomNavigationBar: BottomNavigationBar(
