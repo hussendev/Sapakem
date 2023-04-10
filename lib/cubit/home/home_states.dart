@@ -12,7 +12,6 @@ class HomeStates extends Equatable {
 
 class LoadingHomeState extends HomeStates {}
 
-class LoadingMerchantByIdState extends HomeStates {}
 
 class LoadingMerchantByCategoryState extends HomeStates {}
 //end loading states
@@ -31,11 +30,7 @@ class SuccessMerchantsState extends HomeStates {
   SuccessMerchantsState(this.merchants);
 }
 
-class SuccessMerchantByIdState extends HomeStates {
-  Merchant merchant;
 
-  SuccessMerchantByIdState(this.merchant);
-}
 
 class SuccessMerchantByCategoryState extends HomeStates {
   List<Merchant> merchants;
@@ -60,10 +55,6 @@ class ErrorMerchantByCategoryState extends HomeStates {
   ErrorMerchantByCategoryState(this.error);
 }
 
-class ErrorMerchantByIdState extends HomeStates {
-  final String error;
 
-  ErrorMerchantByIdState(this.error);
-}
 
 // end error states

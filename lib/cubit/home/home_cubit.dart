@@ -49,33 +49,5 @@ class HomeCubit extends Cubit<HomeStates> {
 
   }
 
-  Future<List<Merchant>> getMerchants()async {
-    try {
-      List<Merchant> merchants = await homeApiController.getMerchants();
-      if(merchants.length!=0){
-        emit(SuccessMerchantsState(merchants));
-        return merchants;
-      }
-    } catch (e) {
-      emit(ErrorHomeState(e.toString()));
-    }
-    return [];
 
-  }
-
-  Future<Merchant?> getMerchantById(int merchantId)async {
-    emit(LoadingMerchantByIdState());
-    try {
-      Merchant merchant = await getMerchants().then((value) => value.where((element) => element.id==merchantId).first);
-      if(merchant.id!=null){
-        emit(SuccessMerchantByIdState(merchant));
-        return merchant;
-      }
-
-    } catch (e) {
-      emit(ErrorHomeState(e.toString()));
-    }
-    return null;
-
-  }
 }
