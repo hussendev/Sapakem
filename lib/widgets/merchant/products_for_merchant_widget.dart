@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/merchant/product_widget.dart';
 
 import '../app_text.dart';
 
 class ProductsForMerchantWidget extends StatelessWidget {
-  const ProductsForMerchantWidget({
+   ProductsForMerchantWidget({
     super.key,
+     required this.products
   });
+  List<Product> products=[];
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +35,9 @@ class ProductsForMerchantWidget extends StatelessWidget {
             height: 141.h,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 10,
+              itemCount: products.length,
               itemBuilder: (context, index) {
-                return const ProductWidget();
+                return  ProductWidget(product: products[index]);
               },
             ),
           ),

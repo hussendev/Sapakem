@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/widgets/cart/app_dialog.dart';
 
 import '../app_text.dart';
 
 class ProductWidget extends StatelessWidget {
-  const ProductWidget({
+  ProductWidget({
     super.key,
+    required this.product
   });
+  Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -38,42 +41,42 @@ class ProductWidget extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                margin: EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: 5.w,
                 ),
                 width: double.infinity,
                 // color: Colors.blue,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          text: 'اسم المنتج',
+                          text:product.name!,
                           fontSize: 13.sp,
                           color: Colors.black,
                         ),
                         AppText(
-                          text: 'نبذه عنه ',
+                          text: product.description!.length > 10 ? product.description!.substring(0, 10) + '...' : product.description!,
                           fontSize: 13.sp,
                           color: Colors.white,
                         ),
                       ],
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 5.h, right: 5.w),
-                      height: 12.h,
-                      width: 30.w,
+                      height: 20.h, width: 20.w,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(6)),
                         color: Colors.white,
                       ),
-                      child: AppText(
-                        text: ' ₪ 2.0',
-                        fontSize: 9.sp,
-                        color: Colors.black,
+                      child: Center(
+                        child: AppText(
+                          text:  product.price.toString(),
+                          fontSize: 10.sp,
+                          color: Colors.black,
+                        ),
                       ),
                     )
                   ],

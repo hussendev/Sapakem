@@ -36,13 +36,14 @@ class HomeApiController {
 
 
   Future<List<Merchant>> getMerchantByCategory(int categoryId) async {
-    var response = await http.get(Uri.parse(ApiSettings.basedUrl + 'categories/'+categoryId.toString()+ApiSettings.merchant), headers: {
+    String url = ApiSettings.basedUrl + 'categories/'+categoryId.toString()+'/merchants';
+    var response = await http.get(Uri.parse(url), headers: {
       HttpHeaders.authorizationHeader:
       SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
       'X-Requested-With': 'XMLHttpRequest',
       'Accept': 'application/json'
     });
-    // Logger().i(response.statusCode );
+    Logger().i(url);
     if (response.statusCode == 200 || response.statusCode == 400) {
       if(response.statusCode !=400) {
         var json = jsonDecode(response.body);
@@ -73,6 +74,25 @@ class HomeApiController {
     return [];
 
 
+  }
+
+
+  Future<Merchant> getMerchant(int id) async{
+    var response =await  http.get(Uri.parse(ApiSettings.merchant+id.toString()), headers: {
+      HttpHeaders.authorizationHeader:
+      SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+      'X-Requested-With': 'XMLHttpRequest',
+      'Accept': 'application/json'
+    });
+    Logger().i(ApiSettings.merchant+id.toString());
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      if(response.statusCode !=400) {
+        var json = jsonDecode(response.body);
+        Merchant merchant = Merchant.fromJson(json['object']);
+        return merchant;
+      }
+    }
+    return Merchant();
   }
 
 }

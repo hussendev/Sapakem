@@ -7,7 +7,7 @@ class ApiSettings {
   static const String logout = '${basedUrl}auth/logout';
   static const String home = '${basedUrl}home';
 
-  static const String merchant = '${basedUrl}merchants';
+  static const String merchant = '${basedUrl}merchants/';
 
   // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
   // static const String profile = '${_basedUrl}User/GetProfile';
