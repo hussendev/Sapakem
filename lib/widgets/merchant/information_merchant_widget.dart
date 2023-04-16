@@ -22,7 +22,7 @@ class InformationMerchantWidget extends StatelessWidget {
       children: [
         SizedBox(
           // height: 128.h,
-          width: 240.w,
+          // width: 240.w,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
