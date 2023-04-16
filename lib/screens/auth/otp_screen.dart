@@ -13,7 +13,7 @@ import '../../widgets/otp_widget.dart';
 
 class OTPScreen extends StatelessWidget {
    OTPScreen({super.key});
-  String otp = SharedPrefController().getValueFor( PrefKeys.otp.name );
+  // String otp = "0000";
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +106,10 @@ class OTPScreen extends StatelessWidget {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children:  [
-                                        OTPWidget(otp[0]),
-                                        OTPWidget(otp[1]),
-                                        OTPWidget(otp[2]),
-                                        OTPWidget(otp[3]),
+                                        OTPWidget(),
+                                        OTPWidget(),
+                                        OTPWidget(),
+                                        OTPWidget(),
                                       ],
                                     ),
                                   ),
@@ -137,7 +137,7 @@ class OTPScreen extends StatelessWidget {
                                   AppButton(
                                       text: context.localizations.send,
                                       onPressed: () {
-                                        _performActivate(context);
+                                        // _performActivate(context);
                                       }),
                                 ],
                               ),
@@ -177,22 +177,22 @@ class OTPScreen extends StatelessWidget {
     );
   }
 
-   void _performActivate(BuildContext context) {
-     if (_checkData( context)) {
-       _activate(context);
-     }
-
-   }
-   bool _checkData(BuildContext context) {
-     if (
-     otp.isNotEmpty
-     ) {
-       return true;
-     }
-     context.showSnackBar( message: 'Enter Required Data!', error: true);
-     return false;
-   }
-   void _activate(BuildContext context) async {
-     ActivateCubit.get(context).userActivate(phone: int.parse(SharedPrefController().getValueFor(PrefKeys.mobile.name)), context: context, code: int.parse(otp));
-   }
+   // void _performActivate(BuildContext context) {
+   //   if (_checkData( context)) {
+   //     _activate(context);
+   //   }
+   //
+   // }
+   // bool _checkData(BuildContext context) {
+   //   if (
+   //   otp.isNotEmpty
+   //   ) {
+   //     return true;
+   //   }
+   //   context.showSnackBar( message: 'Enter Required Data!', error: true);
+   //   return false;
+   // }
+   // void _activate(BuildContext context) async {
+   //   // ActivateCubit.get(context).userActivate(phone: int.parse(SharedPrefController().getValueFor(PrefKeys.mobile.name)), context: context, code: int.parse(otp));
+   // }
 }
