@@ -1,10 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/app/home_api_controller.dart';
 import 'package:sapakem/model/home/home.dart';
 
-import '../../model/home/home_data.dart';
 import '../../model/home/merchant.dart';
 import 'home_states.dart';
 
@@ -14,39 +12,35 @@ class HomeCubit extends Cubit<HomeStates> {
   static HomeCubit get(context) => BlocProvider.of(context);
   HomeApiController homeApiController = HomeApiController();
 
-
-  void getHomeData()async {
+  void getHomeData() async {
     emit(LoadingHomeState());
     try {
       HomeResponse homeResponse = await homeApiController.getHomeData();
-      if(homeResponse.homeData!=null){
-      emit(SuccessHomeState(homeResponse.homeData!));
-      }else{
-      emit(ErrorHomeState("حدث خطأ ما"));
+      if (homeResponse.homeData != null) {
+        emit(SuccessHomeState(homeResponse.homeData!));
+      } else {
+        Logger().e(homeResponse.message);
+        emit(ErrorHomeState("حدث خطأ ما"));
       }
-
     } catch (e) {
+      Logger().e(e.toString());
       emit(ErrorHomeState(e.toString()));
     }
-
   }
 
-
-  void getMerchantByCategory(int categoryId)async {
+  void getMerchantByCategory(int categoryId) async {
     emit(LoadingMerchantByCategoryState());
     try {
       List<Merchant> merchants = await homeApiController.getMerchantByCategory(categoryId);
       Logger().i(merchants);
-      if(merchants.length!=0){
+      if (merchants.length != 0) {
         emit(SuccessMerchantByCategoryState(merchants));
-      }else{
+      } else {
         emit(ErrorMerchantByCategoryState("No Data"));
       }
-
     } catch (e) {
       emit(ErrorHomeState(e.toString()));
     }
-
   }
 
   // void getMerchants()async {
@@ -66,22 +60,18 @@ class HomeCubit extends Cubit<HomeStates> {
   //
   // }
 
-  void getMerchant(int merchantId)async {
+  void getMerchant(int merchantId) async {
     emit(LoadingMerchantsState());
     try {
       Merchant merchant = await homeApiController.getMerchant(merchantId);
 
-      if(merchant.id!=null){
+      if (merchant.id != null) {
         emit(SuccessMerchantState(merchant));
-      }else{
+      } else {
         emit(ErrorMerchantByCategoryState("No Data"));
       }
-
     } catch (e) {
       emit(ErrorHomeState(e.toString()));
     }
-
   }
-
-
 }

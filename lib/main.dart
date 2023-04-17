@@ -10,11 +10,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:sapakem/cubit/auth/update_profile/update_profile_cubit.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/cubit/language/language_state.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/screens/app/home/home_screen.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
+import 'package:sapakem/screens/app/profile/location.dart';
 import 'package:sapakem/screens/auth/chose_sign_up_register_screen.dart';
 import 'package:sapakem/screens/auth/forgot_password_screen.dart';
 import 'package:sapakem/screens/auth/login_screen.dart';
@@ -53,8 +55,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LanguageCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LanguageCubit>(
+          create: (_) => LanguageCubit(),
+        ),
+        BlocProvider<UpdateProfileCubit>(
+          create: (_) => UpdateProfileCubit(),
+        ),
+      ],
+      // create: (_) => LanguageCubit(),
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, language) {
           return ScreenUtilInit(
@@ -84,7 +94,8 @@ class MyApp extends StatelessWidget {
                   '/chose_language': (context) => const ChoseLanguage(),
                   '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) =>  MerchantsByCategory(categoryId: 0),
+                  '/merchants_by_category': (context) => MerchantsByCategory(categoryId: 0),
+                  '/location': (context) => const Location(),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
