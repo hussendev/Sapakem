@@ -23,8 +23,10 @@ class ProfileScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = SharedPrefController().getValueFor(PrefKeys.name.name);
-    emailController.text = SharedPrefController().getValueFor(PrefKeys.email.name);
+    nameController.text =
+        SharedPrefController().getValueFor(PrefKeys.name.name);
+    emailController.text =
+        SharedPrefController().getValueFor(PrefKeys.email.name);
     return Scaffold(
       body: Column(
         children: [
@@ -52,9 +54,15 @@ class ProfileScreenWidget extends StatelessWidget {
                   child: Column(
                     children: [
                       30.ph(),
-                      AppText(text: nameController.text, fontSize: 25.sp, color: Colors.black),
+                      AppText(
+                          text: nameController.text,
+                          fontSize: 25.sp,
+                          color: Colors.black),
                       5.ph(),
-                      AppText(text: emailController.text, fontSize: 15.sp, color: const Color(0xffA0A3AB)),
+                      AppText(
+                          text: emailController.text,
+                          fontSize: 15.sp,
+                          color: const Color(0xffA0A3AB)),
                       32.ph(),
                       ProfileInformationWidget(
                         icon: Icons.person,
@@ -65,15 +73,22 @@ class ProfileScreenWidget extends StatelessWidget {
                             isScrollControlled: true,
                             context: context,
                             builder: (context) {
-                              return BlocBuilder<UpdateProfileCubit, UpdateProfileStates>(
+                              return BlocBuilder<UpdateProfileCubit,
+                                  UpdateProfileStates>(
                                 builder: (context, state) {
                                   if (state is LoadingUpdateProfileState) {
-                                    return const Center(child: CircularProgressIndicator());
-                                  } else if (state is SuccessUpdateProfileState || state is ErrorDataUpdateProfileState || state is InitialUpdateProfileState) {
+                                    return const Center(
+                                        child: CircularProgressIndicator());
+                                  } else if (state
+                                          is SuccessUpdateProfileState ||
+                                      state is ErrorDataUpdateProfileState ||
+                                      state is InitialUpdateProfileState) {
                                     return Container(
                                       decoration: const BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(20),
+                                            topRight: Radius.circular(20)),
                                         // border: Border(
                                         //   top: BorderSide(color: Colors.black, width: 1),
                                         // ),
@@ -82,69 +97,121 @@ class ProfileScreenWidget extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 36.w,
+                                                  vertical: 20.h),
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
                                                   AppText(
-                                                    text: context.localizations.update_profile,
+                                                    text: context.localizations
+                                                        .update_profile,
                                                     fontSize: 35.sp,
-                                                    color: const Color(0xff1C8ABB),
+                                                    color:
+                                                        const Color(0xff1C8ABB),
                                                     textAlign: TextAlign.center,
                                                   ),
                                                   14.ph(),
-                                                  AppText(text: context.localizations.create_a_new_account_for_yourself, fontSize: 18.sp, color: const Color(0xff222222)),
+                                                  AppText(
+                                                      text: context
+                                                          .localizations
+                                                          .create_a_new_account_for_yourself,
+                                                      fontSize: 18.sp,
+                                                      color: const Color(
+                                                          0xff222222)),
                                                   21.ph(),
                                                   SizedBox(
                                                     height: 108.h,
                                                     child: AppTextField(
-                                                      text: context.localizations.full_name,
-                                                      hinttext: SharedPrefController().getValueFor(PrefKeys.name.name),
+                                                      text: context
+                                                          .localizations
+                                                          .full_name,
+                                                      hinttext:
+                                                          SharedPrefController()
+                                                              .getValueFor(
+                                                                  PrefKeys.name
+                                                                      .name),
                                                       labeltext: 'labeltext',
-                                                      keyboardType: TextInputType.name,
-                                                      controller: nameController,
+                                                      keyboardType:
+                                                          TextInputType.name,
+                                                      controller:
+                                                          nameController,
                                                       obscureText: false,
                                                     ),
                                                     // decoration: const BoxDecoration(shape: BoxShape.circle),
                                                   ),
                                                   10.ph(),
                                                   AppTextField(
-                                                    text: context.localizations.mobile,
+                                                    text: context
+                                                        .localizations.mobile,
                                                     hinttext: "594 358 404",
                                                     labeltext: 'labeltext',
-                                                    keyboardType: TextInputType.phone,
-                                                    controller: phoneController..text = SharedPrefController().getValueFor(PrefKeys.mobile.name),
+                                                    keyboardType:
+                                                        TextInputType.phone,
+                                                    controller: phoneController
+                                                      ..text =
+                                                          SharedPrefController()
+                                                              .getValueFor(
+                                                                  PrefKeys
+                                                                      .mobile
+                                                                      .name),
                                                     obscureText: false,
                                                   ),
                                                   10.ph(),
                                                   AppTextField(
-                                                    text: context.localizations.email,
+                                                    text: context
+                                                        .localizations.email,
                                                     hinttext: "test@gmail.com",
                                                     labeltext: 'labeltext',
-                                                    keyboardType: TextInputType.emailAddress,
-                                                    controller: emailController..text = SharedPrefController().getValueFor(PrefKeys.email.name),
+                                                    keyboardType: TextInputType
+                                                        .emailAddress,
+                                                    controller: emailController
+                                                      ..text =
+                                                          SharedPrefController()
+                                                              .getValueFor(
+                                                                  PrefKeys.email
+                                                                      .name),
                                                     obscureText: false,
                                                   ),
                                                   25.ph(),
                                                   ElevatedButton(
                                                     onPressed: () {
-                                                      context.read<UpdateProfileCubit>().updateProfile(
-                                                            name: nameController.text,
+                                                      context
+                                                          .read<
+                                                              UpdateProfileCubit>()
+                                                          .updateProfile(
+                                                            name: nameController
+                                                                .text,
                                                             // lastNameController.text,
-                                                            email: emailController.text,
-                                                            mobile: phoneController.text,
+                                                            email:
+                                                                emailController
+                                                                    .text,
+                                                            mobile:
+                                                                phoneController
+                                                                    .text,
                                                             context: context,
                                                           );
                                                     },
-                                                    style: ElevatedButton.styleFrom(
-                                                      primary: const Color(0xff1C8ABB),
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius.circular(10.r),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      backgroundColor:
+                                                          const Color(
+                                                              0xff1C8ABB),
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
                                                       ),
-                                                      padding: EdgeInsets.symmetric(horizontal: 100.w, vertical: 15.h),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 100.w,
+                                                              vertical: 15.h),
                                                     ),
                                                     child: AppText(
-                                                      text: context.localizations.update,
+                                                      text: context
+                                                          .localizations.update,
                                                       fontSize: 20.sp,
                                                       color: Colors.white,
                                                     ),
@@ -180,46 +247,68 @@ class ProfileScreenWidget extends StatelessWidget {
                         },
                       ),
                       20.ph(),
-                      ProfileInformationWidget(icon: Icons.email_outlined, text: context.localizations.email),
+                      ProfileInformationWidget(
+                          icon: Icons.email_outlined,
+                          text: context.localizations.email),
                       20.ph(),
                       ProfileInformationWidget(
                         icon: Icons.language,
                         text: context.localizations.language,
                         onTap: () {
                           const languages = ['ar', 'en', 'he'];
-                          const fullNameLanguages = ['عربي', 'English', 'עִברִית'];
+                          const fullNameLanguages = [
+                            'عربي',
+                            'English',
+                            'עִברִית'
+                          ];
                           showModalBottomSheet(
                             backgroundColor: Colors.transparent,
                             context: context,
                             builder: (context) => Container(
                               decoration: const BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20)),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  for (var index = 0; index < languages.length; index++)
+                                  for (var index = 0;
+                                      index < languages.length;
+                                      index++)
                                     InkWell(
                                       onTap: () {
-                                        context.read<LanguageCubit>().changeLanguage(languages[index]);
+                                        context
+                                            .read<LanguageCubit>()
+                                            .changeLanguage(languages[index]);
                                         Navigator.pop(context);
                                       },
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(vertical: 30.h),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 30.h),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Container(
-                                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20.w,
+                                                  vertical: 10.h),
                                               decoration: const BoxDecoration(
                                                 color: Color(0xff1C8ABB),
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: AppText(text: languages[index], fontSize: 20.sp, color: Colors.white),
+                                              child: AppText(
+                                                  text: languages[index],
+                                                  fontSize: 20.sp,
+                                                  color: Colors.white),
                                             ),
-                                            AppText(text: fullNameLanguages[index], fontSize: 18.sp, color: Colors.black54)
+                                            AppText(
+                                                text: fullNameLanguages[index],
+                                                fontSize: 18.sp,
+                                                color: Colors.black54)
                                           ],
                                         ),
                                       ),
@@ -231,14 +320,17 @@ class ProfileScreenWidget extends StatelessWidget {
                         },
                       ),
                       20.ph(),
-                      ProfileInformationWidget(icon: Icons.monetization_on_outlined, text: context.localizations.request_to_be_merchant),
+                      ProfileInformationWidget(
+                          icon: Icons.monetization_on_outlined,
+                          text: context.localizations.request_to_be_merchant),
                       20.ph(),
                       ProfileInformationWidget(
                           icon: Icons.login_outlined,
                           text: context.localizations.logout,
                           onTap: () {
                             UsersApiController().logout();
-                            return Navigator.pushNamedAndRemoveUntil(context, '/login_screen', (route) => false);
+                            return Navigator.pushNamedAndRemoveUntil(
+                                context, '/login_screen', (route) => false);
                           }),
                       20.ph(),
                     ],

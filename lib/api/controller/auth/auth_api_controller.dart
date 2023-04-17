@@ -94,6 +94,43 @@ class UsersApiController with Helpers {
 
     return errorResponse;
   }
+
+
+  Future<ProcessResponse> updateProfile({
+    required String mobile,
+    required String email,
+    required String name,
+  }) async {
+    try {
+      Uri uri = Uri.parse(ApiSettings.updateProfile);
+      var response = await http.put(
+        uri,
+        body: {
+          'mobile': mobile,
+          'email': email,
+          'name': name,
+        },
+        headers: {
+          HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+          HttpHeaders.acceptHeader: 'application/json',
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 400) {
+        var json = jsonDecode(response.body);
+        SharedPrefController().updateProfile(
+          mobile: mobile,
+          email: email,
+          name: name,
+        );
+        return ProcessResponse(message: json['message'], success: json['status']);
+      }
+      Logger().e(response.body);
+      return errorResponse;
+    } catch (e) {
+      Logger().e(e);
+      return errorResponse;
+    }
+  }
 //qemu-system
 
   //
