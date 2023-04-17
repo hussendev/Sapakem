@@ -51,9 +51,7 @@ void main() async {
     Logger().wtf(e);
   });
 
-  Logger().i("*************************");
-  Logger().i(fcmToken);
-  Logger().i("*************************");
+
 
   runApp(const MyApp());
 }
