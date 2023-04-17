@@ -67,5 +67,8 @@
   "the_order_will_be_sent_within_15_seconds": "سيتم إرسال الطلب خلال 15 ثانية",
   "change_the_request": "تغيير الطلب",
   "once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order": "بمجرد إرسال الطلب ، لا يمكن التراجع عنه أو تغييره",
-  "complete_the_process": "إكمال العملية"
+  "complete_the_process": "إكمال العملية",
+  "update_profile": "تحديث الملف الشخصي",
+  "full_name": "الاسم الكامل",
+  "update": "تحديث"
 }

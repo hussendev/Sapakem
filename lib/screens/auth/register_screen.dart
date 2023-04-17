@@ -11,11 +11,13 @@ import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
+
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_text_field.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
+
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -31,23 +33,20 @@ class RegisterScreen extends StatelessWidget {
             Navigator.pop(context);
           },
           icon: Icon(
-            context.localizations.language == 'en'
-                ? Icons.arrow_circle_left_outlined
-                : Icons.arrow_circle_right_outlined,
+            context.localizations.language == 'en' ? Icons.arrow_circle_left_outlined : Icons.arrow_circle_right_outlined,
             color: Colors.white,
           ),
         ),
       ),
       extendBodyBehindAppBar: true,
       body: BlocProvider<RegisterCubit>(
-        create: (context) => RegisterCubit(),
-        child: BlocConsumer<RegisterCubit, RegisterStates>(
-          builder: (context, state) {
-            if (state is LoadingRegisterState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is SuccessRegisterState ||
-                state is ErrorDataRegisterState ||
-                state is initialRegisterState) {
+        create: (context)=>RegisterCubit(),
+        child: BlocConsumer<RegisterCubit,RegisterStates>(
+          builder:  (context, state) {
+            if(state is LoadingRegisterState){
+              return Center(child: CircularProgressIndicator());
+            }
+            else if(state is SuccessRegisterState || state is ErrorDataRegisterState|| state is initialRegisterState){
               return CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -81,8 +80,8 @@ class RegisterScreen extends StatelessWidget {
                                 child: Container(
                                   height: 100.h,
                                   width: 100.w,
-                                  decoration: const BoxDecoration(
-                                      shape: BoxShape.circle),
+                                  decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
                                   child: SvgPicture.asset('assets/logo.svg',
                                       semanticsLabel: 'A red up arrow'),
                                 ),
@@ -94,22 +93,17 @@ class RegisterScreen extends StatelessWidget {
                         Expanded(
                           flex: 4,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 36.w, vertical: 20.h),
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 AppText(
-                                    text: context
-                                        .localizations.create_your_account,
+                                    text: context.localizations.create_your_account,
                                     fontSize: 35.sp,
                                     color: const Color(0xff1C8ABB)),
                                 14.ph(),
-                                AppText(
-                                    text: context.localizations
-                                        .create_a_new_account_for_yourself,
-                                    fontSize: 18.sp,
-                                    color: const Color(0xff222222)),
+                                AppText(text: context.localizations.create_a_new_account_for_yourself, fontSize: 18.sp, color: const Color(0xff222222)),
                                 21.ph(),
                                 SizedBox(
                                     height: 108.h,
@@ -117,26 +111,12 @@ class RegisterScreen extends StatelessWidget {
                                       children: [
                                         Expanded(
                                           flex: 1,
-                                          child: AppTextField(
-                                              text: context
-                                                  .localizations.first_name,
-                                              hinttext: '594  358  404',
-                                              labeltext: 'labeltext',
-                                              keyboardType: TextInputType.name,
-                                              controller: firstNameController,
-                                              obscureText: false),
+                                          child: AppTextField(text: context.localizations.first_name, hinttext: '594  358  404', labeltext: 'labeltext', keyboardType: TextInputType.name, controller: firstNameController, obscureText: false),
                                         ),
                                         10.pw(),
                                         Expanded(
                                           flex: 1,
-                                          child: AppTextField(
-                                              text: context
-                                                  .localizations.last_name,
-                                              hinttext: 'moh',
-                                              labeltext: 'labeltext',
-                                              keyboardType: TextInputType.name,
-                                              controller: lastNameController,
-                                              obscureText: false),
+                                          child: AppTextField(text: context.localizations.last_name, hinttext: 'moh', labeltext: 'labeltext', keyboardType: TextInputType.name, controller: lastNameController, obscureText: false),
                                         ),
                                       ],
                                     )
@@ -144,21 +124,9 @@ class RegisterScreen extends StatelessWidget {
                                     // decoration: const BoxDecoration(shape: BoxShape.circle),
                                     ),
                                 10.ph(),
-                                AppTextField(
-                                    text: context.localizations.mobile,
-                                    hinttext: "594  358  404",
-                                    labeltext: 'labeltext',
-                                    keyboardType: TextInputType.phone,
-                                    controller: phoneController,
-                                    obscureText: false),
+                                AppTextField(text: context.localizations.mobile, hinttext: "594  358  404", labeltext: 'labeltext', keyboardType: TextInputType.phone, controller: phoneController, obscureText: false),
                                 10.ph(),
-                                AppTextField(
-                                    text: context.localizations.email,
-                                    hinttext: "test@gmail.com",
-                                    labeltext: 'labeltext',
-                                    keyboardType: TextInputType.emailAddress,
-                                    controller: emailController,
-                                    obscureText: false),
+                                AppTextField(text: context.localizations.email, hinttext: "test@gmail.com", labeltext: 'labeltext', keyboardType: TextInputType.emailAddress, controller: emailController, obscureText: false),
                                 10.ph(),
                                 AppTextField(
                                     text: context.localizations.password,
@@ -174,8 +142,7 @@ class RegisterScreen extends StatelessWidget {
                                     obscureText: true),
                                 10.ph(),
                                 AppTextField(
-                                    text:
-                                        context.localizations.confirm_password,
+                                    text: context.localizations.confirm_password,
                                     hinttext: '***********',
                                     labeltext: 'labeltext',
                                     keyboardType: TextInputType.visiblePassword,
@@ -186,7 +153,9 @@ class RegisterScreen extends StatelessWidget {
                                       color: const Color(0xff1E2434),
                                     ),
                                     obscureText: true),
+
                                 9.ph(),
+
                                 25.ph(),
                                 AppButton(
                                     text: context.localizations.sign_up,
@@ -196,16 +165,9 @@ class RegisterScreen extends StatelessWidget {
                                 29.ph(),
                                 Row(
                                   children: [
-                                    AppText(
-                                        text: context.localizations
-                                            .do_you_have_an_account,
-                                        fontSize: 16.sp,
-                                        color: const Color(0xff222222)),
+                                    AppText(text: context.localizations.do_you_have_an_account, fontSize: 16.sp, color: const Color(0xff222222)),
                                     5.pw(),
-                                    AppText(
-                                        text: context.localizations.login,
-                                        fontSize: 16.sp,
-                                        color: const Color(0xff1C8ABB)),
+                                    AppText(text: context.localizations.login, fontSize: 16.sp, color: const Color(0xff1C8ABB)),
                                   ],
                                 )
                               ],
@@ -226,17 +188,13 @@ class RegisterScreen extends StatelessWidget {
           },
           listener: (context, state) {
             if (state is SuccessRegisterState) {
-              context.showSnackBar(
-                  message: state.message, error: !state.success);
+              context.showSnackBar(message: state.message, error: !state.success);
             } else if (state is ErrorDataRegisterState) {
-              context.showSnackBar(
-                  message: state.message, error: !state.success);
+              context.showSnackBar(message: state.message, error: !state.success);
             }
           },
           buildWhen: (previous, current) {
-            if (current is SuccessRegisterState ||
-                current is ErrorDataRegisterState ||
-                current is LoadingRegisterState) {
+            if (current is SuccessRegisterState || current is ErrorDataRegisterState || current is LoadingRegisterState) {
               return true;
             }
             return false;
@@ -254,12 +212,7 @@ class RegisterScreen extends StatelessWidget {
   }
 
   bool _checkData(BuildContext context) {
-    if (firstNameController.text.isNotEmpty &&
-        lastNameController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty &&
-        emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        confirmPasswordController.text.isNotEmpty) {
+    if (firstNameController.text.isNotEmpty && lastNameController.text.isNotEmpty && phoneController.text.isNotEmpty && emailController.text.isNotEmpty && passwordController.text.isNotEmpty && confirmPasswordController.text.isNotEmpty) {
       return true;
     }
     context.showSnackBar(message: 'Enter Required Data!', error: true);
@@ -267,23 +220,18 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void _register(BuildContext context) async {
-    RegisterCubit.get(context).signInWithPhoneNumber(
-        phone: "+972 ${phoneController.text}", context: context);
+    RegisterCubit.get(context).userRegister(user: user, context: context);
   }
 
   UserRegister get user {
     UserRegister userRegister = UserRegister();
-    userRegister.name =
-        "${firstNameController.text} ${lastNameController.text}";
+    userRegister.name = "${firstNameController.text} ${lastNameController.text}";
     userRegister.email = emailController.text;
     userRegister.password = passwordController.text;
     userRegister.mobile = int.parse(phoneController.text);
-    userRegister.lat =
-        double.parse(SharedPrefController().getValueFor(PrefKeys.lat.name));
-    userRegister.lng =
-        double.parse(SharedPrefController().getValueFor(PrefKeys.lng.name));
-    userRegister.fcmToken =
-        SharedPrefController().getValueFor(PrefKeys.fcmToken.name);
+    userRegister.lat = double.parse(SharedPrefController().getValueFor(PrefKeys.lat.name));
+    userRegister.lng = double.parse(SharedPrefController().getValueFor(PrefKeys.lng.name));
+    userRegister.fcmToken = SharedPrefController().getValueFor(PrefKeys.fcmToken.name);
     userRegister.deviceType = 1;
     return userRegister;
   }
