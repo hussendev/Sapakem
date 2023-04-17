@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
@@ -9,6 +11,9 @@ class ActivateCubit extends Cubit<ActivateState> {
   static ActivateCubit get(context)=>BlocProvider.of(context);
 
   UsersApiController usersApiController = UsersApiController();
+
+  //sign in with phone number
+ 
 
   void userActivate({
     required int phone,

@@ -24,7 +24,6 @@ class RegisterScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +40,13 @@ class RegisterScreen extends StatelessWidget {
       ),
       extendBodyBehindAppBar: true,
       body: BlocProvider<RegisterCubit>(
-        create: (context) => RegisterCubit(),
-        child: BlocConsumer<RegisterCubit, RegisterStates>(
-          builder: (context, state) {
-            if (state is LoadingRegisterState) {
+        create: (context)=>RegisterCubit(),
+        child: BlocConsumer<RegisterCubit,RegisterStates>(
+          builder:  (context, state) {
+            if(state is LoadingRegisterState){
               return Center(child: CircularProgressIndicator());
-            } else if (state is SuccessRegisterState || state is ErrorDataRegisterState || state is initialRegisterState) {
+            }
+            else if(state is SuccessRegisterState || state is ErrorDataRegisterState|| state is initialRegisterState){
               return CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -80,8 +80,10 @@ class RegisterScreen extends StatelessWidget {
                                 child: Container(
                                   height: 100.h,
                                   width: 100.w,
-                                  decoration: const BoxDecoration(shape: BoxShape.circle),
-                                  child: SvgPicture.asset('assets/logo.svg', semanticsLabel: 'A red up arrow'),
+                                  decoration:
+                                  const BoxDecoration(shape: BoxShape.circle),
+                                  child: SvgPicture.asset('assets/logo.svg',
+                                      semanticsLabel: 'A red up arrow'),
                                 ),
                               ),
                             ],
@@ -91,11 +93,15 @@ class RegisterScreen extends StatelessWidget {
                         Expanded(
                           flex: 4,
                           child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                AppText(text: context.localizations.create_your_account, fontSize: 35.sp, color: const Color(0xff1C8ABB)),
+                                AppText(
+                                    text: context.localizations.create_your_account,
+                                    fontSize: 35.sp,
+                                    color: const Color(0xff1C8ABB)),
                                 14.ph(),
                                 AppText(text: context.localizations.create_a_new_account_for_yourself, fontSize: 18.sp, color: const Color(0xff222222)),
                                 21.ph(),
@@ -147,7 +153,9 @@ class RegisterScreen extends StatelessWidget {
                                       color: const Color(0xff1E2434),
                                     ),
                                     obscureText: true),
+
                                 9.ph(),
+
                                 25.ph(),
                                 AppButton(
                                     text: context.localizations.sign_up,

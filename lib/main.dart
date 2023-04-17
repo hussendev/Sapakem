@@ -30,11 +30,12 @@ import 'package:sapakem/util/bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await SharedPrefController().initPreferences();
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
 
-  await Firebase.initializeApp();
+
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
   LocationPermission permission = await Geolocator.checkPermission();
@@ -46,6 +47,10 @@ void main() async {
   }).catchError((e) {
     Logger().wtf(e);
   });
+
+  Logger().i("*************************");
+  Logger().i(fcmToken);
+  Logger().i("*************************");
 
   runApp(const MyApp());
 }

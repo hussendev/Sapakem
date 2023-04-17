@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
-import 'package:sapakem/api/app/home_api_controller.dart';
+import 'package:sapakem/api/controller/app/home_api_controller.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 
