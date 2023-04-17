@@ -22,7 +22,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(LoadingRegisterState());
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: '+972 59-219-7258',
         verificationCompleted: (PhoneAuthCredential credential) async {
           // Logger().i(credential.smsCode);
           // await auth.signInWithCredential(credential);
@@ -31,9 +31,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
         verificationFailed: (FirebaseAuthException e) {
           Logger().i("**************");
           Logger().i(e);
-          if (e.code == 'invalid-phone-number') {
-            emit(ErrorRegisterState("رقم الهاتف غير صحيح"));
-          }
+          // if (e.code == 'invalid-phone-number') {
+          //   emit(ErrorRegisterState("رقم الهاتف غير صحيح"));
+          // }
+          emit(ErrorRegisterState('something went wrong'));
         },
         codeSent: (String verificationId, int? resendToken) async {
           Logger().i("**************");
@@ -41,12 +42,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
           emit(SuccessRegisterState(true, verificationId));
           Navigator.pushReplacementNamed(context, '/otp_screen');
         },
-
         codeAutoRetrievalTimeout: (String verificationId) {
           Logger().i("**************");
           Logger().i(verificationId);
-
-
         },
       );
 

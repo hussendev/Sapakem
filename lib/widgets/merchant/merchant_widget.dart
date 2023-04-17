@@ -8,23 +8,23 @@ import 'package:sapakem/util/sized_box_extension.dart';
 import '../../screens/app/merchant/merchant_screen.dart';
 
 class MerchantWidget extends StatelessWidget {
-   MerchantWidget({
+  MerchantWidget({
     super.key,
     required this.merchant,
   });
   Merchant merchant;
 
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
         context.read<HomeCubit>().getMerchant(merchant.id!);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>  MerchantScreen(merchant:this.merchant,),
+            builder: (context) => MerchantScreen(
+              merchant: merchant,
+            ),
           ),
         );
       },
@@ -40,9 +40,9 @@ class MerchantWidget extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(this.merchant.merchantLogo!),
+                    image: NetworkImage(merchant.merchantLogo!),
                     fit: BoxFit.cover,
                   ),
                   color: Colors.red,
@@ -56,16 +56,15 @@ class MerchantWidget extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w) ,
-                decoration:const  BoxDecoration(
-
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10),
                   ),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start ,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
@@ -95,13 +94,13 @@ class MerchantWidget extends StatelessWidget {
                     Container(
                       width: 36.12.w,
                       decoration: BoxDecoration(
-                        color: this.merchant.isOpen! ? Colors.green : Colors.red,
+                        color: merchant.isOpen! ? Colors.green : Colors.red,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       height: 15.05.h,
                       child: Center(
                         child: Text(
-                          this.merchant.isOpen! ? 'مفتوح' : 'مغلق',
+                          merchant.isOpen! ? 'مفتوح' : 'مغلق',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 10.sp,

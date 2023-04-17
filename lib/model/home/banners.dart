@@ -10,36 +10,36 @@ class Banners {
 
   Banners(
       {int? id,
-        String? image,
-        String? status,
-        String? startDate,
-        String? endDate,
-        int? merchantId,
-        String? createdAt,
-        String? updatedAt}) {
+      String? image,
+      String? status,
+      String? startDate,
+      String? endDate,
+      int? merchantId,
+      String? createdAt,
+      String? updatedAt}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (image != null) {
-      this._image = image;
+      _image = image;
     }
     if (status != null) {
-      this._status = status;
+      _status = status;
     }
     if (startDate != null) {
-      this._startDate = startDate;
+      _startDate = startDate;
     }
     if (endDate != null) {
-      this._endDate = endDate;
+      _endDate = endDate;
     }
     if (merchantId != null) {
-      this._merchantId = merchantId;
+      _merchantId = merchantId;
     }
     if (createdAt != null) {
-      this._createdAt = createdAt;
+      _createdAt = createdAt;
     }
     if (updatedAt != null) {
-      this._updatedAt = updatedAt;
+      _updatedAt = updatedAt;
     }
   }
 
@@ -72,15 +72,15 @@ class Banners {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['banner_img'] = this._image;
-    data['status'] = this._status;
-    data['start_date'] = this._startDate;
-    data['end_date'] = this._endDate;
-    data['merchant_id'] = this._merchantId;
-    data['created_at'] = this._createdAt;
-    data['updated_at'] = this._updatedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['banner_img'] = _image;
+    data['status'] = _status;
+    data['start_date'] = _startDate;
+    data['end_date'] = _endDate;
+    data['merchant_id'] = _merchantId;
+    data['created_at'] = _createdAt;
+    data['updated_at'] = _updatedAt;
     return data;
   }
 }

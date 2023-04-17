@@ -8,28 +8,28 @@ class Categories {
 
   Categories(
       {int? id,
-        int? sortOrder,
-        String? status,
-        String? image,
-        String? name,
-        String? description}) {
+      int? sortOrder,
+      String? status,
+      String? image,
+      String? name,
+      String? description}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (sortOrder != null) {
-      this._sortOrder = sortOrder;
+      _sortOrder = sortOrder;
     }
     if (status != null) {
-      this._status = status;
+      _status = status;
     }
     if (image != null) {
-      this._image = image;
+      _image = image;
     }
     if (name != null) {
-      this._name = name;
+      _name = name;
     }
     if (description != null) {
-      this._description = description;
+      _description = description;
     }
   }
 
@@ -56,13 +56,13 @@ class Categories {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['sort_order'] = this._sortOrder;
-    data['status'] = this._status;
-    data['image'] = this._image;
-    data['name'] = this._name;
-    data['description'] = this._description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['sort_order'] = _sortOrder;
+    data['status'] = _status;
+    data['image'] = _image;
+    data['name'] = _name;
+    data['description'] = _description;
     return data;
   }
 }

@@ -1,42 +1,33 @@
-import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/activate/activate_states.dart';
 
 class ActivateCubit extends Cubit<ActivateState> {
-  ActivateCubit(): super(InitialActivate());
-  static ActivateCubit get(context)=>BlocProvider.of(context);
+  ActivateCubit() : super(InitialActivate());
+  static ActivateCubit get(context) => BlocProvider.of(context);
 
   UsersApiController usersApiController = UsersApiController();
 
   //sign in with phone number
- 
 
   void userActivate({
     required int phone,
     required int code,
     required BuildContext context,
-  }) async{
+  }) async {
     emit(LoadingActivate());
-    try{
-      var response = await usersApiController.activate(mobile: phone, code: code);
-      if(response.success){
-        emit(SuccessActivate(response.message,response.success));
+    try {
+      var response =
+          await usersApiController.activate(mobile: phone, code: code);
+      if (response.success) {
+        emit(SuccessActivate(response.message, response.success));
         Navigator.pushReplacementNamed(context, '/login_screen');
-      }else{
-        emit(ErrorDataActivate(response.message,response.success));
+      } else {
+        emit(ErrorDataActivate(response.message, response.success));
       }
-    }catch(e){
-      emit(ErrorActivate("حدث خطأ ما",true));
+    } catch (e) {
+      emit(ErrorActivate("حدث خطأ ما", true));
     }
   }
-
-
-
-
-
-
 }

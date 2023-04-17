@@ -15,19 +15,17 @@ class SuccessRegisterState extends RegisterStates {
   final bool success;
   final String message;
 
-  SuccessRegisterState(this.success,this.message);
+  const SuccessRegisterState(this.success, this.message);
 }
 
 class ErrorDataRegisterState extends RegisterStates {
   final String message;
   final bool success;
 
-
-  ErrorDataRegisterState(this.message,this.success);
+  const ErrorDataRegisterState(this.message, this.success);
 }
 
 class ErrorRegisterState extends RegisterStates {
   final String message;
-  ErrorRegisterState(this.message);
+   ErrorRegisterState(this.message);
 }
-

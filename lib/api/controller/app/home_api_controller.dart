@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
-import 'package:sapakem/api/api_controller.dart';
+import 'package:sapakem/api/controller/api_controller.dart';
 import 'package:sapakem/model/home/merchant.dart';
 
 import '../../../model/home/home.dart';
@@ -24,17 +21,13 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true);
 
-
-
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;
   }
 
   Future<List<Merchant>> getMerchantByCategory(int categoryId) async {
-
-
-
-    var data = await apiController.get(Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'),
+    var data = await apiController.get(
+        Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'),
         headers: {
           HttpHeaders.authorizationHeader:
               SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
@@ -47,7 +40,6 @@ class HomeApiController {
     List<Merchant> merchants =
         (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
-
 
     // String url = ApiSettings.basedUrl +
     //     'categories/' +
@@ -73,8 +65,6 @@ class HomeApiController {
   }
 
   Future<List<Merchant>> getMerchants() async {
-
-
     var data = await apiController.get(Uri.parse(ApiSettings.merchant),
         headers: {
           HttpHeaders.authorizationHeader:
@@ -88,10 +78,6 @@ class HomeApiController {
     List<Merchant> merchants =
         (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
-
-
-
-
 
     // var response = await http.get(Uri.parse(ApiSettings.merchant), headers: {
     //   HttpHeaders.authorizationHeader:
@@ -111,19 +97,16 @@ class HomeApiController {
   }
 
   Future<Merchant> getMerchant(int id) async {
-
-
-    var data = await apiController.get(Uri.parse(ApiSettings.merchant + id.toString()),
-        headers: {
-          HttpHeaders.authorizationHeader:
-              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json'
-        },
-        timeToLive: 10,
-        withoutToast: true);
-
-
+    var data =
+        await apiController.get(Uri.parse(ApiSettings.merchant + id.toString()),
+            headers: {
+              HttpHeaders.authorizationHeader: SharedPrefController()
+                  .getValueFor<String>(PrefKeys.token.name)!,
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'application/json'
+            },
+            timeToLive: 10,
+            withoutToast: true);
 
     Merchant merchant = Merchant.fromJson(data!['object']);
     return merchant;
