@@ -214,7 +214,7 @@ class LoginScreen extends StatelessWidget {
             }
           },
           buildWhen: (previous, current) {
-            if(current is ErrorDataLoginState || current is LoadingLoginState || current is SuccessLoginState){
+            if(current is ErrorDataLoginState || current is LoadingLoginState || current is SuccessLoginState ||  current is ErrorLoginState ){
               return true;
             }else{
               return false;

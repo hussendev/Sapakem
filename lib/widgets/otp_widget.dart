@@ -3,11 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OTPWidget extends StatelessWidget {
-   OTPWidget({
+  const OTPWidget({
     super.key,
-
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,6 @@ class OTPWidget extends StatelessWidget {
       width: 64.w,
       child: TextFormField(
         controller: TextEditingController(),
-
         keyboardType: TextInputType.phone,
         onChanged: (value) {
           if (value.length == 1) {
@@ -26,7 +23,6 @@ class OTPWidget extends StatelessWidget {
           }
         },
         decoration: InputDecoration(
-
           hintText: "*",
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Color(0xff1C8ABB)),

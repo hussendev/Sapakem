@@ -8,19 +8,19 @@ class BusinessHours {
   BusinessHours(
       {int? id, int? merchantId, String? from, String? to, int? day}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (merchantId != null) {
-      this._merchantId = merchantId;
+      _merchantId = merchantId;
     }
     if (from != null) {
-      this._from = from;
+      _from = from;
     }
     if (to != null) {
-      this._to = to;
+      _to = to;
     }
     if (day != null) {
-      this._day = day;
+      _day = day;
     }
   }
 
@@ -44,12 +44,12 @@ class BusinessHours {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['merchant_id'] = this._merchantId;
-    data['from'] = this._from;
-    data['to'] = this._to;
-    data['day'] = this._day;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['merchant_id'] = _merchantId;
+    data['from'] = _from;
+    data['to'] = _to;
+    data['day'] = _day;
     return data;
   }
 }

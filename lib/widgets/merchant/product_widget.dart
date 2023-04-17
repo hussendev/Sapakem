@@ -6,10 +6,7 @@ import 'package:sapakem/widgets/cart/app_dialog.dart';
 import '../app_text.dart';
 
 class ProductWidget extends StatelessWidget {
-  ProductWidget({
-    super.key,
-    required this.product
-  });
+  ProductWidget({super.key, required this.product});
   Product product;
 
   @override
@@ -27,7 +24,9 @@ class ProductWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5.w),
         margin: EdgeInsets.only(right: 10.w),
-        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.all(Radius.circular(10.r))),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.all(Radius.circular(10.r))),
         height: 141.h,
         width: 113.w,
         child: Column(
@@ -54,26 +53,29 @@ class ProductWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          text:product.name!,
+                          text: product.name!,
                           fontSize: 13.sp,
                           color: Colors.black,
                         ),
                         AppText(
-                          text: product.description!.length > 10 ? product.description!.substring(0, 10) + '...' : product.description!,
+                          text: product.description!.length > 10
+                              ? '${product.description!.substring(0, 10)}...'
+                              : product.description!,
                           fontSize: 13.sp,
                           color: Colors.white,
                         ),
                       ],
                     ),
                     Container(
-                      height: 20.h, width: 20.w,
+                      height: 20.h,
+                      width: 20.w,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(6)),
                         color: Colors.white,
                       ),
                       child: Center(
                         child: AppText(
-                          text:  product.price.toString(),
+                          text: product.price.toString(),
                           fontSize: 10.sp,
                           color: Colors.black,
                         ),

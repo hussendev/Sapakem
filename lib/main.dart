@@ -29,10 +29,10 @@ import 'package:sapakem/util/bloc_observer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // await FirebaseService().initFCM();
   await SharedPrefController().initPreferences();
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
-
 
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
@@ -40,8 +40,13 @@ void main() async {
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
   }
-  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
-    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!, lat: position.latitude, lng: position.longitude, deviceType: deviceType);
+  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+      .then((Position position) {
+    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(
+        fcmToken: fcmToken!,
+        lat: position.latitude,
+        lng: position.longitude,
+        deviceType: deviceType);
   }).catchError((e) {
     Logger().wtf(e);
   });
@@ -74,22 +79,29 @@ class MyApp extends StatelessWidget {
                     elevation: 0,
                     backgroundColor: Colors.transparent,
                     iconTheme: const IconThemeData(color: Colors.black),
-                    titleTextStyle: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                    titleTextStyle: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ),
                 initialRoute: '/lunch_screen',
                 routes: {
                   '/login_screen': (context) => LoginScreen(),
                   '/register_screen': (context) => RegisterScreen(),
-                  '/forgot_password_screen': (context) => const ForgetPasswordScreen(),
+                  '/forgot_password_screen': (context) =>
+                      const ForgetPasswordScreen(),
                   '/otp_screen': (context) => OTPScreen(),
-                  '/new_password_screen': (context) => const NewPasswordScreen(),
+                  '/new_password_screen': (context) =>
+                      const NewPasswordScreen(),
                   '/lunch_screen': (context) => const LunchScreen(),
                   '/on_boarding': (context) => OnBoarding(),
                   '/chose_language': (context) => const ChoseLanguage(),
-                  '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
+                  '/chose_sign_up_or_register': (context) =>
+                      const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) =>  MerchantsByCategory(categoryId: 0),
+                  '/merchants_by_category': (context) =>
+                      MerchantsByCategory(categoryId: 0),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

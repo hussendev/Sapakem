@@ -45,7 +45,8 @@ class RegisterScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is LoadingRegisterState) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is SuccessRegisterState ||
+            }
+            else if (state is SuccessRegisterState ||
                 state is ErrorDataRegisterState ||
                 state is initialRegisterState) {
               return CustomScrollView(
@@ -217,7 +218,8 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ],
               );
-            } else {
+            }
+            else {
               state as ErrorRegisterState;
               return Center(
                 child: Text(state.message),
@@ -236,7 +238,7 @@ class RegisterScreen extends StatelessWidget {
           buildWhen: (previous, current) {
             if (current is SuccessRegisterState ||
                 current is ErrorDataRegisterState ||
-                current is LoadingRegisterState) {
+                current is LoadingRegisterState|| current is ErrorRegisterState) {
               return true;
             }
             return false;
@@ -247,7 +249,7 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void _performRegister(BuildContext context) {
-    if (_checkData(context)) {
+    if (!_checkData(context)) {
       _register(context);
       SharedPrefController().savePhone(phoneController.text);
     }
@@ -268,7 +270,9 @@ class RegisterScreen extends StatelessWidget {
 
   void _register(BuildContext context) async {
     RegisterCubit.get(context).signInWithPhoneNumber(
-        phone: "+972 ${phoneController.text}", context: context);
+      context: context,
+        phone: "+972 ${phoneController.text}");
+
   }
 
   UserRegister get user {

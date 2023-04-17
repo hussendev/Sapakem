@@ -9,13 +9,13 @@ import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/helpers.dart';
 import 'package:http/http.dart' as http;
 
-class UsersApiController with Helpers{
+class UsersApiController with Helpers {
   // login
   Future<ProcessResponse> login(
       {required String mobile, required String password}) async {
     Uri uri = Uri.parse(ApiSettings.login);
     var response =
-    await http.post(uri, body: {'mobile': mobile, 'password': password});
+        await http.post(uri, body: {'mobile': mobile, 'password': password});
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var json = jsonDecode(response.body);
@@ -23,7 +23,8 @@ class UsersApiController with Helpers{
         User user = User.fromJson(json);
         //TODO save user in shared preferences
         SharedPrefController().save(user);
-        return ProcessResponse(message: json['message'], success: json['status']);
+        return ProcessResponse(
+            message: json['message'], success: json['status']);
       }
       return ProcessResponse(message: json['message']);
     }
@@ -40,30 +41,26 @@ class UsersApiController with Helpers{
       'password': user.password.toString(),
       'fcm_token': user.fcmToken,
       'device_type': user.deviceType.toString(),
-      "lat":user.lat.toString(),
-      "lng":user.lng.toString(),
+      "lat": user.lat.toString(),
+      "lng": user.lng.toString(),
     });
     if (response.statusCode == 201 || response.statusCode == 400) {
       var json = jsonDecode(response.body);
-      var log=Logger();
+      var log = Logger();
       log.e(json);
       log.v(user.lng.toString());
       log.v(user.lat.toString());
-      if(response.statusCode !=400){
-        SharedPrefController().saveOtp( json['code'].toString());
+      if (response.statusCode != 400) {
+        SharedPrefController().saveOtp(json['code'].toString());
 
         return ProcessResponse(
             message: json['message'] + ' ' + json['code'].toString(),
             success: json['status']);
       }
-      return ProcessResponse(
-          message: json['message'],
-          success: json['status']);
+      return ProcessResponse(message: json['message'], success: json['status']);
     }
     return errorResponse;
   }
-
-
 
   Future<ProcessResponse> activate(
       {required int mobile, required int code}) async {
@@ -82,7 +79,7 @@ class UsersApiController with Helpers{
 
   Future<ProcessResponse> logout() async {
     String token =
-    SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
+        SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
     Uri uri = Uri.parse(ApiSettings.logout);
     var response = await http.get(uri, headers: {
       HttpHeaders.authorizationHeader: token,
@@ -92,7 +89,7 @@ class UsersApiController with Helpers{
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       SharedPrefController().clear();
-      return ProcessResponse(message: json['message'], success:true);
+      return ProcessResponse(message: json['message'], success: true);
     }
 
     return errorResponse;
