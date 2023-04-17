@@ -16,10 +16,10 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final List<BNScreen> screens = [
-     BNScreen(title: 'home', widget: HomeScreenWidget()),
+    BNScreen(title: 'home', widget: HomeScreenWidget()),
     const BNScreen(title: 'cart', widget: CartScreenWidget()),
     const BNScreen(title: 'order', widget: OrderScreenWidget()),
-    const BNScreen(title: 'profile', widget: ProfileScreenWidget()),
+    BNScreen(title: 'profile', widget: ProfileScreenWidget()),
   ];
 
   @override

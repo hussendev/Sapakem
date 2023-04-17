@@ -67,5 +67,8 @@
   "the_order_will_be_sent_within_15_seconds": "The order will be sent within 15 seconds",
   "change_the_request": "Change the request",
   "once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order": "Once the order has been sent, it is not possible to reverse or change the order",
-  "complete_the_process": "Complete the process"
+  "complete_the_process": "Complete the process",
+  "update_profile": "Update Profile",
+  "full_name": "Full Name",
+  "update": "Update"
 }
