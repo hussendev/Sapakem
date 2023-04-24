@@ -11,6 +11,9 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   HomeApiController homeApiController = HomeApiController();
+  int count = 0;
+
+
 
   void getHomeData() async {
     emit(LoadingHomeState());
@@ -32,7 +35,6 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(LoadingMerchantByCategoryState());
     try {
       List<Merchant> merchants = await homeApiController.getMerchantByCategory(categoryId);
-      Logger().i(merchants);
       if (merchants.length != 0) {
         emit(SuccessMerchantByCategoryState(merchants));
       } else {
