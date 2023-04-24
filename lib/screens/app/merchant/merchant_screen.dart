@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
 import 'package:sapakem/model/home/merchant.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
 import '../../../widgets/merchant/information_merchant_widget.dart';
@@ -57,8 +59,11 @@ class MerchantScreen extends StatelessWidget {
                                               color: Colors.white,
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10))),
-                                          child: const Icon(
-                                              Icons.arrow_circle_right_outlined),
+                                          child:context.localizations.language == 'en'
+                                              ? const Icon(Icons.arrow_circle_left_outlined,
+                                              color: Colors.black)
+                                              : const Icon(Icons.arrow_circle_right_outlined,
+                                              color: Colors.black),
                                         ),
                                       ),
                                       const Spacer(),
@@ -106,6 +111,7 @@ class MerchantScreen extends StatelessWidget {
                               height: 250.h,
                               child: ListView.builder(
                                 itemBuilder: (context, index) {
+                                  Logger().i(state.merchant.subcategories!.length);
                                   return ProductsForMerchantWidget(
                                     products: state.merchant.products!,
                                   );
