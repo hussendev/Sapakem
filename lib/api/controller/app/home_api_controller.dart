@@ -105,7 +105,7 @@ class HomeApiController {
               'X-Requested-With': 'XMLHttpRequest',
               'Accept': 'application/json'
             },
-            timeToLive: 10,
+            timeToLive: 3,
             withoutToast: true);
 
     Merchant merchant = Merchant.fromJson(data!['object']);
