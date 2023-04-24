@@ -21,7 +21,6 @@ class ApiController {
         int timeToLive = 0,
         bool withoutToast = false
       }) async {
-   Logger().i(cacheData.keys.contains(url.toString()));
     if (cacheData.keys.contains(url.toString())) {
       if (timeIsNotExpires(url)) {
         return cacheData[url.toString()];
@@ -53,9 +52,6 @@ class ApiController {
   bool timeIsNotExpires(Uri url) {
     DateTime now = DateTime.now();
     DateTime timeExpires = cacheData['${url}saveTime'];
-    Logger().i(cacheData['${url}saveTime']);
-    Logger().i(now);
-    Logger().i(now.difference(timeExpires).inMinutes);
     return now.difference(timeExpires).inSeconds > 0;
   }
 

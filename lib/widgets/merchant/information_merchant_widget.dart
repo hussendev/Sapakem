@@ -71,7 +71,7 @@ class InformationMerchantWidget extends StatelessWidget {
               ],
             ),
             AppText(
-              text:this.merchant.address!,
+              text:'this.merchant.address',
               fontSize: 14.sp,
               color: Colors.black,
               fontWeight: FontWeight.bold,

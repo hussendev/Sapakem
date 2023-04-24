@@ -9,6 +9,7 @@ class AppText extends StatelessWidget {
   final Color color;
   FontWeight fontWeight;
   TextAlign? textAlign;
+  bool isPriceoffer;
 
   AppText({
     Key? key,
@@ -16,6 +17,7 @@ class AppText extends StatelessWidget {
     required this.fontSize,
     required this.color,
     this.textAlign,
+    this.isPriceoffer = false,
     this.fontWeight = FontWeight.normal,
   }) : super(key: key);
 
@@ -24,11 +26,23 @@ class AppText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
-      style: GoogleFonts.poppins(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fontWeight,
-      ),
+      style: isPriceoffer
+          ? GoogleFonts.poppins(
+        wordSpacing:2 ,
+              textBaseline: TextBaseline.alphabetic,
+              decoration: TextDecoration.lineThrough,
+              decorationStyle: TextDecorationStyle.solid,
+
+              decorationThickness: 2.2,
+              fontSize: fontSize,
+              color: color,
+              fontWeight: fontWeight,
+            )
+          : GoogleFonts.poppins(
+              fontSize: fontSize,
+              color: color,
+              fontWeight: fontWeight,
+            ),
     );
     // );
   }

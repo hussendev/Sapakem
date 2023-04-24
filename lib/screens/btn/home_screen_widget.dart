@@ -18,23 +18,21 @@ import '../../widgets/home_merchant_category.dart';
 import '../../widgets/home_sub_category_widget.dart';
 
 class HomeScreenWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeCubit>(
+    return BlocProvider(
       create: (context) => HomeCubit()..getHomeData(),
+      lazy: true,
       child: BlocBuilder<HomeCubit, HomeStates>(
         buildWhen: (previous, current) {
           if (current is SuccessHomeState) {
             return true;
           } else if (current is LoadingHomeState) {
             return true;
-          } else if (current is ErrorHomeState) {
-            return true;
           } else {
             return false;
           }
-        } ,
+        },
         builder: (context, state) {
           if (state is LoadingHomeState) {
             return const Center(
@@ -42,9 +40,8 @@ class HomeScreenWidget extends StatelessWidget {
             );
           }
           else if (state is SuccessHomeState) {
-
             return RefreshIndicator(
-              onRefresh: () async{
+              onRefresh: () async {
                 context.read<HomeCubit>().getHomeData();
               },
               child: Column(
@@ -69,21 +66,18 @@ class HomeScreenWidget extends StatelessWidget {
                                 ),
                                 items: state.homeDate.banners!.map((e) {
                                   return InkWell(
-                                    onTap: () async{
-
+                                    onTap: () async {
                                       //
-
                                     },
                                     child: Container(
                                       height: 184.h,
-                                      decoration:  BoxDecoration(
+                                      decoration: BoxDecoration(
                                         image: DecorationImage(
-                                            image: NetworkImage(
-                                               e.image!),
+                                            image: NetworkImage(e.image!),
                                             fit: BoxFit.fill),
                                         color: Color(0xff1C8ABB),
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(10)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
                                       ),
                                     ),
                                   );
@@ -119,14 +113,17 @@ class HomeScreenWidget extends StatelessWidget {
                             ),
                           ),
                           9.ph(),
-                          HomeSubCategoryWidget(categories: state.homeDate.categories!),
+                          HomeSubCategoryWidget(
+                              categories: state.homeDate.categories!),
                           17.ph(),
 
                           ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return  HomeMerchantCategory(titles: state.homeDate.titles![index], );
+                              return HomeMerchantCategory(
+                                titles: state.homeDate.titles![index],
+                              );
                             },
                             itemCount: state.homeDate.titles!.length,
                           ),

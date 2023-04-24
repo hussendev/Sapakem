@@ -76,7 +76,7 @@ class MerchantWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      merchant.address!,
+                     ' merchant.address',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,

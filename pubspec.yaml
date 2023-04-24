@@ -76,6 +76,7 @@ dependencies:
   #maps
   google_maps_flutter: ^2.2.5
   geolocator: ^9.0.2
+  geocoding: ^2.1.0
 
   #permission
   permission_handler: ^10.2.0

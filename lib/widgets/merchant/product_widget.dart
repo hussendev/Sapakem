@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/model/home/product.dart';
+import 'package:sapakem/screens/app/merchant/product_details.dart';
 import 'package:sapakem/widgets/cart/app_dialog.dart';
 
 import '../app_text.dart';
@@ -13,16 +14,19 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppDialog.productOrder(
-          context,
-          'assets/logo_app_bar.svg',
-          (numberOfItems) {
-            print(numberOfItems);
-          },
-        );
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: product)));
+
+        // AppDialog.productOrder(
+        //   context,
+        //   'assets/logo_app_bar.svg',
+        //   (numberOfItems) {
+        //     print(numberOfItems);
+        //   },
+        // );
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        // padding: EdgeInsets.symmetric(horizontal: 5.w),
         margin: EdgeInsets.only(right: 10.w),
         decoration: BoxDecoration(
             color: Colors.blue,
@@ -34,8 +38,23 @@ class ProductWidget extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                  // color: Colors.amber,
+
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.r),
+                    topRight: Radius.circular(10.r),
                   ),
+                  image: DecorationImage(
+
+
+
+                    image: NetworkImage(product.mainImage!,  ),
+                    fit: BoxFit.cover,
+                  ),
+
+                  ),
+            ),
             ),
             Expanded(
               flex: 1,
