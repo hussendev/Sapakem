@@ -14,8 +14,8 @@ import '../../widgets/app_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController(text: '0592197258');
+  final TextEditingController _passwordController = TextEditingController(text: '123456');
 
   @override
   Widget build(BuildContext context) {

@@ -80,7 +80,9 @@ class CustomAppBar extends StatelessWidget {
                                 color: Colors.black)
                             : const Icon(Icons.arrow_circle_right_outlined,
                                 color: Colors.black),
-                        width: 44.w),
+                        width: 44.w,onTap: (){
+                          Navigator.pop(context);
+                    }),
                     50.pw(),
                     AppBarContainerWidget(
                         widget: AppText(

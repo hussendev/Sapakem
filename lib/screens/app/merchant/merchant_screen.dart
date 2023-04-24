@@ -20,8 +20,8 @@ class MerchantScreen extends StatelessWidget {
         child: BlocBuilder<HomeCubit, HomeStates>(
           builder: (context, state) {
             if (state is LoadingMerchantsState) {
-              return Scaffold(
-                  body: const Center(
+              return const Scaffold(
+                  body: Center(
                 child: CircularProgressIndicator(),
               ));
             } else if (state is SuccessMerchantState) {
@@ -45,16 +45,21 @@ class MerchantScreen extends StatelessWidget {
                                   width: double.infinity,
                                   child: Row(
                                     children: [
-                                      Container(
-                                        margin: const EdgeInsets.only(left: 10),
-                                        height: 30,
-                                        width: 30,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        child: const Icon(
-                                            Icons.arrow_circle_right_outlined),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Container(
+                                          margin: const EdgeInsets.only(left: 10),
+                                          height: 30,
+                                          width: 30,
+                                          decoration: const BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10))),
+                                          child: const Icon(
+                                              Icons.arrow_circle_right_outlined),
+                                        ),
                                       ),
                                       const Spacer(),
                                       Container(

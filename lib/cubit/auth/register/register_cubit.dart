@@ -22,7 +22,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(LoadingRegisterState());
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: '+972 59-219-7258',
+        phoneNumber: '+970592197258',
         verificationCompleted: (PhoneAuthCredential credential) async {
           // Logger().i(credential.smsCode);
           // await auth.signInWithCredential(credential);

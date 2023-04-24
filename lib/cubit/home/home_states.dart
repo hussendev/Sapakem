@@ -8,6 +8,13 @@ class HomeStates extends Equatable {
   List<Object?> get props => [];
 }
 
+
+//start counter states
+
+
+//end counter states
+
+
 //start loading states
 
 class LoadingHomeState extends HomeStates {}
