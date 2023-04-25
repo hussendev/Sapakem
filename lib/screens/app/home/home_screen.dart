@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   final List<BNScreen> screens = [
     BNScreen(title: 'home', widget: HomeScreenWidget()),
-    const BNScreen(title: 'cart', widget: CartScreenWidget()),
+     BNScreen(title: 'cart', widget: CartScreenWidget()),
     const BNScreen(title: 'order', widget: OrderScreenWidget()),
     BNScreen(title: 'profile', widget: ProfileScreenWidget()),
   ];

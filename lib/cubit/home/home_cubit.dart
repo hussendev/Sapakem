@@ -13,8 +13,6 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeApiController homeApiController = HomeApiController();
   int count = 0;
 
-
-
   void getHomeData() async {
     emit(LoadingHomeState());
     try {
@@ -62,10 +60,10 @@ class HomeCubit extends Cubit<HomeStates> {
   //
   // }
 
-  void getMerchant(int merchantId) async {
+  void getMerchant(int merchantId, {bool isRefresh = false}) async {
     emit(LoadingMerchantsState());
     try {
-      Merchant merchant = await homeApiController.getMerchant(merchantId);
+      Merchant merchant = await homeApiController.getMerchant(merchantId, isRefresh: isRefresh);
 
       if (merchant.id != null) {
         emit(SuccessMerchantState(merchant));

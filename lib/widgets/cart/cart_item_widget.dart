@@ -1,68 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
+import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
+import '../../screens/app/merchant/product_details.dart';
+
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({
+   CartItemWidget({
     super.key,
+    required this.length,
+    required this.data,
   });
+  int length;
+  List<Map<String, dynamic>> data;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 11.w),
-      height: 59.h,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Stack(
-                alignment: Alignment.topLeft,
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    height: 59.h,
-                    width: 84.w,
-                  ),
-                  Container(
-                    width: 12.w,
-                    height: 12.h,
-                    decoration: const BoxDecoration(
-                        color: Colors.blue, shape: BoxShape.circle),
-                    child: const Icon(
-                      Icons.close_rounded,
-                      size: 10,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-              5.pw(),
-              Column(
+    return Expanded(
+      child: ListView.separated(
+        separatorBuilder: (context, index) {
+          return Divider();
+        },
+        padding: EdgeInsets.zero,
+        itemBuilder: (context, index) {
+          Product product= Product.fromJson(data[index]);
+           return InkWell(
+             onTap: () {
+               Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) {
+                    return ProductDetailsScreen(
+                      product: product,
+                    );
+                 },)
+               );
+             },
+             child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 11.w, vertical: 10.h),
+              height: 59.h,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(
-                      text: 'اسم المنتج', fontSize: 13.sp, color: Colors.black),
-                  AppText(
-                      text: '30.0',
-                      fontSize: 13.sp,
-                      color: const Color(0xff1C8ABB)),
+                  Row(
+                    children: [
+                      Stack(
+                        alignment: Alignment.topLeft,
+                        children: [
+                          Container(
+                            decoration:  BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(product.mainImage!),
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            height: 59.h,
+                            width: 84.w,
+                          ),
+                          Container(
+                            width: 12.w,
+                            height: 12.h,
+                            decoration: const BoxDecoration(
+                                color: Colors.blue, shape: BoxShape.circle),
+                            child: const Icon(
+                              Icons.close_rounded,
+                              size: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      5.pw(),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                              text: product.name!, fontSize: 13.sp, color: Colors.black),
+                          AppText(
+                              text: product.price!.toString(),
+                              fontSize: 13.sp,
+                              color: const Color(0xff1C8ABB)),
+                        ],
+                      ),
+                    ],
+                  ),
+                  AppText(text: 'כמות : ${product.quantity!}', fontSize: 12.sp, color: Colors.black)
                 ],
               ),
-            ],
           ),
-          AppText(text: 'כמות : 2', fontSize: 12.sp, color: Colors.black)
-        ],
+           );
+        },
+        itemCount: length,
+
       ),
     );
+
   }
 }
