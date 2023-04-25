@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 
@@ -62,22 +63,20 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   bool isExitInCart(int id, int merchantId) {
-    bool isExit = false;
-    for (int i = 0; i < cart.length; i++) {
-      if (cart[merchantId][i]['id'] == id.toString()) {
-        isExit = true;
-        break;
+    Logger().i(merchantId);
+      bool isExit = false;
+    if(cart.containsKey(merchantId.toString())){
+      List data = cart[merchantId.toString()] as List<Map<String, dynamic>>;
+      for (int i = 0; i < data.length; i++) {
+        if (data[i]['id'].toString() == id.toString()) {
+          isExit = true;
+          break;
+        }
       }
+    }else{
+      isExit = false;
     }
     return isExit;
   }
 
-// void getProducts() {
-//   emit(LoadingProductState());
-//   try {
-//     emit(SuccessProductState());
-//   } catch (e) {
-//     emit(ErrorProductState(e.toString()));
-//   }
-// }
 }

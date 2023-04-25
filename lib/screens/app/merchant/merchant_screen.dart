@@ -99,7 +99,7 @@ class MerchantScreen extends StatelessWidget {
                                 height: 250.h,
                                 child: ListView.builder(
                                   itemBuilder: (context, index) {
-                                    Logger().i(state.merchant.subcategories!.length);
+
                                     return ProductsForMerchantWidget(
                                       products: state.merchant.products!,
                                     );

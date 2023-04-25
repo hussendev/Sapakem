@@ -20,6 +20,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Logger().i();
     return Scaffold(
         backgroundColor: Colors.blue,
         body: Column(
@@ -211,7 +212,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 child: Visibility(
                   visible: !ProductCubit.get(context).isExitInCart(product.id!, product.merchantId!),
-                  replacement: AppText(fontSize: 20.sp, text: "هذا المنتج موجود بالفعل في السلة", color: Colors.red),
+                  replacement: AppText(fontSize: 20.sp, text: "Already exit's in cart", color: Colors.white60,fontWeight: FontWeight.bold,),
                   child: Row(
                     children: [
                       BlocBuilder<ProductCubit, ProductStates>(
@@ -286,7 +287,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   // ProductCubit.get(context).addToCart(
                                   //     product: product);
 
-                                  Logger().i(context.read<ProductCubit>().cart);
+
                                   // counter: ProductCubit.get(context).counter);
                                 },
                               ),
