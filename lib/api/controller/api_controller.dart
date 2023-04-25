@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class ApiController {
-  static ApiController instance = ApiController._internal();
+  static final ApiController instance = ApiController._internal();
 
   ApiController._internal();
 
@@ -15,25 +15,31 @@ class ApiController {
 
   Map<String, dynamic> cacheData = {};
 
-  Future<Map<String,dynamic>?> get(
-      Uri url,
-      {Map<String, String>? headers,
-        int timeToLive = 0,
-        bool withoutToast = false
-      }) async {
+  Future<Map<String, dynamic>?> get(
+    Uri url, {
+    Map<String, String>? headers,
+    int timeToLive = 0,
+    bool withoutToast = false,
+    bool isRefresh = false,
+  }) async {
+    if (isRefresh) {
+      Logger().i('refresh');
+      cacheData.remove(url.toString());
+    }
     if (cacheData.keys.contains(url.toString())) {
       if (timeIsNotExpires(url)) {
+        Logger().i('cache');
         return cacheData[url.toString()];
       }
     }
 
-
+    Logger().i('network');
     // Logger().i(url);
-    var response = await http.get(url,headers: headers ?? {"Content-Type": "application/json"});
-    var data =await jsonDecode(response.body);
+    var response = await http.get(url, headers: headers ?? {"Content-Type": "application/json"});
+    var data = await jsonDecode(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
-      if(response.statusCode !=400) {
+      if (response.statusCode != 400) {
         if (timeToLive > 0) {
           cacheData[url.toString()] = data;
           cacheData['${url}cacheTime'] = timeToLive;
@@ -41,13 +47,11 @@ class ApiController {
         }
         return data;
       }
-    }else {
+    } else {
       return data;
     }
     return null;
   }
-
-
 
   bool timeIsNotExpires(Uri url) {
     DateTime now = DateTime.now();
@@ -56,12 +60,12 @@ class ApiController {
   }
 
   Future<Map> post(
-      Uri url, {
-        Map<String, String>? headers,
-        Object? body,
-        Encoding? encoding,
-        required BuildContext context,
-      }) async {
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    required BuildContext context,
+  }) async {
     http.Response response = await http.post(url, headers: headers ?? {"Content-Type": "application/json"}, body: body, encoding: encoding);
     Map<String, dynamic> data = await jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -72,12 +76,12 @@ class ApiController {
   }
 
   Future<Map> patch(
-      Uri url, {
-        Map<String, String>? headers,
-        Object? body,
-        Encoding? encoding,
-        required BuildContext context,
-      }) async {
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    required BuildContext context,
+  }) async {
     http.Response response = await http.patch(url, headers: headers ?? {"Content-Type": "application/json"}, body: body, encoding: encoding);
     Map<String, dynamic> data = await jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -88,12 +92,12 @@ class ApiController {
   }
 
   Future<Map> delete(
-      Uri url, {
-        Map<String, String>? headers,
-        Object? body,
-        Encoding? encoding,
-        required BuildContext context,
-      }) async {
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    required BuildContext context,
+  }) async {
     http.Response response = await http.delete(url, headers: headers ?? {"Content-Type": "application/json"}, body: body, encoding: encoding);
     Map<String, dynamic> data = await jsonDecode(response.body);
     if (response.statusCode >= 200 && response.statusCode < 300) {

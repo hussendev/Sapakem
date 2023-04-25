@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:sapakem/cubit/home/product/producr_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/util/context_extenssion.dart';
+import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_button_widget.dart';
 import 'package:sapakem/widgets/custom_app_bar.dart';
 import 'package:sapakem/widgets/merchant/increment_and_decrement_widget.dart';
@@ -39,10 +39,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomAppBar(title: "اسم المنتج"),
-                    SizedBox(
-                      height: 20.h,
-                    ),
+                    CustomAppBar(title: product.name!),
+                    20.ph(),
                     Container(
                       // height: 300.h,
                       clipBehavior: Clip.antiAlias,
@@ -50,11 +48,10 @@ class ProductDetailsScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey.shade200,
-                        border:
-                            Border.all(color: Colors.grey.shade600, width: 1),
+                        border: Border.all(color: Colors.grey.shade600, width: 1),
                       ),
                       child: Container(
-                        margin: EdgeInsets.all(50),
+                        margin: const EdgeInsets.all(50),
                         width: 150.w,
                         height: 150.h,
                         decoration: BoxDecoration(
@@ -64,134 +61,144 @@ class ProductDetailsScreen extends StatelessWidget {
                           ),
                           shape: BoxShape.circle,
                           color: Colors.red,
-                          border: Border.all(
-                              color: Colors.grey.shade600, width: 1),
+                          border: Border.all(color: Colors.grey.shade600, width: 1),
                         ),
 
                         // height: double.infinity,
                       ),
                     ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
+                    40.ph(),
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      width: 200.w,
+                      // width: 200.w,
                       height: 40.h,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText(
-                            text: product.price!.toString(),
+                            text: "Price",
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                             textAlign: TextAlign.center,
                             color: Colors.blue,
                           ),
+                          10.pw(),
                           AppText(
-                            text: "السعر",
+                            text: '${product.price!}\$',
                             fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                             textAlign: TextAlign.center,
                             color: Colors.blue,
                           ),
-                          Icon(
-                            Icons.share_outlined,
-                            color: Colors.blue,
+                          const Spacer(),
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.blue,
+                            ),
+                            child: Center(
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                icon: const Icon(Icons.share),
+                                color: Colors.white,
+                                onPressed: () {},
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      height: 250.h,
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  AppText(
-                                    text: "نوع",
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
+                    20.ph(),
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20.w),
+                        // height: 250.h,
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      AppText(
+                                        text: "نوع",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                      AppText(
+                                        text: 'كيلو',
+                                        fontSize: 16.sp,
+                                        // fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                    ],
                                   ),
-                                  AppText(
-                                    text: 'كيلو',
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
+                                ),
+                                Container(
+                                  height: 50.h,
+                                  width: 1,
+                                  color: Colors.black,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      AppText(
+                                        text: "وقت التحضير",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                      AppText(
+                                        text: '30 دقيقة',
+                                        fontSize: 16.sp,
+                                        // fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              Container(
-                                height: 50.h,
-                                width: 1,
-                                color: Colors.black,
-                              ),
-                              Column(
-                                children: [
-                                  AppText(
-                                    text: "وقت التحضير",
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
+                                ),
+                                Container(
+                                  height: 50.h,
+                                  width: 1,
+                                  color: Colors.black,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      AppText(
+                                        text: "وقت الاستلام",
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                      AppText(
+                                        text: '30 دقيقة',
+                                        fontSize: 16.sp,
+                                        // fontWeight: FontWeight.bold,
+                                        textAlign: TextAlign.center,
+                                        color: Colors.black,
+                                      ),
+                                    ],
                                   ),
-                                  AppText(
-                                    text: '30 دقيقة',
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: 50.h,
-                                width: 1,
-                                color: Colors.black,
-                              ),
-                              Column(
-                                children: [
-                                  AppText(
-                                    text: "وقت الاستلام",
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
-                                  ),
-                                  AppText(
-                                    text: '30 دقيقة',
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.bold,
-                                    textAlign: TextAlign.center,
-                                    color: Colors.black,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20.h,
-                          ),
-                          SizedBox(
-                            height: 160.h,
-                            child: AppText(
-                                textAlign: TextAlign.left,
-                                text: product.description!,
-                                fontSize: 16.sp,
-                                color: Colors.black),
-                          )
-                        ],
+                                ),
+                              ],
+                            ),
+                            20.ph(),
+                            SizedBox(
+                              height: 160.h,
+                              child: AppText(textAlign: TextAlign.left, text: product.description!, fontSize: 16.sp, color: Colors.black),
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ],
@@ -202,93 +209,93 @@ class ProductDetailsScreen extends StatelessWidget {
               flex: 1,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    BlocBuilder<ProductCubit,ProductStates>(
-                      buildWhen: (previous, current) {
-                        if(current is IncrementProductState || current is DecrementProductState){
-                          return true;
-                        }
-                        return false;
-                      } ,
-                      builder:(context, state) {
-                        if(state is InitialProductState){
-                          return  incrementAndDecrementWidget(counter:state.counter);
-                        }else if(state is IncrementProductState){
-                          return  incrementAndDecrementWidget(counter:state.counter);
-                        }else if(state is DecrementProductState) {
-                          return  incrementAndDecrementWidget(counter:state.counter);
-                        }else{
-                          return  incrementAndDecrementWidget(counter:0);
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    BlocConsumer<ProductCubit,ProductStates>(
-                      listener: (context, state) {
-                        if(state is AlraedyInCartProductState){
-                          context.showSnackBar(message: state.message,error: true);
-                        }else if(state is SuccessAddProductState){
-                          context.showSnackBar(message: state.message);
-                        }
-                      },
-                      listenWhen: (previous, current) {
-                        if(current is SuccessAddProductState || current is AlraedyInCartProductState){
-                          return true;
-                        }
-                        return false;
-                      },
-                      buildWhen: (previous, current) {
-                        if(current is LoadingProductState || current is SuccessAddProductState || current is AlraedyInCartProductState){
-                          return true;
-                        }
-                        return false;
-                      } ,
-                      builder:(context, state) {
-                        if(state is LoadingProductState){
-                          return Center(child: CircularProgressIndicator(),);
-                        }else if(state is SuccessAddProductState ||state is AlraedyInCartProductState){
-                          return  Expanded(
-                            flex: 2,
-                            child: AppButton(
-                              color: Colors.white60,
-                              text:context.localizations.add_to_cart,
-                              onPressed: () {
-                                context.read<ProductCubit>().addToCart(product: product);
-                                // ProductCubit.get(context).addToCart(
-                                //     product: product);
+                child: Visibility(
+                  visible: !ProductCubit.get(context).isExitInCart(product.id!, product.merchantId!),
+                  replacement: AppText(fontSize: 20.sp, text: "هذا المنتج موجود بالفعل في السلة", color: Colors.red),
+                  child: Row(
+                    children: [
+                      BlocBuilder<ProductCubit, ProductStates>(
+                        buildWhen: (previous, current) {
+                          if (current is IncrementProductState || current is DecrementProductState) {
+                            return true;
+                          }
+                          return false;
+                        },
+                        builder: (context, state) {
+                          if (state is InitialProductState) {
+                            return incrementAndDecrementWidget(counter: state.counter);
+                          } else if (state is IncrementProductState) {
+                            return incrementAndDecrementWidget(counter: state.counter);
+                          } else if (state is DecrementProductState) {
+                            return incrementAndDecrementWidget(counter: state.counter);
+                          } else {
+                            return incrementAndDecrementWidget(counter: 0);
+                          }
+                        },
+                      ),
+                      10.pw(),
+                      BlocConsumer<ProductCubit, ProductStates>(
+                        listener: (context, state) {
+                          if (state is AlraedyInCartProductState) {
+                            context.showSnackBar(message: state.message, error: true);
+                          } else if (state is SuccessAddProductState) {
+                            context.showSnackBar(message: state.message);
+                          }
+                        },
+                        listenWhen: (previous, current) {
+                          if (current is SuccessAddProductState || current is AlraedyInCartProductState) {
+                            return true;
+                          }
+                          return false;
+                        },
+                        buildWhen: (previous, current) {
+                          if (current is LoadingProductState || current is SuccessAddProductState || current is AlraedyInCartProductState) {
+                            return true;
+                          }
+                          return false;
+                        },
+                        builder: (context, state) {
+                          if (state is LoadingProductState) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (state is SuccessAddProductState || state is AlraedyInCartProductState) {
+                            return Expanded(
+                              flex: 2,
+                              child: AppButton(
+                                color: Colors.white60,
+                                text: context.localizations.add_to_cart,
+                                onPressed: () {
+                                  context.read<ProductCubit>().addToCart(product: product);
+                                  // ProductCubit.get(context).addToCart(
+                                  //     product: product);
 
+                                  Logger().i(context.read<ProductCubit>().cart);
+                                  // counter: ProductCubit.get(context).counter);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Expanded(
+                              flex: 2,
+                              child: AppButton(
+                                color: Colors.white60,
+                                text: context.localizations.add_to_cart,
+                                onPressed: () {
+                                  context.read<ProductCubit>().addToCart(product: product);
+                                  // ProductCubit.get(context).addToCart(
+                                  //     product: product);
 
-                                Logger().i(   context.read<ProductCubit>().cart);
-                                // counter: ProductCubit.get(context).counter);
-                              },
-                            ),
-                          );
-                        } else{
-                          return  Expanded(
-                            flex: 2,
-                            child: AppButton(
-                              color: Colors.white60,
-                              text: context.localizations.add_to_cart,
-                              onPressed: () {
-                                context.read<ProductCubit>().addToCart(product: product);
-                                // ProductCubit.get(context).addToCart(
-                                //     product: product);
-
-
-                                Logger().i(   context.read<ProductCubit>().cart);
-                                // counter: ProductCubit.get(context).counter);
-                              },
-                            ),
-                          );
-                        }
-
-                      },
-                    ),
-
-                  ],
+                                  Logger().i(context.read<ProductCubit>().cart);
+                                  // counter: ProductCubit.get(context).counter);
+                                },
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
@@ -296,5 +303,3 @@ class ProductDetailsScreen extends StatelessWidget {
         ));
   }
 }
-
-

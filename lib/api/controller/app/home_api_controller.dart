@@ -11,34 +11,16 @@ class HomeApiController {
   ApiController apiController = ApiController();
 
   Future<HomeResponse> getHomeData() async {
-    var data = await apiController.get(Uri.parse(ApiSettings.home),
-        headers: {
-          HttpHeaders.authorizationHeader:
-              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json'
-        },
-        timeToLive: 10,
-        withoutToast: true);
+    var data = await apiController.get(Uri.parse(ApiSettings.home), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;
   }
 
   Future<List<Merchant>> getMerchantByCategory(int categoryId) async {
-    var data = await apiController.get(
-        Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'),
-        headers: {
-          HttpHeaders.authorizationHeader:
-              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json'
-        },
-        timeToLive: 10,
-        withoutToast: true);
+    var data = await apiController.get(Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
 
-    List<Merchant> merchants =
-        (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
+    List<Merchant> merchants = (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
 
     // String url = ApiSettings.basedUrl +
@@ -65,18 +47,9 @@ class HomeApiController {
   }
 
   Future<List<Merchant>> getMerchants() async {
-    var data = await apiController.get(Uri.parse(ApiSettings.merchant),
-        headers: {
-          HttpHeaders.authorizationHeader:
-              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json'
-        },
-        timeToLive: 10,
-        withoutToast: true);
+    var data = await apiController.get(Uri.parse(ApiSettings.merchant), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
 
-    List<Merchant> merchants =
-        (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
+    List<Merchant> merchants = (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
 
     // var response = await http.get(Uri.parse(ApiSettings.merchant), headers: {
@@ -96,17 +69,14 @@ class HomeApiController {
     // return [];
   }
 
-  Future<Merchant> getMerchant(int id) async {
-    var data =
-        await apiController.get(Uri.parse(ApiSettings.merchant + id.toString()),
-            headers: {
-              HttpHeaders.authorizationHeader: SharedPrefController()
-                  .getValueFor<String>(PrefKeys.token.name)!,
-              'X-Requested-With': 'XMLHttpRequest',
-              'Accept': 'application/json'
-            },
-            timeToLive: 3,
-            withoutToast: true);
+  Future<Merchant> getMerchant(int id, {bool isRefresh = false}) async {
+    var data = await apiController.get(
+      Uri.parse(ApiSettings.merchant + id.toString()),
+      headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'},
+      timeToLive: 3,
+      withoutToast: true,
+      isRefresh: isRefresh,
+    );
 
     Merchant merchant = Merchant.fromJson(data!['object']);
     return merchant;
