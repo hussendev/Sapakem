@@ -39,7 +39,7 @@ class incrementAndDecrementWidget extends StatelessWidget {
           ),
           Center(
             child: AppText(
-              text: counter.toString(),
+              text: ProductCubit.get(context).quantity.toString(),
               fontSize: 16.sp,
               color: Colors.white,
             ),

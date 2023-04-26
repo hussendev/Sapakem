@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/cubit/home/product/producr_cubit.dart';
 import 'package:sapakem/screens/app/home/notification_screen.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -81,6 +82,7 @@ class CustomAppBar extends StatelessWidget {
                             : const Icon(Icons.arrow_circle_right_outlined,
                                 color: Colors.black),
                         width: 44.w,onTap: (){
+                        ProductCubit.get(context).resetCounter();
                           Navigator.pop(context);
                     }),
                     50.pw(),

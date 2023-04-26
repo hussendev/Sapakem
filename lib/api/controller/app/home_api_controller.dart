@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/api_controller.dart';
 import 'package:sapakem/model/home/merchant.dart';
 
@@ -12,6 +13,7 @@ class HomeApiController {
 
   Future<HomeResponse> getHomeData() async {
     var data = await apiController.get(Uri.parse(ApiSettings.home), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
+
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;

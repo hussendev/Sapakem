@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:logger/logger.dart';
+import 'package:sapakem/cubit/home/product/producr_cubit.dart';
 import 'package:sapakem/model/home/product.dart';
+import 'package:sapakem/model/home/product_cart.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
@@ -25,14 +29,15 @@ class CartItemWidget extends StatelessWidget {
         },
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          Product product= Product.fromJson(data[index]);
+          ProductCart product= ProductCart.fromJson(data[index]);
            return InkWell(
              onTap: () {
                Navigator.push(
                  context,
                  MaterialPageRoute(builder: (context) {
                     return ProductDetailsScreen(
-                      product: product,
+                      product: null,
+                      productCart: product,
                     );
                  },)
                );
@@ -62,15 +67,21 @@ class CartItemWidget extends StatelessWidget {
                             height: 59.h,
                             width: 84.w,
                           ),
-                          Container(
-                            width: 12.w,
-                            height: 12.h,
-                            decoration: const BoxDecoration(
-                                color: Colors.blue, shape: BoxShape.circle),
-                            child: const Icon(
-                              Icons.close_rounded,
-                              size: 10,
-                              color: Colors.white,
+                          InkWell(
+                            onTap: () {
+                              // Logger().i('remove product from cart');
+                              context.read<ProductCubit>().removeProductFromCart(product.id!,product.merchantId!);
+                            },
+                            child: Container(
+                              width: 12.w,
+                              height: 12.h,
+                              decoration: const BoxDecoration(
+                                  color: Colors.blue, shape: BoxShape.circle),
+                              child: const Icon(
+                                Icons.close_rounded,
+                                size: 10,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -90,7 +101,7 @@ class CartItemWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  AppText(text: 'כמות : ${product.quantity!}', fontSize: 12.sp, color: Colors.black)
+                  AppText(text: '${context.localizations.quantity} : ${product.quantity!}', fontSize: 12.sp, color: Colors.black)
                 ],
               ),
           ),
