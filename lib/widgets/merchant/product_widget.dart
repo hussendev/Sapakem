@@ -6,15 +6,17 @@ import 'package:sapakem/screens/app/merchant/product_details.dart';
 import '../app_text.dart';
 
 class ProductWidget extends StatelessWidget {
-  ProductWidget({super.key, required this.product});
+  ProductWidget({super.key, required this.product, required this.quantity});
 
   Product product;
+  int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
+  int counter = quantity;
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: product)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: product,)));
 
         // AppDialog.productOrder(
         //   context,

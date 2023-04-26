@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+
+import '../../prefs/shared_pref_controller.dart';
 
 class ApiController {
   static final ApiController instance = ApiController._internal();
@@ -33,9 +36,9 @@ class ApiController {
       }
     }
 
-    Logger().i('network');
     // Logger().i(url);
-    var response = await http.get(url, headers: headers ?? {"Content-Type": "application/json"});
+    http.Response response = await http.get(url, headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'});
+    Logger().i(response.statusCode);
     var data = await jsonDecode(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {

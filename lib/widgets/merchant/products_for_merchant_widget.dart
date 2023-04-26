@@ -37,7 +37,7 @@ class ProductsForMerchantWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return  ProductWidget(product: products[index]);
+                return  ProductWidget(product: products[index],quantity: products[index].quantity!);
               },
             ),
           ),

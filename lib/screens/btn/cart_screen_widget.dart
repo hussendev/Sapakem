@@ -25,6 +25,7 @@ class CartScreenWidget extends StatelessWidget {
         BlocBuilder<ProductCubit, ProductStates>(
           builder: (context, state) {
             Map<String, dynamic> data = context.read<ProductCubit>().cart;
+            // Logger().i('data: $data');
            return data.isNotEmpty?
              Padding(
               padding: EdgeInsets.symmetric(horizontal: 36.w),
@@ -172,8 +173,8 @@ class CartScreenWidget extends StatelessWidget {
 
           },
           buildWhen: (previous, current) {
-            if (current is SuccessAddProductState ||
-                current is AlraedyInCartProductState) {
+            if (current is ProcessProductState ||
+                current is ErrorAddProductState) {
               return true;
             }
             return false;

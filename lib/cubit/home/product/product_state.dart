@@ -1,18 +1,20 @@
+enum ProcessState { ADD, DELETE}
 class ProductStates {}
 
 class LoadingProductState extends ProductStates {}
 
 
-class SuccessAddProductState extends ProductStates {
+class ProcessProductState extends ProductStates {
   Map<String,dynamic> products;
   String message;
-  SuccessAddProductState(this.products,this.message);
+  ProcessState processState;
+  ProcessProductState(this.products,this.message,this.processState);
 }
 
-class AlraedyInCartProductState extends ProductStates {
-  String message;
-  AlraedyInCartProductState(this.message);
-}
+// class AlraedyInCartProductState extends ProductStates {
+//   String message;
+//   AlraedyInCartProductState(this.message);
+// }
 
 class ErrorAddProductState extends ProductStates {
   String message;
