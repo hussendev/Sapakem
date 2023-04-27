@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/model/home/merchant.dart';
-import 'package:sapakem/util/sized_box_extension.dart';
 
 import '../../screens/app/merchant/merchant_screen.dart';
 
@@ -12,6 +12,7 @@ class MerchantWidget extends StatelessWidget {
     super.key,
     required this.merchant,
   });
+
   Merchant merchant;
 
   @override
@@ -42,7 +43,7 @@ class MerchantWidget extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(merchant.merchantLogo!),
+                    image: CachedNetworkImageProvider(merchant.merchantLogo!),
                     fit: BoxFit.cover,
                   ),
                   color: Colors.red,
@@ -76,7 +77,7 @@ class MerchantWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                     ' merchant.address',
+                      ' merchant.address',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.sp,

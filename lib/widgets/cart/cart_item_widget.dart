@@ -1,9 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/product/producr_cubit.dart';
-import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -12,11 +11,12 @@ import 'package:sapakem/widgets/app_text.dart';
 import '../../screens/app/merchant/product_details.dart';
 
 class CartItemWidget extends StatelessWidget {
-   CartItemWidget({
+  CartItemWidget({
     super.key,
     required this.length,
     required this.data,
   });
+
   int length;
   List<Map<String, dynamic>> data;
 
@@ -29,20 +29,19 @@ class CartItemWidget extends StatelessWidget {
         },
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
-          ProductCart product= ProductCart.fromJson(data[index]);
-           return InkWell(
-             onTap: () {
-               Navigator.push(
-                 context,
-                 MaterialPageRoute(builder: (context) {
-                    return ProductDetailsScreen(
-                      product: null,
-                      productCart: product,
-                    );
-                 },)
-               );
-             },
-             child: Container(
+          ProductCart product = ProductCart.fromJson(data[index]);
+          return InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return ProductDetailsScreen(
+                    product: null,
+                    productCart: product,
+                  );
+                },
+              ));
+            },
+            child: Container(
               margin: EdgeInsets.symmetric(horizontal: 11.w, vertical: 10.h),
               height: 59.h,
               child: Row(
@@ -55,9 +54,9 @@ class CartItemWidget extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         children: [
                           Container(
-                            decoration:  BoxDecoration(
+                            decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(product.mainImage!),
+                                image: CachedNetworkImageProvider(product.mainImage!),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: const BorderRadius.all(
@@ -70,13 +69,12 @@ class CartItemWidget extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               // Logger().i('remove product from cart');
-                              context.read<ProductCubit>().removeProductFromCart(product.id!,product.merchantId!);
+                              context.read<ProductCubit>().removeProductFromCart(product.id!, product.merchantId!);
                             },
                             child: Container(
                               width: 12.w,
                               height: 12.h,
-                              decoration: const BoxDecoration(
-                                  color: Colors.blue, shape: BoxShape.circle),
+                              decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                               child: const Icon(
                                 Icons.close_rounded,
                                 size: 10,
@@ -91,12 +89,8 @@ class CartItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppText(
-                              text: product.name!, fontSize: 13.sp, color: Colors.black),
-                          AppText(
-                              text: product.price!.toString(),
-                              fontSize: 13.sp,
-                              color: const Color(0xff1C8ABB)),
+                          AppText(text: product.name!, fontSize: 13.sp, color: Colors.black),
+                          AppText(text: product.price!.toString(), fontSize: 13.sp, color: const Color(0xff1C8ABB)),
                         ],
                       ),
                     ],
@@ -104,13 +98,11 @@ class CartItemWidget extends StatelessWidget {
                   AppText(text: '${context.localizations.quantity} : ${product.quantity!}', fontSize: 12.sp, color: Colors.black)
                 ],
               ),
-          ),
-           );
+            ),
+          );
         },
         itemCount: length,
-
       ),
     );
-
   }
 }
