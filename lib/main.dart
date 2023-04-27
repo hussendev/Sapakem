@@ -10,7 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:sapakem/cubit/home/product/producr_cubit.dart';
+
+import 'package:sapakem/cubit/home/home_cubit.dart';
+import 'package:sapakem/cubit/home/product/product_cubit.dart';
+
 import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/cubit/language/language_state.dart';
 import 'package:sapakem/model/home/categories.dart';

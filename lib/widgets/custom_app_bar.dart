@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sapakem/cubit/home/product/producr_cubit.dart';
+import 'package:sapakem/cubit/home/product/product_cubit.dart';
 import 'package:sapakem/screens/app/home/notification_screen.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
