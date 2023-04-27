@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_extensions, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 extension contextExtenssion on BuildContext {
   void showSnackBar({required String message, bool error = false}) {
@@ -17,6 +17,28 @@ extension contextExtenssion on BuildContext {
         dismissDirection: DismissDirection.horizontal,
         behavior: SnackBarBehavior.floating,
       ),
+    );
+  }
+
+  void showIndicator() {
+    showDialog(
+      context: this,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                CircularProgressIndicator(),
+                SizedBox(width: 16.0),
+                Text("Loading..."),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

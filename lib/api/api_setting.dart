@@ -11,6 +11,8 @@ class ApiSettings {
 
   static const String updateProfile = '${basedUrl}auth/update-profile';
 
+  static const String request_post = '${basedUrl}friend_requests';
+
 // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
 // static const String profile = '${_basedUrl}User/GetProfile';
 // static const String services = '${_basedUrl}ItemServices/Service/Get';

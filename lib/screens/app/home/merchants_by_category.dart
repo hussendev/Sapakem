@@ -3,30 +3,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
+import 'package:sapakem/model/home/categories.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/custom_app_bar.dart';
 
 import '../../../widgets/merchant/merchant_widget.dart';
-import '../merchant/merchant_screen.dart';
 
 class MerchantsByCategory extends StatelessWidget {
-   MerchantsByCategory({super.key,required this.categoryId});
-  int categoryId;
+  MerchantsByCategory({super.key, required this.category});
+
+  Categories category;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getMerchantByCategory(categoryId) ,
-      child: BlocBuilder<HomeCubit,HomeStates>(
+      create: (context) => HomeCubit()..getMerchantByCategory(category.id!),
+      child: BlocBuilder<HomeCubit, HomeStates>(
         builder: (context, state) {
-          if(state is LoadingMerchantByCategoryState){
-            return Scaffold(body: Center(child: CircularProgressIndicator(),));
-          }
-          else if(state is SuccessMerchantByCategoryState){
-            return  Scaffold(
+          if (state is LoadingMerchantByCategoryState) {
+            return Scaffold(
+                body: Center(
+              child: CircularProgressIndicator(),
+            ));
+          } else if (state is SuccessMerchantByCategoryState) {
+            return Scaffold(
               body: Column(
                 children: [
-                  CustomAppBar(title: "افضل المطاعم"),
+                  CustomAppBar(title: category.name!),
                   29.ph(),
                   Expanded(
                     child: Padding(
@@ -35,7 +38,9 @@ class MerchantsByCategory extends StatelessWidget {
                         itemCount: state.merchants.length,
                         padding: EdgeInsets.zero,
                         itemBuilder: (context, index) {
-                          return MerchantWidget(merchant: state.merchants[index],);
+                          return MerchantWidget(
+                            merchant: state.merchants[index],
+                          );
                         },
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -50,12 +55,13 @@ class MerchantsByCategory extends StatelessWidget {
                 ],
               ),
             );
-          }
-          else {
+          } else {
             state as ErrorMerchantByCategoryState;
-            return Scaffold(body: Center(child: Text(state.error),));
+            return Scaffold(
+                body: Center(
+              child: Text(state.error),
+            ));
           }
-
         },
         buildWhen: (previous, current) {
           if (current is LoadingMerchantByCategoryState) {
@@ -67,11 +73,8 @@ class MerchantsByCategory extends StatelessWidget {
           } else {
             return false;
           }
-        } ,
-
+        },
       ),
     );
   }
 }
-
-

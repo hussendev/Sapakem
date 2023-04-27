@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/model/home/product.dart';
@@ -13,10 +14,15 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  int counter = quantity;
+    int counter = quantity;
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: product,)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProductDetailsScreen(
+                      product: product,
+                    )));
 
         // AppDialog.productOrder(
         //   context,
@@ -31,20 +37,20 @@ class ProductWidget extends StatelessWidget {
         margin: EdgeInsets.only(right: 10.w),
         decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.all(Radius.circular(10.r))),
         height: 141.h,
-        width: 113.w,
+        // width: 130.w,
         child: Column(
           children: [
             Expanded(
               flex: 2,
               child: Container(
-                width: double.infinity,
+                width: 130.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10.r),
                     topRight: Radius.circular(10.r),
                   ),
                   image: DecorationImage(
-                    image: NetworkImage(
+                    image: CachedNetworkImageProvider(
                       product.mainImage!,
                     ),
                     fit: BoxFit.cover,
@@ -58,7 +64,7 @@ class ProductWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                   horizontal: 5.w,
                 ),
-                width: double.infinity,
+                width: 115,
                 // color: Colors.blue,
                 child: Row(
                   // crossAxisAlignment: CrossAxisAlignment.end,
@@ -81,14 +87,14 @@ class ProductWidget extends StatelessWidget {
                     ),
                     Container(
                       height: 20.h,
-                      width: 20.w,
+                      // width: 30.w,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(6)),
                         color: Colors.white,
                       ),
                       child: Center(
                         child: AppText(
-                          text: product.price.toString(),
+                          text: '${product.price}\$',
                           fontSize: 10.sp,
                           color: Colors.black,
                         ),
