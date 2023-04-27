@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/api_controller.dart';
 import 'package:sapakem/model/home/merchant.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 
 import '../../../model/home/home.dart';
 import '../../../prefs/shared_pref_controller.dart';
@@ -13,7 +15,6 @@ class HomeApiController {
 
   Future<HomeResponse> getHomeData() async {
     var data = await apiController.get(Uri.parse(ApiSettings.home), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
-
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;
@@ -72,6 +73,7 @@ class HomeApiController {
   }
 
   Future<Merchant> getMerchant(int id, {bool isRefresh = false}) async {
+    Logger().i("ad");
     var data = await apiController.get(
       Uri.parse(ApiSettings.merchant + id.toString()),
       headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'},
@@ -98,5 +100,23 @@ class HomeApiController {
     //   }
     // }
     // return Merchant();
+  }
+
+  sendRequestForMerchant({required BuildContext context, required String merchant_id}) async {
+    context.showIndicator();
+    dynamic a = await ApiController().post(
+      Uri.parse(ApiSettings.request_post),
+      context: context,
+      body: {
+        'merchant_id': merchant_id,
+      },
+      headers: {
+        HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json',
+      },
+    );
+    Logger().i(a.toString());
+    Navigator.pop(context);
   }
 }

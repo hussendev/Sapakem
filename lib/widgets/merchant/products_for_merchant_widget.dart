@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/merchant/product_widget.dart';
@@ -7,11 +8,9 @@ import 'package:sapakem/widgets/merchant/product_widget.dart';
 import '../app_text.dart';
 
 class ProductsForMerchantWidget extends StatelessWidget {
-   ProductsForMerchantWidget({
-    super.key,
-     required this.products
-  });
-  List<Product> products=[];
+  ProductsForMerchantWidget({super.key, required this.products});
+
+  List<Product> products = [];
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class ProductsForMerchantWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               itemBuilder: (context, index) {
-                return  ProductWidget(product: products[index],quantity: products[index].quantity!);
+                return ProductWidget(product: products[index], quantity: products[index].quantity!);
               },
             ),
           ),

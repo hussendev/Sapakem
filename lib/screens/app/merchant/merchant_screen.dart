@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
 import 'package:sapakem/model/home/merchant.dart';
@@ -19,7 +18,7 @@ class MerchantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-        create: (context) => HomeCubit()..getMerchant(merchant!.id!),
+        create: (context) => HomeCubit()..getMerchantById(merchant!.id!),
         child: BlocBuilder<HomeCubit, HomeStates>(
           builder: (context, state) {
             if (state is LoadingMerchantsState) {
@@ -30,8 +29,7 @@ class MerchantScreen extends StatelessWidget {
             } else if (state is SuccessMerchantState) {
               return RefreshIndicator(
                 onRefresh: () async {
-                  await Future.delayed(const Duration(seconds: 1));
-                  HomeCubit.get(context).getMerchant(merchant!.id!, isRefresh: true);
+                  HomeCubit.get(context).getMerchantById(merchant!.id!, isRefresh: true);
                 },
                 child: Scaffold(
                     extendBodyBehindAppBar: true,
@@ -65,12 +63,17 @@ class MerchantScreen extends StatelessWidget {
                                           ),
                                         ),
                                         const Spacer(),
-                                        Container(
-                                          margin: const EdgeInsets.only(left: 10),
-                                          height: 44.h,
-                                          width: 44.w,
-                                          decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
-                                          child: const Icon(Icons.shopping_cart),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(context, '/cart_screen');
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.only(left: 10),
+                                            height: 44.h,
+                                            width: 44.w,
+                                            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+                                            child: const Icon(Icons.shopping_cart),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -82,7 +85,14 @@ class MerchantScreen extends StatelessWidget {
                               margin: EdgeInsets.only(top: 220.h, left: 37.w, right: 37.w),
                               height: 111.h,
                               width: 112.w,
-                              decoration: BoxDecoration(color: Colors.black, shape: BoxShape.circle, image: DecorationImage(image: NetworkImage(state.merchant.merchantLogo!), fit: BoxFit.cover)),
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: NetworkImage(state.merchant.merchantLogo!),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -95,11 +105,10 @@ class MerchantScreen extends StatelessWidget {
                                 merchant: state.merchant,
                               ),
                               31.ph(),
-                              Container(
+                              SizedBox(
                                 height: 250.h,
                                 child: ListView.builder(
                                   itemBuilder: (context, index) {
-
                                     return ProductsForMerchantWidget(
                                       products: state.merchant.products!,
                                     );

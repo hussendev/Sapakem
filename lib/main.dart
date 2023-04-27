@@ -7,15 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
-import 'package:sapakem/cubit/home/product/product_cubit.dart';
+import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
+import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/cubit/language/language_state.dart';
+import 'package:sapakem/model/home/categories.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
+import 'package:sapakem/screens/app/home/favorite_screen.dart';
 import 'package:sapakem/screens/app/home/home_screen.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/screens/app/profile/location.dart';
@@ -25,10 +27,13 @@ import 'package:sapakem/screens/auth/login_screen.dart';
 import 'package:sapakem/screens/auth/new_password_screen.dart';
 import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
+import 'package:sapakem/screens/btn/cart_screen_widget.dart';
 import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
 import 'package:sapakem/screens/onboarding/on_boarding.dart';
 import 'package:sapakem/util/bloc_observer.dart';
+
+import 'cubit/home/product/product_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +42,6 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
 
-
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
   LocationPermission permission = await Geolocator.checkPermission();
@@ -45,15 +49,11 @@ void main() async {
     permission = await Geolocator.requestPermission();
   }
 
-
-
   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
     SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!, lat: position.latitude, lng: position.longitude, deviceType: deviceType);
   }).catchError((e) {
     Logger().wtf(e);
   });
-
-
 
   runApp(const MyApp());
 }
@@ -69,10 +69,14 @@ class MyApp extends StatelessWidget {
           create: (_) => LanguageCubit(),
         ),
         BlocProvider<ProductCubit>(
-        create: (context) => ProductCubit(),
+          create: (context) => ProductCubit(),
         ),
-
-
+        BlocProvider<MerchantCubit>(
+          create: (context) => MerchantCubit(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(),
+        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, language) {
@@ -103,8 +107,10 @@ class MyApp extends StatelessWidget {
                   '/chose_language': (context) => const ChoseLanguage(),
                   '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) => MerchantsByCategory(categoryId: 0),
+                  '/merchants_by_category': (context) => MerchantsByCategory(category: Categories()),
                   '/location': (context) => const LocationMap(),
+                  '/cart_screen': (context) => CartScreenWidget(),
+                  '/favorite_screen': (context) => FavoriteScreen(),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -60,7 +61,7 @@ class AppDrawer extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
               children: [
-                AppText(text: 'Baraa Mubarak', fontSize: 20.sp, color: Colors.black),
+                AppText(text: SharedPrefController().getValueFor(PrefKeys.name.name), fontSize: 20.sp, color: Colors.black),
                 20.ph(),
                 ProfileInformationWidget(
                   icon: Icons.location_on_outlined,
@@ -75,6 +76,9 @@ class AppDrawer extends StatelessWidget {
                 ProfileInformationWidget(
                   icon: Icons.favorite,
                   text: context.localizations.favorite,
+                  onTap: () {
+                    Navigator.pushNamed(context, '/favorite_screen');
+                  },
                 ),
                 27.ph(),
                 ProfileInformationWidget(

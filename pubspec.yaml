@@ -85,6 +85,11 @@ dependencies:
   #UI
   carousel_slider: ^4.2.1
 
+  #Share Data To Another Apps
+  share_plus: ^6.3.3
+
+  #image cache
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:

@@ -70,5 +70,16 @@
   "complete_the_process": "השלם את התהליך",
   "update_profile": "עדכן פרופיל",
   "full_name": "שם מלא",
-  "update": "עדכן"
+  "update": "עדכן",
+  "price": "מחיר",
+  "kg": "קג",
+  "type": "סוּג",
+  "time": "זְמַן",
+  "min": "דקה",
+  "it_is_already_in_the_cart": "זה כבר בעגלה",
+  "payment_summary": "סיכום תשלום",
+  "total": "סך הכל",
+  "shipping": "משלוח",
+  "the_total_amount": "הסכום הכולל",
+  "proceed_to_payment": "להמשיך לתשלום"
 }
