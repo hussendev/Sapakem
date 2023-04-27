@@ -10,14 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-
 import 'package:sapakem/cubit/home/home_cubit.dart';
-import 'package:sapakem/cubit/home/product/product_cubit.dart';
-
+import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
+import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/cubit/language/language_state.dart';
 import 'package:sapakem/model/home/categories.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
+import 'package:sapakem/screens/app/home/favorite_screen.dart';
 import 'package:sapakem/screens/app/home/home_screen.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/screens/app/profile/location.dart';
@@ -32,6 +32,8 @@ import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
 import 'package:sapakem/screens/onboarding/on_boarding.dart';
 import 'package:sapakem/util/bloc_observer.dart';
+
+import 'cubit/home/product/product_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +71,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProductCubit>(
           create: (context) => ProductCubit(),
         ),
+        BlocProvider<MerchantCubit>(
+          create: (context) => MerchantCubit(),
+        ),
+        BlocProvider<HomeCubit>(
+          create: (context) => HomeCubit(),
+        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, language) {
@@ -102,6 +110,7 @@ class MyApp extends StatelessWidget {
                   '/merchants_by_category': (context) => MerchantsByCategory(category: Categories()),
                   '/location': (context) => const LocationMap(),
                   '/cart_screen': (context) => CartScreenWidget(),
+                  '/favorite_screen': (context) => FavoriteScreen(),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

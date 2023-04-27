@@ -18,7 +18,7 @@ class MerchantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeCubit>(
-        create: (context) => HomeCubit()..getMerchant(merchant!.id!),
+        create: (context) => HomeCubit()..getMerchantById(merchant!.id!),
         child: BlocBuilder<HomeCubit, HomeStates>(
           builder: (context, state) {
             if (state is LoadingMerchantsState) {
@@ -29,8 +29,7 @@ class MerchantScreen extends StatelessWidget {
             } else if (state is SuccessMerchantState) {
               return RefreshIndicator(
                 onRefresh: () async {
-                  await Future.delayed(const Duration(seconds: 1));
-                  HomeCubit.get(context).getMerchant(merchant!.id!, isRefresh: true);
+                  HomeCubit.get(context).getMerchantById(merchant!.id!, isRefresh: true);
                 },
                 child: Scaffold(
                     extendBodyBehindAppBar: true,
@@ -106,7 +105,7 @@ class MerchantScreen extends StatelessWidget {
                                 merchant: state.merchant,
                               ),
                               31.ph(),
-                              Container(
+                              SizedBox(
                                 height: 250.h,
                                 child: ListView.builder(
                                   itemBuilder: (context, index) {

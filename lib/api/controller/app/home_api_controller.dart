@@ -73,6 +73,7 @@ class HomeApiController {
   }
 
   Future<Merchant> getMerchant(int id, {bool isRefresh = false}) async {
+    Logger().i("ad");
     var data = await apiController.get(
       Uri.parse(ApiSettings.merchant + id.toString()),
       headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'},

@@ -14,7 +14,6 @@ class ProductsForMerchantWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Logger().i(products.first.name);
     return Container(
       height: 224.h,
       width: 377.w,

@@ -6,9 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
-import 'package:sapakem/cubit/home/product/product_cubit.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sapakem/cubit/home/product/producr_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
@@ -21,6 +19,7 @@ import 'package:share_plus/share_plus.dart';
 
 // import 'package:share_plus/share_plus.dart';
 
+import '../../../cubit/home/product/product_cubit.dart';
 import '../../../widgets/app_text.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
