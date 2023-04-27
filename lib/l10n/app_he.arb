@@ -81,5 +81,6 @@
   "total": "סך הכל",
   "shipping": "משלוח",
   "the_total_amount": "הסכום הכולל",
-  "proceed_to_payment": "להמשיך לתשלום"
+  "proceed_to_payment": "להמשיך לתשלום",
+  "sorry_no_data_to_show": "מצטערים, אין נתונים להראות"
 }
