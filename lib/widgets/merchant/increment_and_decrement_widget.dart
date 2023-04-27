@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sapakem/cubit/home/product/producr_cubit.dart';
+import 'package:sapakem/cubit/home/product/product_cubit.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
 class incrementAndDecrementWidget extends StatelessWidget {
