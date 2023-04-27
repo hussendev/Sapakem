@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
+import 'package:sapakem/screens/app/home/show_more.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/custom_app_bar.dart';
@@ -82,17 +83,26 @@ class HomeScreenWidget extends StatelessWidget {
                               children: [
                                 AppText(text: context.localizations.main_meals, fontSize: 21.sp, color: Colors.blue),
                                 const Spacer(),
-                                SizedBox(
-                                  height: 20.04.h,
-                                  // width: 68.w,
-                                  child: Row(
-                                    children: [
-                                      AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
-                                      5.pw(),
-                                      const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
-                                    ],
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ShowMore(categories: state.homeDate.categories!),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 20.04.h,
+                                    child: Row(
+                                      children: [
+                                        AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
+                                        5.pw(),
+                                        const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
+                                      ],
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
