@@ -66,7 +66,7 @@ class InformationMerchantWidget extends StatelessWidget {
                                 'Address: ${merchant.address}\n'
                                 'Mobile: ${merchant.mobile}\n'
                                 'Is Open: ${merchant.isOpen}\n'
-                                'Busines Hour : ${merchant.businesHour}',
+                                'Business Hour : ${merchant.businesHour}',
                           );
                         },
                         child: Container(
