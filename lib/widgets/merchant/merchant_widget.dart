@@ -59,7 +59,7 @@ class MerchantWidget extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
                 decoration: const BoxDecoration(
                   // color: Colors.blue,
                   borderRadius: BorderRadius.only(
@@ -83,7 +83,7 @@ class MerchantWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          ' merchant.address',
+                          'address',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 12.sp,
@@ -119,17 +119,30 @@ class MerchantWidget extends StatelessWidget {
                       ],
                     ),
                     // const Spacer(),
-                    BlocBuilder<MerchantCubit,MerchantStates>(
+                    BlocBuilder<MerchantCubit, MerchantStates>(
                       builder: (context, state) {
-                        return  InkWell(
-                          child:context.read<MerchantCubit>().isMerchantFavorite(merchant)?Icon(Icons.favorite,color: Colors.red,): Icon(Icons.favorite_border,color: Colors.white,),
-                          onTap: (){
-                            context.read<MerchantCubit>().addMerchantToFavorites(merchant);
+                        return InkWell(
+                          child: context
+                                  .read<MerchantCubit>()
+                                  .isMerchantFavorite(merchant)
+                              ? const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
+                              : const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.white,
+                                ),
+                          onTap: () {
+                            context
+                                .read<MerchantCubit>()
+                                .addMerchantToFavorites(merchant);
                           },
                         );
                       },
-                      buildWhen:  (previous, current) => current is FavoriteMerchantState || current is InitialFavoriteMerchantState,
-
+                      buildWhen: (previous, current) =>
+                          current is FavoriteMerchantState ||
+                          current is InitialFavoriteMerchantState,
                     )
                   ],
                 ),

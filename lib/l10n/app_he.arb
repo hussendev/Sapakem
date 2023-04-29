@@ -79,7 +79,7 @@
   "it_is_already_in_the_cart": "זה כבר בעגלה",
   "payment_summary": "סיכום תשלום",
   "total": "סך הכל",
-  "shipping": "משלוח",
+  "subtotal": "סיכום ביניים",
   "the_total_amount": "הסכום הכולל",
   "proceed_to_payment": "להמשיך לתשלום",
   "sorry_no_data_to_show": "מצטערים, אין נתונים להראות"

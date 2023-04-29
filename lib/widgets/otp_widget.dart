@@ -3,15 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OTPWidget extends StatelessWidget {
-  const OTPWidget({
+  OTPWidget({
     super.key,
+    required this.otp,
   });
+  String otp;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 68.h,
-      width: 64.w,
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 11.w),
+      height: 60.h,
+      width: 60.w,
       child: TextFormField(
         controller: TextEditingController(),
         keyboardType: TextInputType.phone,
@@ -23,6 +26,8 @@ class OTPWidget extends StatelessWidget {
           }
         },
         decoration: InputDecoration(
+          alignLabelWithHint: true,
+          floatingLabelAlignment: FloatingLabelAlignment.center,
           hintText: "*",
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Color(0xff1C8ABB)),

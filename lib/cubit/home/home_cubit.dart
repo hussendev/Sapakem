@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/app/home_api_controller.dart';
 import 'package:sapakem/model/home/home.dart';
 
 import '../../model/home/merchant.dart';
+import '../../model/home/status_merchant.dart';
 import 'home_states.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -13,15 +15,21 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeApiController homeApiController = HomeApiController();
   int count = 0;
 
-  void getHomeData() async {
+  void getHomeData({bool isRefresh=false}) async {
     emit(LoadingHomeState());
     try {
-      HomeResponse homeResponse = await homeApiController.getHomeData();
+      HomeResponse homeResponse = await homeApiController.getHomeData(isRefresh: isRefresh);
       if (homeResponse.homeData != null) {
         emit(SuccessHomeState(homeResponse.homeData!));
       } else {
         Logger().e(homeResponse.message);
+         if(homeResponse.message=="api.unauthenticated."){
+           emit(ErrorHomeState("يجب تسجيل الدخول أولا"));
+
+         }else{
         emit(ErrorHomeState("حدث خطأ ما"));
+         }
+         
       }
     } catch (e) {
       Logger().e(e.toString());
@@ -33,7 +41,7 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(LoadingMerchantByCategoryState());
     try {
       List<Merchant> merchants = await homeApiController.getMerchantByCategory(categoryId);
-      if (merchants.length != 0) {
+      if (merchants.isNotEmpty) {
         emit(SuccessMerchantByCategoryState(merchants));
       } else {
         emit(ErrorMerchantByCategoryState("No Data"));
@@ -74,6 +82,46 @@ class HomeCubit extends Cubit<HomeStates> {
       emit(ErrorHomeState(e.toString()));
     }
   }
+// getStatusForMerchant(BuildContext context, String merchantId) async {
+//     try {
+//       StatusMerchantFriend response = await homeApiController
+//           .getStatusMerchantFriend(context: context, merchantId: merchantId);
+//       if (response.status! && response.object != null) {
+//         switch (response.object!.status) {
+//           case 'Pending':
+//             emit(SendRequestForMerchantState(MerchantFreindStatus.pending));
+//             break;
+//           case 'Accepted':
+//             emit(SendRequestForMerchantState(MerchantFreindStatus.freind));
+//             break;
+
+//           case 'Rejected':
+//             emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
+//             break;
+
+//           default:
+//             emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
+//         }
+//       } else {
+//         emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
+//       }
+//     } catch (e) {
+//       emit(ErrorMerchantState(e.toString()));
+//     }
+//   }
+//   void sendRequestForMerchant(BuildContext context, String merchantId) async {
+//     try {
+//       Map<String, dynamic> response = await homeApiController
+//           .sendRequestForMerchant(merchantId: merchantId, context: context);
+//       if (response['friendrequest'] == true) {
+//         emit(SendRequestForMerchantState(MerchantFreindStatus.pending));
+//       } else {
+//         emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
+//       }
+//     } catch (e) {
+//       emit(ErrorMerchantState(e.toString()));
+//     }
+//   }
 
 
 }

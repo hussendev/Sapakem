@@ -1,9 +1,11 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/api_controller.dart';
 import 'package:sapakem/model/home/merchant.dart';
+import 'package:sapakem/model/home/status_merchant.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 
 import '../../../model/home/home.dart';
@@ -13,17 +15,36 @@ import '../../api_setting.dart';
 class HomeApiController {
   ApiController apiController = ApiController();
 
-  Future<HomeResponse> getHomeData() async {
-    var data = await apiController.get(Uri.parse(ApiSettings.home), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
+  Future<HomeResponse> getHomeData({bool isRefresh = false}) async {
+    var data = await apiController.get(Uri.parse(ApiSettings.home),
+        headers: {
+          HttpHeaders.authorizationHeader:
+              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        },
+        timeToLive: 10,
+        withoutToast: true,
+        isRefresh: isRefresh);
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;
   }
 
   Future<List<Merchant>> getMerchantByCategory(int categoryId) async {
-    var data = await apiController.get(Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
+    var data = await apiController.get(
+        Uri.parse('${ApiSettings.basedUrl}categories/$categoryId/merchants'),
+        headers: {
+          HttpHeaders.authorizationHeader:
+              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        },
+        timeToLive: 10,
+        withoutToast: true);
 
-    List<Merchant> merchants = (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
+    List<Merchant> merchants =
+        (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
 
     // String url = ApiSettings.basedUrl +
@@ -50,9 +71,18 @@ class HomeApiController {
   }
 
   Future<List<Merchant>> getMerchants() async {
-    var data = await apiController.get(Uri.parse(ApiSettings.merchant), headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'}, timeToLive: 10, withoutToast: true);
+    var data = await apiController.get(Uri.parse(ApiSettings.merchant),
+        headers: {
+          HttpHeaders.authorizationHeader:
+              SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        },
+        timeToLive: 10,
+        withoutToast: true);
 
-    List<Merchant> merchants = (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
+    List<Merchant> merchants =
+        (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
 
     // var response = await http.get(Uri.parse(ApiSettings.merchant), headers: {
@@ -73,10 +103,14 @@ class HomeApiController {
   }
 
   Future<Merchant> getMerchant(int id, {bool isRefresh = false}) async {
-    Logger().i("ad");
     var data = await apiController.get(
       Uri.parse(ApiSettings.merchant + id.toString()),
-      headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'},
+      headers: {
+        HttpHeaders.authorizationHeader:
+            SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
+      },
       timeToLive: 3,
       withoutToast: true,
       isRefresh: isRefresh,
@@ -102,21 +136,37 @@ class HomeApiController {
     // return Merchant();
   }
 
-  sendRequestForMerchant({required BuildContext context, required String merchant_id}) async {
+  Future<Map<String, dynamic>> sendRequestForMerchant(
+      {required BuildContext context, required String merchantId}) async {
     context.showIndicator();
-    dynamic a = await ApiController().post(
+    dynamic response = await ApiController().post(
       Uri.parse(ApiSettings.request_post),
       context: context,
       body: {
-        'merchant_id': merchant_id,
+        'merchant_id': merchantId,
       },
       headers: {
-        HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        HttpHeaders.authorizationHeader:
+            SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
         'X-Requested-With': 'XMLHttpRequest',
         'Accept': 'application/json',
       },
     );
-    Logger().i(a.toString());
     Navigator.pop(context);
+    return response;
+  }
+
+  Future<StatusMerchantFriend> getStatusMerchantFriend(
+      {required BuildContext context, required String merchantId}) async {
+    dynamic response = await ApiController().get(
+      Uri.parse(ApiSettings.getStatusMerchant + merchantId),
+      headers: {
+        HttpHeaders.authorizationHeader:
+            SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json',
+      },
+    );
+    return StatusMerchantFriend.fromJson(response);
   }
 }

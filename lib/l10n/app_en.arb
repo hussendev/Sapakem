@@ -79,7 +79,7 @@
   "it_is_already_in_the_cart": "It is already in the cart",
   "payment_summary": "Payment Summary",
   "total": "Total",
-  "shipping": "Shipping",
+  "subtotal": "Subtotal",
   "the_total_amount": "The Total Amount",
   "proceed_to_payment": "Proceed To Payment",
   "sorry_no_data_to_show": "Sorry, no data to show"

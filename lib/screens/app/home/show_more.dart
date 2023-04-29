@@ -26,20 +26,13 @@ class ShowMore extends StatelessWidget {
           CustomAppBar(isHome: true, title: context.localizations.show_more),
           if (merchants != null)
             GridView.builder(
-              itemCount: merchants!.length,
-              padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 20.w),
-              itemBuilder: (context, index) {
-                return MerchantWidget(
-                  merchant: merchants![index],
-                );
-              },
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 170 / 214,
-                crossAxisSpacing: 17.w,
-                mainAxisSpacing: 20.h,
+                childAspectRatio: 0.8,
               ),
+              itemBuilder: (context, index) {
+                return MerchantWidget(merchant: merchants![index]);
+              },
             ),
           if (categories != null)
             Padding(
@@ -54,7 +47,10 @@ class ShowMore extends StatelessWidget {
                 const Icon(Icons.error_outline, size: 100, color: Colors.grey),
                 Text(
                   context.localizations.sorry_no_data_to_show,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey),
+                  style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
               ],

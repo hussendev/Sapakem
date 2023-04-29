@@ -1,4 +1,4 @@
-enum ProcessState { ADD, DELETE}
+enum ProcessState { ADD, DELETE, cantBeZero, cantBeMoreThanStock,existInCart,errorAddProduct }
 class ProductStates {}
 
 class LoadingProductState extends ProductStates {}
@@ -17,8 +17,9 @@ class ProcessProductState extends ProductStates {
 // }
 
 class ErrorAddProductState extends ProductStates {
+  ProcessState processState;
   String message;
-  ErrorAddProductState(this.message);
+  ErrorAddProductState(this.message,this.processState);
 }
 
 
