@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
+import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/model/home/merchant.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -14,6 +16,7 @@ class MerchantScreen extends StatelessWidget {
   MerchantScreen({super.key, required this.merchant});
 
   Merchant? merchant;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,11 @@ class MerchantScreen extends StatelessWidget {
             } else if (state is SuccessMerchantState) {
               return RefreshIndicator(
                 onRefresh: () async {
-                  HomeCubit.get(context).getMerchantById(merchant!.id!, isRefresh: true);
+                  HomeCubit.get(context)
+                      .getMerchantById(merchant!.id!, isRefresh: true);
+                  context
+                      .read<MerchantCubit>()
+                      .getStatusForMerchant(context, merchant!.id!.toString());
                 },
                 child: Scaffold(
                     extendBodyBehindAppBar: true,
@@ -45,7 +52,8 @@ class MerchantScreen extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: 20.w, vertical: 25.h),
                                     height: 44.h,
                                     width: double.infinity,
                                     child: Row(
@@ -55,24 +63,44 @@ class MerchantScreen extends StatelessWidget {
                                             Navigator.pop(context);
                                           },
                                           child: Container(
-                                            margin: const EdgeInsets.only(left: 10),
+                                            margin:
+                                                const EdgeInsets.only(left: 10),
                                             height: 30,
                                             width: 30,
-                                            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            child: context.localizations.language == 'en' ? const Icon(Icons.arrow_circle_left_outlined, color: Colors.black) : const Icon(Icons.arrow_circle_right_outlined, color: Colors.black),
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child: context.localizations
+                                                        .language ==
+                                                    'en'
+                                                ? const Icon(
+                                                    Icons
+                                                        .arrow_circle_left_outlined,
+                                                    color: Colors.black)
+                                                : const Icon(
+                                                    Icons
+                                                        .arrow_circle_right_outlined,
+                                                    color: Colors.black),
                                           ),
                                         ),
                                         const Spacer(),
                                         InkWell(
                                           onTap: () {
-                                            Navigator.pushNamed(context, '/cart_screen');
+                                            Navigator.pushNamed(
+                                                context, '/cart_screen');
                                           },
                                           child: Container(
-                                            margin: const EdgeInsets.only(left: 10),
+                                            margin:
+                                                const EdgeInsets.only(left: 10),
                                             height: 44.h,
                                             width: 44.w,
-                                            decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
-                                            child: const Icon(Icons.shopping_cart),
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10))),
+                                            child:
+                                                const Icon(Icons.shopping_cart),
                                           ),
                                         ),
                                       ],
@@ -82,14 +110,16 @@ class MerchantScreen extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(top: 220.h, left: 37.w, right: 37.w),
+                              margin: EdgeInsets.only(
+                                  top: 220.h, left: 37.w, right: 37.w),
                               height: 111.h,
                               width: 112.w,
                               decoration: BoxDecoration(
                                 color: Colors.black,
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: NetworkImage(state.merchant.merchantLogo!),
+                                  image: CachedNetworkImageProvider(
+                                      state.merchant.merchantLogo!),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -113,7 +143,8 @@ class MerchantScreen extends StatelessWidget {
                                       products: state.merchant.products!,
                                     );
                                   },
-                                  itemCount: state.merchant.subcategories!.length,
+                                  itemCount:
+                                      state.merchant.subcategories!.length,
                                 ),
                               ),
                               30.ph(),
@@ -133,7 +164,9 @@ class MerchantScreen extends StatelessWidget {
             }
           },
           buildWhen: (previous, current) {
-            if (current is SuccessMerchantState || current is ErrorMerchantState || current is LoadingMerchantsState) {
+            if (current is SuccessMerchantState ||
+                current is ErrorMerchantState ||
+                current is LoadingMerchantsState) {
               return true;
             }
             return false;

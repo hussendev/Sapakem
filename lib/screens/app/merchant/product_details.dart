@@ -23,7 +23,7 @@ import '../../../cubit/home/product/product_cubit.dart';
 import '../../../widgets/app_text.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  ProductDetailsScreen({required this.product, this.productCart});
+  ProductDetailsScreen({super.key, required this.product, this.productCart});
 
   Product? product;
   ProductCart? productCart;
@@ -57,7 +57,10 @@ class ProductDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomAppBar(title: product != null ? product!.name! : productCart!.name!),
+                      CustomAppBar(
+                          title: product != null
+                              ? product!.name!
+                              : productCart!.name!),
                       20.ph(),
                       Container(
                         // height: 300.h,
@@ -66,7 +69,8 @@ class ProductDetailsScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.grey.shade200,
-                          border: Border.all(color: Colors.grey.shade600, width: 1),
+                          border:
+                              Border.all(color: Colors.grey.shade600, width: 1),
                         ),
                         child: Container(
                           margin: const EdgeInsets.all(50),
@@ -74,12 +78,15 @@ class ProductDetailsScreen extends StatelessWidget {
                           height: 150.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: CachedNetworkImageProvider(product != null ? product!.mainImage! : productCart!.mainImage!),
+                              image: CachedNetworkImageProvider(product != null
+                                  ? product!.mainImage!
+                                  : productCart!.mainImage!),
                               fit: BoxFit.cover,
                             ),
                             shape: BoxShape.circle,
                             color: Colors.red,
-                            border: Border.all(color: Colors.grey.shade600, width: 1),
+                            border: Border.all(
+                                color: Colors.grey.shade600, width: 1),
                           ),
 
                           // height: double.infinity,
@@ -102,7 +109,18 @@ class ProductDetailsScreen extends StatelessWidget {
                             ),
                             10.pw(),
                             AppText(
-                              text: '${product != null ? product!.price! : productCart!.price!}\$',
+                              text:
+                                  '${product != null ? product!.price! : productCart!.price!}\$',
+                              fontSize: 20.sp,
+                              isPriceoffer: true,
+                              fontWeight: FontWeight.bold,
+                              textAlign: TextAlign.center,
+                              color: Colors.blue,
+                            ),
+                            10.pw(),
+                            AppText(
+                              text:
+                                  '${product != null ? product!.priceOffer! : productCart!.priceOffer!}\$',
                               fontSize: 20.sp,
                               fontWeight: FontWeight.bold,
                               textAlign: TextAlign.center,
@@ -155,7 +173,8 @@ class ProductDetailsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Column(
@@ -193,7 +212,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         AppText(
-                                          text: product != null ? product!.quantity!.toString() : productCart!.quantity!.toString(),
+                                          text: product != null
+                                              ? product!.quantity!.toString()
+                                              : productCart!.quantity!
+                                                  .toString(),
                                           fontSize: 16.sp,
                                           // fontWeight: FontWeight.bold,
                                           textAlign: TextAlign.center,
@@ -218,7 +240,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                           color: Colors.black,
                                         ),
                                         AppText(
-                                          text: '10 ${context.localizations.min}',
+                                          text:
+                                              '10 ${context.localizations.min}',
                                           fontSize: 16.sp,
                                           // fontWeight: FontWeight.bold,
                                           textAlign: TextAlign.center,
@@ -232,7 +255,13 @@ class ProductDetailsScreen extends StatelessWidget {
                               20.ph(),
                               SizedBox(
                                 height: 160.h,
-                                child: AppText(textAlign: TextAlign.left, text: product != null ? product!.description! : productCart!.description!, fontSize: 16.sp, color: Colors.black),
+                                child: AppText(
+                                    textAlign: TextAlign.left,
+                                    text: product != null
+                                        ? product!.description!
+                                        : productCart!.description!,
+                                    fontSize: 16.sp,
+                                    color: Colors.black),
                               )
                             ],
                           ),
@@ -247,7 +276,11 @@ class ProductDetailsScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Visibility(
-                    visible: !ProductCubit.get(context).isExitInCart(product != null ? product!.id! : productCart!.id!, product != null ? product!.merchantId! : productCart!.merchantId!),
+                    visible: !ProductCubit.get(context).isExitInCart(
+                        product != null ? product!.id! : productCart!.id!,
+                        product != null
+                            ? product!.merchantId!
+                            : productCart!.merchantId!),
                     replacement: AppText(
                       fontSize: 20.sp,
                       text: context.localizations.it_is_already_in_the_cart,
@@ -258,18 +291,22 @@ class ProductDetailsScreen extends StatelessWidget {
                       children: [
                         BlocBuilder<ProductCubit, ProductStates>(
                           buildWhen: (previous, current) {
-                            if (current is IncrementProductState || current is DecrementProductState) {
+                            if (current is IncrementProductState ||
+                                current is DecrementProductState) {
                               return true;
                             }
                             return false;
                           },
                           builder: (context, state) {
                             if (state is InitialProductState) {
-                              return incrementAndDecrementWidget(counter: state.counter);
+                              return incrementAndDecrementWidget(
+                                  counter: state.counter);
                             } else if (state is IncrementProductState) {
-                              return incrementAndDecrementWidget(counter: state.counter);
+                              return incrementAndDecrementWidget(
+                                  counter: state.counter);
                             } else if (state is DecrementProductState) {
-                              return incrementAndDecrementWidget(counter: state.counter);
+                              return incrementAndDecrementWidget(
+                                  counter: state.counter);
                             } else {
                               return incrementAndDecrementWidget(counter: 0);
                             }
@@ -279,19 +316,23 @@ class ProductDetailsScreen extends StatelessWidget {
                         BlocConsumer<ProductCubit, ProductStates>(
                           listener: (context, state) {
                             if (state is ErrorAddProductState) {
-                              context.showSnackBar(message: state.message, error: true);
+                              context.showSnackBar(
+                                  message: state.message, error: true);
                             } else if (state is ProcessProductState) {
                               context.showSnackBar(message: state.message);
                             }
                           },
                           listenWhen: (previous, current) {
-                            if (current is ProcessProductState || current is ErrorAddProductState) {
+                            if (current is ProcessProductState ||
+                                current is ErrorAddProductState) {
                               return true;
                             }
                             return false;
                           },
                           buildWhen: (previous, current) {
-                            if (current is LoadingProductState || current is ProcessProductState || current is ErrorAddProductState) {
+                            if (current is LoadingProductState ||
+                                current is ProcessProductState ||
+                                current is ErrorAddProductState) {
                               return true;
                             }
                             return false;
@@ -301,7 +342,8 @@ class ProductDetailsScreen extends StatelessWidget {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
-                            } else if (state is ProcessProductState || state is ErrorAddProductState) {
+                            } else if (state is ProcessProductState ||
+                                state is ErrorAddProductState) {
                               return Expanded(
                                 flex: 2,
                                 child: AppButton(
@@ -309,10 +351,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                   text: context.localizations.add_to_cart,
                                   onPressed: () {
                                     ProductCart productCart = getProductCart();
-                                    productCart.quantity = context.read<ProductCubit>().quantity;
-                                    context.read<ProductCubit>().addToCart(productCart: productCart, product: product!);
+                                    productCart.quantity =
+                                        context.read<ProductCubit>().quantity;
+                                    context.read<ProductCubit>().addToCart(
+                                        productCart: productCart,
+                                        product: product!);
 
-                                    Logger().i(context.read<ProductCubit>().cart);
+                                    Logger()
+                                        .i(context.read<ProductCubit>().cart);
                                   },
                                 ),
                               );
@@ -325,9 +371,13 @@ class ProductDetailsScreen extends StatelessWidget {
                                   onPressed: () {
                                     ProductCart productCart = getProductCart();
 
-                                    productCart.quantity = context.read<ProductCubit>().quantity;
-                                    context.read<ProductCubit>().addToCart(productCart: productCart, product: product!);
-                                    Logger().i(context.read<ProductCubit>().cart);
+                                    productCart.quantity =
+                                        context.read<ProductCubit>().quantity;
+                                    context.read<ProductCubit>().addToCart(
+                                        productCart: productCart,
+                                        product: product!);
+                                    Logger()
+                                        .i(context.read<ProductCubit>().cart);
 
                                     // counter: ProductCubit.get(context).counter);
                                   },

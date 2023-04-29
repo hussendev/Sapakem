@@ -79,7 +79,7 @@
   "it_is_already_in_the_cart": "إنه موجود بالفعل في العربة",
   "payment_summary": "ملخص الدفع",
   "total": "المجموع",
-  "shipping": "الشحن",
+  "subtotal": "المجموع الفرعي",
   "the_total_amount": "المبلغ الكلي",
   "proceed_to_payment": "البدء بالدفع",
   "sorry_no_data_to_show": "نأسف لا يوجد بيانات لعرضها"

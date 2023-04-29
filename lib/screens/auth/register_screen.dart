@@ -45,8 +45,7 @@ class RegisterScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is LoadingRegisterState) {
               return const Center(child: CircularProgressIndicator());
-            }
-            else if (state is SuccessRegisterState ||
+            } else if (state is SuccessRegisterState ||
                 state is ErrorDataRegisterState ||
                 state is initialRegisterState) {
               return CustomScrollView(
@@ -218,8 +217,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                 ],
               );
-            }
-            else {
+            } else {
               state as ErrorRegisterState;
               return Center(
                 child: Text(state.message),
@@ -230,6 +228,7 @@ class RegisterScreen extends StatelessWidget {
             if (state is SuccessRegisterState) {
               context.showSnackBar(
                   message: state.message, error: !state.success);
+              Navigator.pushReplacementNamed(context, '/otp_screen');
             } else if (state is ErrorDataRegisterState) {
               context.showSnackBar(
                   message: state.message, error: !state.success);
@@ -238,7 +237,7 @@ class RegisterScreen extends StatelessWidget {
           buildWhen: (previous, current) {
             if (current is SuccessRegisterState ||
                 current is ErrorDataRegisterState ||
-                current is LoadingRegisterState|| current is ErrorRegisterState) {
+                current is LoadingRegisterState) {
               return true;
             }
             return false;
@@ -249,9 +248,11 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void _performRegister(BuildContext context) {
-    if (!_checkData(context)) {
+    if (_checkData(context)) {
       _register(context);
       SharedPrefController().savePhone(phoneController.text);
+    } else {
+      context.showSnackBar(message: 'Enter Required Data!', error: true);
     }
   }
 
@@ -264,15 +265,12 @@ class RegisterScreen extends StatelessWidget {
         confirmPasswordController.text.isNotEmpty) {
       return true;
     }
-    context.showSnackBar(message: 'Enter Required Data!', error: true);
+
     return false;
   }
 
   void _register(BuildContext context) async {
-    RegisterCubit.get(context).signInWithPhoneNumber(
-      context: context,
-        phone: "+972 ${phoneController.text}");
-
+    RegisterCubit.get(context).userRegister(user: user, context: context);
   }
 
   UserRegister get user {

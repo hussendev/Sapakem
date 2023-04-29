@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, invalid_use_of_visible_for_testing_member
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,10 +8,13 @@ import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/register/register_states.dart';
 
+import '../../../model/user_register.dart';
+
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(initialRegisterState());
   static RegisterCubit get(context) => BlocProvider.of(context);
   var auth = FirebaseAuth.instance;
+  String verificationId = '';
 
   UsersApiController usersApiController = UsersApiController();
 
@@ -19,57 +24,52 @@ class RegisterCubit extends Cubit<RegisterStates> {
     required String phone,
     required BuildContext context,
   }) async {
-    emit(LoadingRegisterState());
     try {
       await auth.verifyPhoneNumber(
-        phoneNumber: '+970592197258',
+        phoneNumber: '+972$phone',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          // Logger().i(credential.smsCode);
           // await auth.signInWithCredential(credential);
-          // Navigator.pushReplacementNamed(context, '/home_screen');
+          
         },
         verificationFailed: (FirebaseAuthException e) {
-          Logger().i("**************");
           Logger().i(e);
-          // if (e.code == 'invalid-phone-number') {
-          //   emit(ErrorRegisterState("رقم الهاتف غير صحيح"));
-          // }
+
           emit(ErrorRegisterState('something went wrong'));
         },
         codeSent: (String verificationId, int? resendToken) async {
-          Logger().i("**************");
+          this.verificationId = verificationId;
           Logger().i(verificationId);
           emit(SuccessRegisterState(true, verificationId));
-          Navigator.pushReplacementNamed(context, '/otp_screen');
+          Navigator.pushNamed(context, '/activate_screen');
         },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          Logger().i("**************");
-          Logger().i(verificationId);
-        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
       );
-
-      Logger().i(phone);
     } catch (e) {
       Logger().i(e);
     }
   }
 
-  // void userRegister({
-  //   required UserRegister user,
-  //   required BuildContext context,
+  void userRegister({
+    required UserRegister user,
+    required BuildContext context,
+  }) async {
+    emit(LoadingRegisterState());
+    try {
+      usersApiController.register(user).then((value) {
+        Logger().i(value.success);
+        if (value.success) {
+          signInWithPhoneNumber(
+              phone: user.mobile!.toString(), context: context);
+        } else {
+          emit(ErrorDataRegisterState(value.message, value.success));
+        }
+      });
+      // signInWithPhoneNumber(phone: user.mobile!.toString(), context: context)
+      //     .then((_) {
 
-  // }) async{
-  //   emit(LoadingRegisterState());
-  //   try{
-  //     var response = await usersApiController.register(user);
-  //     if(response.success){
-  //       emit(SuccessRegisterState(response.success,response.message));
-  //       Navigator.pushReplacementNamed(context, '/otp_screen');
-  //     }else{
-  //       emit(ErrorDataRegisterState(response.message,response.success));
-  //     }
-  //   }catch(e){
-  //     emit(ErrorRegisterState("حدث خطأ ما"));
-  //   }
-  // }
+      // });
+    } catch (e) {
+      emit(ErrorRegisterState("حدث خطأ ما"));
+    }
+  }
 }

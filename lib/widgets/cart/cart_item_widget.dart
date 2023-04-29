@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/product/product_cubit.dart';
-import 'package:sapakem/model/home/product.dart';
 
 import 'package:sapakem/model/home/product_cart.dart';
 import 'package:sapakem/util/context_extenssion.dart';
@@ -29,7 +27,7 @@ class CartItemWidget extends StatelessWidget {
     return Expanded(
       child: ListView.separated(
         separatorBuilder: (context, index) {
-          return Divider();
+          return const Divider();
         },
         padding: EdgeInsets.zero,
         itemBuilder: (context, index) {
@@ -60,7 +58,8 @@ class CartItemWidget extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: CachedNetworkImageProvider(product.mainImage!),
+                                image: CachedNetworkImageProvider(
+                                    product.mainImage!),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: const BorderRadius.all(
@@ -73,12 +72,16 @@ class CartItemWidget extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               // Logger().i('remove product from cart');
-                              context.read<ProductCubit>().removeProductFromCart(product.id!, product.merchantId!);
+                              context
+                                  .read<ProductCubit>()
+                                  .removeProductFromCart(
+                                      product.id!, product.merchantId!);
                             },
                             child: Container(
                               width: 12.w,
                               height: 12.h,
-                              decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
+                              decoration: const BoxDecoration(
+                                  color: Colors.blue, shape: BoxShape.circle),
                               child: const Icon(
                                 Icons.close_rounded,
                                 size: 10,
@@ -93,13 +96,23 @@ class CartItemWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppText(text: product.name!, fontSize: 13.sp, color: Colors.black),
-                          AppText(text: product.price!.toString(), fontSize: 13.sp, color: const Color(0xff1C8ABB)),
+                          AppText(
+                              text: product.name!,
+                              fontSize: 13.sp,
+                              color: Colors.black),
+                          AppText(
+                              text: product.priceOffer!.toString(),
+                              fontSize: 13.sp,
+                              color: const Color(0xff1C8ABB)),
                         ],
                       ),
                     ],
                   ),
-                  AppText(text: '${context.localizations.quantity} : ${product.quantity!}', fontSize: 12.sp, color: Colors.black)
+                  AppText(
+                      text:
+                          '${context.localizations.quantity} : ${product.quantity!}',
+                      fontSize: 12.sp,
+                      color: Colors.black)
                 ],
               ),
             ),

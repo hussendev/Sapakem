@@ -17,48 +17,48 @@ class Merchant {
 
   Merchant(
       {int? id,
-        String? expireDate,
-        List<Subcategories>? subcategories,
-        List<Product>? products,
-        String? merchantName,
-        String? merchantLogo,
-        bool? isOpen,
-        List<BusinessHours>? businesHour,
-        String? mobile,
-        String? address,
-        String? storeName}) {
+      String? expireDate,
+      List<Subcategories>? subcategories,
+      List<Product>? products,
+      String? merchantName,
+      String? merchantLogo,
+      bool? isOpen,
+      List<BusinessHours>? businesHour,
+      String? mobile,
+      String? address,
+      String? storeName}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (expireDate != null) {
-      this._expireDate = expireDate;
+      _expireDate = expireDate;
     }
     if (subcategories != null) {
-      this._subcategories = subcategories;
+      _subcategories = subcategories;
     }
     if (products != null) {
-      this._products = products;
+      _products = products;
     }
     if (merchantName != null) {
-      this._merchantName = merchantName;
+      _merchantName = merchantName;
     }
     if (merchantLogo != null) {
-      this._merchantLogo = merchantLogo;
+      _merchantLogo = merchantLogo;
     }
     if (isOpen != null) {
-      this._isOpen = isOpen;
+      _isOpen = isOpen;
     }
     if (businesHour != null) {
-      this._businesHour = businesHour;
+      _businesHour = businesHour;
     }
     if (mobile != null) {
-      this._mobile = mobile;
+      _mobile = mobile;
     }
     if (address != null) {
-      this._address = address;
+      _address = address;
     }
     if (storeName != null) {
-      this._storeName = storeName;
+      _storeName = storeName;
     }
   }
 
@@ -78,7 +78,8 @@ class Merchant {
   bool? get isOpen => _isOpen;
   set isOpen(bool? isOpen) => _isOpen = isOpen;
   List<BusinessHours>? get businesHour => _businesHour;
-  set businesHour(List<BusinessHours>? businesHour) => _businesHour = businesHour;
+  set businesHour(List<BusinessHours>? businesHour) =>
+      _businesHour = businesHour;
   String? get mobile => _mobile;
   set mobile(String? mobile) => _mobile = mobile;
   String? get address => _address;
@@ -92,13 +93,13 @@ class Merchant {
     if (json['subcategories'] != null) {
       _subcategories = <Subcategories>[];
       json['subcategories'].forEach((v) {
-        _subcategories!.add(new Subcategories.fromJson(v));
+        _subcategories!.add(Subcategories.fromJson(v));
       });
     }
     if (json['products'] != null) {
       _products = <Product>[];
       json['products'].forEach((v) {
-        _products!.add(new Product.fromJson(v));
+        _products!.add(Product.fromJson(v));
       });
     }
     _merchantName = json['merchant_name'];
@@ -107,7 +108,7 @@ class Merchant {
     if (json['busines_hour'] != null) {
       _businesHour = <BusinessHours>[];
       json['busines_hour'].forEach((v) {
-        _businesHour!.add(new BusinessHours.fromJson(v));
+        _businesHour!.add(BusinessHours.fromJson(v));
       });
     }
     _mobile = json['mobile'];
@@ -116,30 +117,24 @@ class Merchant {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['expire_date'] = this._expireDate;
-    if (this._subcategories != null) {
-      data['subcategories'] =
-          this._subcategories!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['expire_date'] = _expireDate;
+    if (_subcategories != null) {
+      data['subcategories'] = _subcategories!.map((v) => v.toJson()).toList();
     }
-    if (this._products != null) {
-      data['products'] = this._products!.map((v) => v.toJson()).toList();
+    if (_products != null) {
+      data['products'] = _products!.map((v) => v.toJson()).toList();
     }
-    data['merchant_name'] = this._merchantName;
-    data['merchant_logo'] = this._merchantLogo;
-    data['is_open'] = this._isOpen;
-    if (this._businesHour != null) {
-      data['busines_hour'] = this._businesHour!.map((v) => v.toJson()).toList();
+    data['merchant_name'] = _merchantName;
+    data['merchant_logo'] = _merchantLogo;
+    data['is_open'] = _isOpen;
+    if (_businesHour != null) {
+      data['busines_hour'] = _businesHour!.map((v) => v.toJson()).toList();
     }
-    data['mobile'] = this._mobile;
-    data['address'] = this._address;
-    data['store_name'] = this._storeName;
+    data['mobile'] = _mobile;
+    data['address'] = _address;
+    data['store_name'] = _storeName;
     return data;
   }
 }
-
-
-
-
-
