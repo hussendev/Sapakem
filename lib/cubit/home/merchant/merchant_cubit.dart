@@ -13,6 +13,7 @@ class MerchantCubit extends Cubit<MerchantStates> {
   // List<int> favoriteMerchants = [];
   Map<int, dynamic> favoriteMerchants = {};
   HomeApiController homeApiController = HomeApiController();
+  List<String> merchantsFriend =[];
 
   static MerchantCubit get(context) => BlocProvider.of(context);
 
@@ -72,7 +73,8 @@ class MerchantCubit extends Cubit<MerchantStates> {
     }
   }
 
-  getStatusForMerchant(BuildContext context, String merchantId) async {
+  Future<bool>  getStatusForMerchant(BuildContext context, String merchantId) async {
+    bool isFriend = false;
     try {
       emit(LoadingMerchantState());
       StatusMerchantFriend response = await homeApiController
@@ -80,24 +82,54 @@ class MerchantCubit extends Cubit<MerchantStates> {
       if (response.status! && response.object != null) {
         switch (response.object!.status) {
           case 'Pending':
+            isFriend= false;
             emit(SendRequestForMerchantState(MerchantFreindStatus.pending));
             break;
           case 'Accepted':
+            addFriendToList(merchantId);
+            isFriend= true;
             emit(SendRequestForMerchantState(MerchantFreindStatus.freind));
             break;
 
           case 'Rejected':
+            removeFriendFromList(merchantId);
+            isFriend= false;
             emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
             break;
 
           default:
+            isFriend= false;
             emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
         }
+        return isFriend;
       } else {
+        isFriend= false;
         emit(SendRequestForMerchantState(MerchantFreindStatus.notFreind));
+        return isFriend;
       }
+
+
     } catch (e) {
       emit(ErrorMerchantState(e.toString()));
     }
+      return isFriend;
   }
+
+  addFriendToList(String merchantId){
+    if(merchantsFriend.contains(merchantId)){
+      return ;
+    }else{
+      merchantsFriend.add(merchantId);
+    }
+  }
+
+  removeFriendFromList(String merchantId){
+    if(merchantsFriend.contains(merchantId)){
+      merchantsFriend.remove(merchantId);
+    }else{
+      return ;
+    }
+  }
+
+
 }

@@ -26,19 +26,16 @@ class ApiController {
     bool isRefresh = false,
   }) async {
     if (isRefresh) {
-      Logger().i('refresh');
       cacheData.remove(url.toString());
     }
     if (cacheData.keys.contains(url.toString())) {
       if (timeIsNotExpires(url)) {
-        Logger().i('cache');
         return cacheData[url.toString()];
       }
     }
 
     // Logger().i(url);
     http.Response response = await http.get(url, headers: {HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json'});
-    Logger().i(response.statusCode);
     var data = await jsonDecode(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {

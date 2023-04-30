@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
@@ -31,8 +32,6 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Logger().i();
-
     return WillPopScope(
       onWillPop: () async {
         ProductCubit.get(context).resetCounter();
@@ -354,11 +353,11 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
+                                        context: context,
                                         productCart: productCart,
                                         product: product!);
 
-                                    Logger()
-                                        .i(context.read<ProductCubit>().cart);
+
                                   },
                                 ),
                               );
@@ -374,10 +373,10 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
+                                      context: context,
                                         productCart: productCart,
                                         product: product!);
-                                    Logger()
-                                        .i(context.read<ProductCubit>().cart);
+
 
                                     // counter: ProductCubit.get(context).counter);
                                   },
