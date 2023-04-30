@@ -1,4 +1,4 @@
-enum ProcessState { ADD, DELETE, cantBeZero, cantBeMoreThanStock,existInCart,errorAddProduct }
+enum ProcessState { ADD, DELETE, cantBeZero, cantBeMoreThanStock,existInCart,errorAddProduct,notAllowed }
 class ProductStates {}
 
 class LoadingProductState extends ProductStates {}
