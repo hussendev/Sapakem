@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sapakem/model/order.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 import 'package:sapakem/widgets/delivery/item_order.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderList extends StatelessWidget {
-  final List<Object> items;
+  final List<Order> orders;
   final bool withoutOrderDetails;
 
-  const OrderList(
-      {Key? key, required this.items, this.withoutOrderDetails = false})
-      : super(key: key);
+  const OrderList({Key? key, required this.orders, this.withoutOrderDetails = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class OrderList extends StatelessWidget {
                 color: Colors.grey.shade300,
                 thickness: 1,
               ),
-              for (var i = 0; i < items.length; i++)
+              for (var i = 0; i < orders.length; i++)
                 Column(
                   children: [
                     const ItemOrder(),
@@ -94,8 +93,7 @@ class OrderList extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/delivery/order.svg',
-                            color: const Color(0xff1C8ABB), width: 20.w),
+                        SvgPicture.asset('assets/delivery/order.svg', color: const Color(0xff1C8ABB), width: 20.w),
                         AppText(
                           text: 'أحضر وجبتك الخاصة',
                           fontSize: 12.sp,

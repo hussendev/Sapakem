@@ -10,20 +10,7 @@ class ProductCart {
   String? _mainImage;
   String? _description;
 
-  ProductCart(
-      {int? id,
-        int? price,
-        int? priceOffer,
-        int? quantity,
-        String? productUnit,
-        int? merchantId,
-
-        String? merchantName,
-        String? mainImage,
-
-
-        String? name,
-        String? description}) {
+  ProductCart({int? id, int? price, int? priceOffer, int? quantity, String? productUnit, int? merchantId, String? merchantName, String? mainImage, String? name, String? description}) {
     if (id != null) {
       this._id = id;
     }
@@ -40,7 +27,7 @@ class ProductCart {
       this._productUnit = productUnit;
     }
     if (merchantId != null) {
-      this._merchantId = merchantId;
+      _merchantId = merchantId;
     }
     if (name != null) {
       this._name = name;
@@ -54,32 +41,47 @@ class ProductCart {
     if (description != null) {
       this._description = description;
     }
-
   }
 
   int? get id => _id;
+
   set id(int? id) => _id = id;
+
   int? get price => _price;
+
   set price(int? price) => _price = price;
+
   int? get priceOffer => _priceOffer;
+
   set priceOffer(int? priceOffer) => _priceOffer = priceOffer;
+
   int? get quantity => _quantity;
+
   set quantity(int? quantity) => _quantity = quantity;
+
   String? get productUnit => _productUnit;
+
   set productUnit(String? productUnit) => _productUnit = productUnit;
+
   int? get merchantId => _merchantId;
+
   set merchantId(int? merchantId) => _merchantId = merchantId;
+
   String? get merchantName => _merchantName;
+
   set merchantName(String? merchantName) => _merchantName = merchantName;
+
   String? get mainImage => _mainImage;
+
   String? get description => _description;
+
   set description(String? description) => _description = description;
+
   set mainImage(String? mainImage) => _mainImage = mainImage;
+
   String? get name => _name;
+
   set name(String? name) => _name = name;
-
-
-
 
   ProductCart.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -92,11 +94,6 @@ class ProductCart {
     _mainImage = json['main_image'];
     _name = json['name'];
     _description = json['description'];
-
-
-
-
-
   }
 
   Map<String, dynamic> toJson() {

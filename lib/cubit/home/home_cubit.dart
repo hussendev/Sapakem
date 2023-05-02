@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/app/home_api_controller.dart';
 import 'package:sapakem/model/home/home.dart';
 
 import '../../model/home/merchant.dart';
-import '../../model/home/status_merchant.dart';
 import 'home_states.dart';
 
 class HomeCubit extends Cubit<HomeStates> {
@@ -15,7 +13,7 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeApiController homeApiController = HomeApiController();
   int count = 0;
 
-  void getHomeData({bool isRefresh=false}) async {
+  void getHomeData({bool isRefresh = false}) async {
     emit(LoadingHomeState());
     try {
       HomeResponse homeResponse = await homeApiController.getHomeData(isRefresh: isRefresh);
@@ -23,13 +21,11 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(SuccessHomeState(homeResponse.homeData!));
       } else {
         Logger().e(homeResponse.message);
-         if(homeResponse.message=="api.unauthenticated."){
-           emit(ErrorHomeState("يجب تسجيل الدخول أولا"));
-
-         }else{
-        emit(ErrorHomeState("حدث خطأ ما"));
-         }
-         
+        if (homeResponse.message == "api.unauthenticated.") {
+          emit(ErrorHomeState("يجب تسجيل الدخول أولا"));
+        } else {
+          emit(ErrorHomeState("حدث خطأ ما"));
+        }
       }
     } catch (e) {
       Logger().e(e.toString());
@@ -122,6 +118,4 @@ class HomeCubit extends Cubit<HomeStates> {
 //       emit(ErrorMerchantState(e.toString()));
 //     }
 //   }
-
-
 }

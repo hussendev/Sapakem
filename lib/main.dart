@@ -12,9 +12,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
-import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
 import 'package:sapakem/cubit/language/language_state.dart';
+import 'package:sapakem/cubit/orders/orders_cubit.dart';
+import 'package:sapakem/cubit/requests/my_requests_cubit.dart';
 import 'package:sapakem/model/home/categories.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/screens/app/home/favorite_screen.dart';
@@ -49,15 +50,10 @@ void main() async {
     permission = await Geolocator.requestPermission();
   }
 
-  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-      .then((Position position) {
+  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
     Logger().i(position.latitude);
     Logger().i(position.longitude);
-    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(
-        fcmToken: fcmToken!,
-        lat: position.latitude,
-        lng: position.longitude,
-        deviceType: deviceType);
+    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!, lat: position.latitude, lng: position.longitude, deviceType: deviceType);
   }).catchError((e) {
     Logger().wtf(e);
   });
@@ -84,6 +80,12 @@ class MyApp extends StatelessWidget {
         BlocProvider<HomeCubit>(
           create: (context) => HomeCubit(),
         ),
+        BlocProvider<MyRequestsCubit>(
+          create: (context) => MyRequestsCubit(),
+        ),
+        BlocProvider<OrdersCubit>(
+          create: (context) => OrdersCubit(),
+        )
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, language) {
@@ -99,29 +101,22 @@ class MyApp extends StatelessWidget {
                     elevation: 0,
                     backgroundColor: Colors.transparent,
                     iconTheme: const IconThemeData(color: Colors.black),
-                    titleTextStyle: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                    titleTextStyle: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),
                 initialRoute: '/lunch_screen',
                 routes: {
                   '/login_screen': (context) => LoginScreen(),
                   '/register_screen': (context) => RegisterScreen(),
-                  '/forgot_password_screen': (context) =>
-                      const ForgetPasswordScreen(),
+                  '/forgot_password_screen': (context) => const ForgetPasswordScreen(),
                   '/otp_screen': (context) => OTPScreen(),
-                  '/new_password_screen': (context) =>
-                      const NewPasswordScreen(),
+                  '/new_password_screen': (context) => const NewPasswordScreen(),
                   '/lunch_screen': (context) => const LunchScreen(),
                   '/on_boarding': (context) => OnBoarding(),
                   '/chose_language': (context) => const ChoseLanguage(),
-                  '/chose_sign_up_or_register': (context) =>
-                      const ChoseSignUpOrRegister(),
+                  '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) =>
-                      MerchantsByCategory(category: Categories()),
+                  '/merchants_by_category': (context) => MerchantsByCategory(category: Categories()),
                   '/location': (context) => const LocationMap(),
                   '/cart_screen': (context) => const CartScreenWidget(),
                   '/favorite_screen': (context) => const FavoriteScreen(),

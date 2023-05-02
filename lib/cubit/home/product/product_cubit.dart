@@ -14,10 +14,10 @@ class ProductCubit extends Cubit<ProductStates> {
   Map<String, dynamic> cart = {};
   late Product product;
 
-
   // List<Map<String, dynamic>> products = [];
 
   int quantity = 0;
+
   void resetCounter() {
     quantity = 0;
   }
@@ -42,69 +42,44 @@ class ProductCubit extends Cubit<ProductStates> {
   //
   // }
 
-  void addToCart({required ProductCart productCart, required Product product,required BuildContext context}) {
-    // List<String> merchantsFreind = MerchantCubit().merchantsFriend;
-    // if (!merchantsFreind.contains(product.merchantId.toString())) {
-    //   emit(ErrorAddProductState(
-    //       'You can not buy from this merchant', ProcessState.notAllowed));
-    //   return;
-    // }
-    bool isExist = MerchantCubit.get(context)
-        .merchantsFriend.where((element) => element == product.merchantId.toString()).toList().isNotEmpty;
-        if(!isExist){
-          emit(ErrorAddProductState(
-              'You can not buy from this merchant', ProcessState.notAllowed));
-          return;
-        }
+  void addToCart({required ProductCart productCart, required Product product, required BuildContext context}) {
+    bool isExist = MerchantCubit.get(context).merchantsFriend.where((element) => element == product.merchantId.toString()).toList().isNotEmpty;
+    if (!isExist) {
+      emit(ErrorAddProductState('You can not buy from this merchant', ProcessState.notAllowed));
+      return;
+    }
 
-    // MerchantCubit.get(context).merchantsFriend.forEach((element) {
-    //   if (element == product.merchantId.toString()) {
-    //     emit(ErrorAddProductState(
-    //         'You can not buy from this merchant', ProcessState.notAllowed));
-    //     return;
-    //   }
-    // });
-
-    List data = ApiController().cacheData[
-            "https://mstore.nahal2.me/api/merchants/${product.merchantId}"]
-        ['object']['products'];
-    var prod =
-        data.where((element) => element['id'] == productCart.id).toList().first;
+    List data = ApiController().cacheData["https://mstore.nahal2.me/api/merchants/${product.merchantId}"]['object']['products'];
+    var prod = data.where((element) => element['id'] == productCart.id).toList().first;
 
     emit(LoadingProductState());
     try {
       if (productCart.quantity == 0) {
-        emit(ErrorAddProductState(
-            'Please Select Quantity', ProcessState.cantBeZero));
+        emit(ErrorAddProductState('Please Select Quantity', ProcessState.cantBeZero));
         return;
       }
       if (productCart.quantity! > product.quantity!) {
-        emit(ErrorAddProductState(
-            'Quantity is more than stock', ProcessState.cantBeMoreThanStock));
+        emit(ErrorAddProductState('Quantity is more than stock', ProcessState.cantBeMoreThanStock));
         return;
       }
 
       if (cart.containsKey(productCart.merchantId.toString())) {
         bool isProductInCart = false;
-        List data = cart[productCart.merchantId.toString()]
-            as List<Map<String, dynamic>>;
+        List data = cart[productCart.merchantId.toString()] as List<Map<String, dynamic>>;
         for (int i = 0; i < data.length; i++) {
           if (data[i]['id'].toString() == productCart.id.toString()) {
             isProductInCart = true;
-            emit(ErrorAddProductState(
-                "this product is already in cart", ProcessState.existInCart));
+            emit(ErrorAddProductState("this product is already in cart", ProcessState.existInCart));
             break;
           }
         }
         if (!isProductInCart) {
-          List<Map<String, dynamic>> products =
-              cart[productCart.merchantId.toString()] ?? [];
+          List<Map<String, dynamic>> products = cart[productCart.merchantId.toString()] ?? [];
           products.add(productCart.toJson());
           cart[productCart.merchantId.toString()] = products;
           product.quantity = (product.quantity! - productCart.quantity!);
           prod['quantity'] = (prod['quantity']! - productCart.quantity!);
-          emit(ProcessProductState(
-              cart, 'Add Product Success', ProcessState.ADD));
+          emit(ProcessProductState(cart, 'Add Product Success', ProcessState.ADD));
           emit(InitialProductState());
         }
       } else {
@@ -112,14 +87,12 @@ class ProductCubit extends Cubit<ProductStates> {
         cart[productCart.merchantId.toString()] = products;
         product.quantity = (product.quantity! - productCart.quantity!);
         prod['quantity'] = (prod['quantity']! - productCart.quantity!);
-        emit(
-            ProcessProductState(cart, 'Add Product Success', ProcessState.ADD));
+        emit(ProcessProductState(cart, 'Add Product Success', ProcessState.ADD));
         emit(InitialProductState());
       }
       Logger().i(prod);
     } catch (e) {
-      emit(ErrorAddProductState(
-          'Error Add Product', ProcessState.errorAddProduct));
+      emit(ErrorAddProductState('Error Add Product', ProcessState.errorAddProduct));
     }
   }
 
@@ -146,38 +119,26 @@ class ProductCubit extends Cubit<ProductStates> {
   }
 
   void removeMerchantFromCart(int merchantId) {
-    List dataInCash = ApiController()
-            .cacheData["https://mstore.nahal2.me/api/merchants/$merchantId"]
-        ['object']['products'];
+    List dataInCash = ApiController().cacheData["https://mstore.nahal2.me/api/merchants/$merchantId"]['object']['products'];
     // Logger().i(dataInCash.where((element) => element['id'] == productId));
     List data = cart[merchantId.toString()] as List<Map<String, dynamic>>;
     for (int i = 0; i < data.length; i++) {
-      var prod = dataInCash
-          .where((element) => element['id'] == data[i]['id'])
-          .toList()
-          .first;
+      var prod = dataInCash.where((element) => element['id'] == data[i]['id']).toList().first;
 
       prod['quantity'] = (prod['quantity']! + data[i]['quantity']);
     }
 
     cart.remove(merchantId.toString());
-    emit(ProcessProductState(
-        cart, 'Remove Merchant Success', ProcessState.DELETE));
+    emit(ProcessProductState(cart, 'Remove Merchant Success', ProcessState.DELETE));
   }
 
   void removeProductFromCart(int productId, int merchantId) {
-    List dataInCash = ApiController()
-            .cacheData["https://mstore.nahal2.me/api/merchants/$merchantId"]
-        ['object']['products'];
-    var prod = dataInCash
-        .where((element) => element['id'] == productId)
-        .toList()
-        .first;
+    List dataInCash = ApiController().cacheData["https://mstore.nahal2.me/api/merchants/$merchantId"]['object']['products'];
+    var prod = dataInCash.where((element) => element['id'] == productId).toList().first;
     List data = cart[merchantId.toString()] as List<Map<String, dynamic>>;
     if (data.length == 1) {
       removeMerchantFromCart(merchantId);
-      emit(ProcessProductState(
-          cart, 'Remove Product Success', ProcessState.DELETE));
+      emit(ProcessProductState(cart, 'Remove Product Success', ProcessState.DELETE));
       return;
     }
     for (int i = 0; i < data.length; i++) {
@@ -190,7 +151,6 @@ class ProductCubit extends Cubit<ProductStates> {
       }
     }
     cart[merchantId.toString()] = data;
-    emit(ProcessProductState(
-        cart, 'Remove Product Success', ProcessState.DELETE));
+    emit(ProcessProductState(cart, 'Remove Product Success', ProcessState.DELETE));
   }
 }
