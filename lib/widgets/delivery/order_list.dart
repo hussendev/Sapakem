@@ -5,13 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sapakem/model/order.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
-import 'package:sapakem/widgets/delivery/item_order.dart';
 
 class OrderList extends StatelessWidget {
-  final List<Order> orders;
+  final Order order;
   final bool withoutOrderDetails;
 
-  const OrderList({Key? key, required this.orders, this.withoutOrderDetails = false}) : super(key: key);
+  const OrderList({Key? key, required this.order, this.withoutOrderDetails = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class OrderList extends StatelessWidget {
                   ),
                   const Spacer(),
                   AppText(
-                    text: '₪ 30.0',
+                    text: order.subTotal.toString(),
                     fontSize: 21.sp,
                     color: const Color(0xff1C8ABB),
                     fontWeight: FontWeight.w700,
@@ -55,16 +54,15 @@ class OrderList extends StatelessWidget {
                 color: Colors.grey.shade300,
                 thickness: 1,
               ),
-              for (var i = 0; i < orders.length; i++)
-                Column(
-                  children: [
-                    const ItemOrder(),
-                    Divider(
-                      color: Colors.grey.shade300,
-                      thickness: 1,
-                    ),
-                  ],
-                ),
+              // Column(
+              //   children: [
+              //     // const ItemOrder(),
+              //     Divider(
+              //       color: Colors.grey.shade300,
+              //       thickness: 1,
+              //     ),
+              //   ],
+              // ),
               if (!withoutOrderDetails)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +82,14 @@ class OrderList extends StatelessWidget {
                         ),
                         9.pw(),
                         AppText(
-                          text: '2 مارس 2023  | 08:40 ص',
+                          text: 'The Create Date',
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          text: order.date!,
                           fontSize: 12.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
@@ -93,15 +98,107 @@ class OrderList extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/delivery/order.svg', color: const Color(0xff1C8ABB), width: 20.w),
+                        Icon(
+                          Icons.date_range,
+                          color: const Color(0xff1C8ABB),
+                          size: 20.w,
+                        ),
+                        9.pw(),
                         AppText(
-                          text: 'أحضر وجبتك الخاصة',
+                          text: 'The Received Date',
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          text: order.dateReceived!,
                           fontSize: 12.sp,
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
                         ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.lock_clock,
+                          color: const Color(0xff1C8ABB),
+                          size: 20.w,
+                        ),
+                        9.pw(),
+                        AppText(
+                          text: 'The Received Hour',
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          text: order.hour!,
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.payments,
+                          color: const Color(0xff1C8ABB),
+                          size: 20.w,
+                        ),
+                        9.pw(),
+                        AppText(
+                          text: 'Payment Type',
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          text: order.paymentType!,
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: const Color(0xff1C8ABB),
+                          size: 20.w,
+                        ),
+                        9.pw(),
+                        AppText(
+                          text: 'Address',
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        const Spacer(),
+                        AppText(
+                          text: order.address! == '' ? 'No Address' : order.address!,
+                          fontSize: 12.sp,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ],
+                    ),
+                    // Row(
+                    //   children: [
+                    //     SvgPicture.asset('assets/delivery/order.svg', color: const Color(0xff1C8ABB), width: 20.w),
+                    //     AppText(
+                    //       text: 'أحضر وجبتك الخاصة',
+                    //       fontSize: 12.sp,
+                    //       color: Colors.black,
+                    //       fontWeight: FontWeight.w600,
+                    //     ),
+                    //   ],
+                    // ),
                     21.ph(),
                   ],
                 ),

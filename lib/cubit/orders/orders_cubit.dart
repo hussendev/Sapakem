@@ -7,7 +7,7 @@ import 'package:sapakem/model/order.dart';
 part 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
-  OrdersCubit() : super(OrdersInitial());
+  OrdersCubit() : super(OrdersLoading());
   OrdersApiController controller = OrdersApiController();
 
   void getOrders() async {
