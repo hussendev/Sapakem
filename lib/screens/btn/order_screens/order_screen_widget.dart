@@ -158,8 +158,7 @@ class OrderScreenWidget extends StatelessWidget {
                                       ),
                                     ),
                                     OrderList(order: state2.orders[i]),
-                                    Divider(thickness: 1, color: Colors.black45),
-                                    50.ph(),
+                                    const Divider(thickness: 1, color: Colors.black45),
                                     50.ph(),
                                   ],
                                 ),
@@ -182,7 +181,7 @@ class OrderScreenWidget extends StatelessWidget {
                     } else if (state2 is OrdersError) {
                       return Text(state2.message);
                     }
-                    return Text('Baraa Error');
+                    return Text('Some Thing is wrong');
                   },
                 ),
               ],

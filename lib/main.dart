@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<OrdersCubit>(
           create: (context) => OrdersCubit()..getOrders(),
-        )
+        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, language) {

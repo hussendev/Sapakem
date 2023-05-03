@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sapakem/model/orderDetails.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ItemOrder extends StatelessWidget {
-  const ItemOrder({Key? key}) : super(key: key);
+  final OrderDetails? order;
+
+  ItemOrder({this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +17,8 @@ class ItemOrder extends StatelessWidget {
         Row(
           children: [
             Container(
-              height: 80.h,
-              width: 100.w,
+              height: 150.h,
+              width: 150.w,
               decoration: BoxDecoration(
                 color: Colors.grey.shade300,
                 borderRadius: BorderRadius.circular(8.r),
@@ -32,31 +35,43 @@ class ItemOrder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  text: 'اسم المنتج',
+                  text: 'Product Name:',
                   fontSize: 12.sp,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                ),
-                AppText(
-                  text: 'المكونات',
-                  fontSize: 10.sp,
                   color: Colors.black54,
                   fontWeight: FontWeight.w700,
                 ),
                 AppText(
-                  text: 'المكونات',
-                  fontSize: 10.sp,
+                  text: order!.productName!,
+                  fontSize: 12.sp,
+                  color: Colors.black54,
+                  // fontWeight: FontWeight.w400,
+                ),
+                AppText(
+                  text: 'Merchant Name: ',
+                  fontSize: 12.sp,
                   color: Colors.black54,
                   fontWeight: FontWeight.w700,
                 ),
                 AppText(
-                  text: 'المكونات',
-                  fontSize: 10.sp,
+                  text: order!.merchantName!,
+                  fontSize: 12.sp,
+                  color: Colors.black54,
+                  // fontWeight: FontWeight.w700,
+                ),
+                AppText(
+                  text: 'Total: ',
+                  fontSize: 12.sp,
                   color: Colors.black54,
                   fontWeight: FontWeight.w700,
                 ),
                 AppText(
-                  text: '₪ 30.0',
+                  text: '${order!.total!}',
+                  fontSize: 12.sp,
+                  color: Colors.black54,
+                  // fontWeight: FontWeight.w700,
+                ),
+                AppText(
+                  text: '₪ ${order!.price!}',
                   fontSize: 16.sp,
                   color: const Color(0xff1C8ABB),
                   fontWeight: FontWeight.w700,
@@ -70,19 +85,19 @@ class ItemOrder extends StatelessWidget {
                 AppText(
                   text: AppLocalizations.of(context)!.quantity,
                   fontSize: 10.sp,
-                  color: Colors.black,
+                  color: Colors.black45,
                   fontWeight: FontWeight.w600,
                 ),
                 AppText(
                   text: ' : ',
                   fontSize: 10.sp,
-                  color: Colors.black,
+                  color: Colors.black45,
                   fontWeight: FontWeight.w600,
                 ),
                 AppText(
-                  text: '2',
+                  text: order!.quantity!.toString(),
                   fontSize: 10.sp,
-                  color: Colors.black,
+                  color: Colors.black45,
                   fontWeight: FontWeight.w600,
                 ),
               ],

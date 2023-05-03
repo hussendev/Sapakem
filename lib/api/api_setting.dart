@@ -16,6 +16,7 @@ class ApiSettings {
   static const String getStatusMerchant = '${basedUrl}friend_requests/';
 
   static const String getOrders = '${basedUrl}orders';
+  static const String getOrderDetails = '${basedUrl}orders/';
 
 // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
 // static const String profile = '${_basedUrl}User/GetProfile';

@@ -13,12 +13,6 @@ class Order {
   double? latitude;
   double? longitude;
 
-  double? quantity;
-  double? orderId;
-  double? price;
-  double? productName;
-  double? merchantName;
-
   Order({
     this.id,
     this.total,
@@ -33,11 +27,6 @@ class Order {
     this.paymentType,
     this.latitude,
     this.longitude,
-    this.quantity,
-    this.orderId,
-    this.price,
-    this.productName,
-    this.merchantName,
   });
 
   Order.fromJson(Map<String, dynamic> json) {
@@ -56,14 +45,6 @@ class Order {
     longitude = json['longitude'];
   }
 
-  Order.detailsFromJson(Map<String, dynamic> json) {
-    quantity = json['quantity'];
-    orderId = json['order_id'];
-    price = json['price'];
-    productName = json['product_name'];
-    merchantName = json['merchant_name'];
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
@@ -79,11 +60,6 @@ class Order {
     data['payment_type'] = paymentType;
     data['latitude'] = latitude;
     data['longitude'] = longitude;
-    data['quantity'] = quantity;
-    data['order_id'] = orderId;
-    data['price'] = price;
-    data['product_name'] = productName;
-    data['merchant_name'] = merchantName;
     return data;
   }
 }
