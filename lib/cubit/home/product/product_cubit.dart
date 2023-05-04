@@ -6,12 +6,14 @@ import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 
 class ProductCubit extends Cubit<ProductStates> {
   ProductCubit() : super(InitialProductState());
 
   static ProductCubit get(context) => BlocProvider.of(context);
   Map<String, dynamic> cart = {};
+
   late Product product;
 
 
@@ -43,12 +45,6 @@ class ProductCubit extends Cubit<ProductStates> {
   // }
 
   void addToCart({required ProductCart productCart, required Product product,required BuildContext context}) {
-    // List<String> merchantsFreind = MerchantCubit().merchantsFriend;
-    // if (!merchantsFreind.contains(product.merchantId.toString())) {
-    //   emit(ErrorAddProductState(
-    //       'You can not buy from this merchant', ProcessState.notAllowed));
-    //   return;
-    // }
     bool isExist = MerchantCubit.get(context)
         .merchantsFriend.where((element) => element == product.merchantId.toString()).toList().isNotEmpty;
         if(!isExist){
@@ -57,13 +53,6 @@ class ProductCubit extends Cubit<ProductStates> {
           return;
         }
 
-    // MerchantCubit.get(context).merchantsFriend.forEach((element) {
-    //   if (element == product.merchantId.toString()) {
-    //     emit(ErrorAddProductState(
-    //         'You can not buy from this merchant', ProcessState.notAllowed));
-    //     return;
-    //   }
-    // });
 
     List data = ApiController().cacheData[
             "https://mstore.nahal2.me/api/merchants/${product.merchantId}"]
@@ -103,6 +92,7 @@ class ProductCubit extends Cubit<ProductStates> {
           cart[productCart.merchantId.toString()] = products;
           product.quantity = (product.quantity! - productCart.quantity!);
           prod['quantity'] = (prod['quantity']! - productCart.quantity!);
+
           emit(ProcessProductState(
               cart, 'Add Product Success', ProcessState.ADD));
           emit(InitialProductState());
@@ -112,6 +102,7 @@ class ProductCubit extends Cubit<ProductStates> {
         cart[productCart.merchantId.toString()] = products;
         product.quantity = (product.quantity! - productCart.quantity!);
         prod['quantity'] = (prod['quantity']! - productCart.quantity!);
+
         emit(
             ProcessProductState(cart, 'Add Product Success', ProcessState.ADD));
         emit(InitialProductState());
@@ -194,3 +185,12 @@ class ProductCubit extends Cubit<ProductStates> {
         cart, 'Remove Product Success', ProcessState.DELETE));
   }
 }
+
+/*
+
+{
+"1" : [],
+"2" : [],
+"userId":2
+}
+ */

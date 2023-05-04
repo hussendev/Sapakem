@@ -12,14 +12,20 @@ class AppButton extends StatelessWidget {
     required this.text,
     this.width = double.infinity,
     this.height = 60,
+  this.borderRadius = 10,
+    this.fontSize = 18,
+    this.fontWeight = FontWeight.w500,
     this.color= const Color.fromARGB(255, 22, 134, 199),
   });
   double width;
   double height;
+  double borderRadius;
+  double fontSize;
 
   late String text;
   late VoidCallback onPressed;
   Color color;
+  FontWeight fontWeight ;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +33,14 @@ class AppButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius.r)),
           backgroundColor: color,
           minimumSize: Size(width.w, height.h)),
       child: AppText(
           text: text,
-          fontSize: 18.sp,
+          fontSize:fontSize.sp,
           color: Colors.white,
-          fontWeight: FontWeight.w500),
+          fontWeight: fontWeight),
     );
   }
 }
