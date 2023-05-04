@@ -451,12 +451,12 @@ class AppDialog {
                         color: Colors.black38,
                         thickness: 1,
                       ),
-                      const ItemOrder(),
+                      ItemOrder(),
                       const Divider(
                         color: Colors.black38,
                         thickness: 1,
                       ),
-                      const ItemOrder(),
+                      ItemOrder(),
                       10.ph(),
                     ],
                   ),
@@ -502,12 +502,12 @@ class AppDialog {
                         color: Colors.black38,
                         thickness: 1,
                       ),
-                      const ItemOrder(),
+                      ItemOrder(),
                       const Divider(
                         color: Colors.black38,
                         thickness: 1,
                       ),
-                      const ItemOrder(),
+                      ItemOrder(),
                       10.ph(),
                     ],
                   ),
@@ -548,7 +548,7 @@ class AppDialog {
                 30.ph(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const OrderScreenWidget()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OrderScreenWidget()));
                   },
                   child: Container(
                     height: 40.h,
