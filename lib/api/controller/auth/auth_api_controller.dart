@@ -14,9 +14,12 @@ class UsersApiController with Helpers {
   // login
   Future<ProcessResponse> login(
       {required String mobile, required String password}) async {
+
+
     Uri uri = Uri.parse(ApiSettings.login);
     var response =
         await http.post(uri, body: {'mobile': mobile, 'password': password});
+    Logger().i(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
       var json = jsonDecode(response.body);

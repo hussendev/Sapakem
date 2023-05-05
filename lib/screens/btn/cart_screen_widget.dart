@@ -25,7 +25,6 @@ class CartScreenWidget extends StatelessWidget {
         BlocBuilder<ProductCubit, ProductStates>(
           builder: (context, state) {
             Map<String, dynamic> data = context.read<ProductCubit>().cart;
-
             return data.isNotEmpty
                 ? Padding(
                     padding: EdgeInsets.symmetric(horizontal: 36.w),
@@ -133,7 +132,7 @@ class CartScreenWidget extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                             const Spacer(),
                             AppText(
-                                text: '₪ 0',
+                                text: getSubTotal(data).toString(),
                                 fontSize: 13.sp,
                                 color: const Color(0xff3F4446),
                                 fontWeight: FontWeight.bold),
@@ -167,8 +166,8 @@ class CartScreenWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.error,
                           color: Colors.grey.shade400, size: 100.sp),
-                      Center(
-                        child: Container(child: const Text('No Data')),
+                      const Center(
+                        child: Text('No Data'),
                       ),
                     ],
                   );

@@ -160,6 +160,18 @@ class RegisterScreen extends StatelessWidget {
                                     controller: emailController,
                                     obscureText: false),
                                 10.ph(),
+                                AppText(text: 'City', fontSize: 20.sp, color: Colors.black),
+                                10.ph(),
+                                DropdownButtonFormField(
+                                  items: [] ,
+                                
+                                 onChanged: (value) {
+                                   
+                                 },
+                                 )
+                                 ,
+                               
+                               // DropdownButtonFormField(items:, onChanged: onChanged)
                                 AppTextField(
                                     text: context.localizations.password,
                                     hinttext: '***********',

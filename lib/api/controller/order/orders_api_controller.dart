@@ -25,8 +25,8 @@ class OrdersApiController {
     Logger().i(data);
     List<order.Order> orders = [];
 
-    for (int i = 0; i < (data!['orders'] as List).length; i++) {
-      orders.add(order.Order.fromJson(data['orders'][i]));
+    for (int i = 0; i < (data!['list'] as List).length; i++) {
+      orders.add(order.Order.fromJson(data['list'][i]));
     }
     Logger().i(orders);
     return orders;
@@ -46,13 +46,11 @@ class OrdersApiController {
       withoutToast: true,
       isRefresh: isRefresh,
     );
-    Logger().i(data);
     List<OrderDetails> orders = [];
 
-    for (int i = 0; i < (data!['details'] as List).length; i++) {
-      orders.add(OrderDetails.fromJson(data['details'][i]));
+    for (int i = 0; i < (data!['products'] as List).length; i++) {
+      orders.add(OrderDetails.fromJson(data['products'][i]));
     }
-    Logger().i(orders);
     return orders;
   }
 }

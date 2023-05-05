@@ -13,7 +13,8 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   void getOrders(String orderId) async {
     emit(OrderDetailsLoading());
     try {
-      List<OrderDetails> data = await controller.getOrderDetails(orderId: orderId);
+      List<OrderDetails> data =
+          await controller.getOrderDetails(orderId: orderId);
       emit(OrderDetailsSuccess(data));
     } catch (e) {
       emit(OrderDetailsError(e.toString()));
@@ -21,3 +22,4 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
     }
   }
 }
+

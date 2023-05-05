@@ -35,7 +35,9 @@ class ProductWidget extends StatelessWidget {
       child: Container(
         // padding: EdgeInsets.symmetric(horizontal: 5.w),
         margin: EdgeInsets.only(right: 10.w),
-        decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.all(Radius.circular(10.r))),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.all(Radius.circular(10.r))),
         height: 141.h,
         // width: 130.w,
         child: Column(
@@ -74,12 +76,16 @@ class ProductWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          text: product.description!.length > 10 ? '${product.name!.substring(0, 10)}...' : product.name!,
+                          text: product.description!.length > 10
+                              ? '${product.name!.substring(0, 10)}...'
+                              : product.name!,
                           fontSize: 13.sp,
                           color: Colors.black,
                         ),
                         AppText(
-                          text: product.description!.length > 10 ? '${product.description!.substring(0, 10)}...' : product.description!,
+                          text: product.description!.length > 10
+                              ? '${product.description!.substring(0, 10)}...'
+                              : product.description!,
                           fontSize: 13.sp,
                           color: Colors.white,
                         ),

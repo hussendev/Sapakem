@@ -10,36 +10,46 @@ class ProductCart {
   String? _mainImage;
   String? _description;
 
-  ProductCart({int? id, int? price, int? priceOffer, int? quantity, String? productUnit, int? merchantId, String? merchantName, String? mainImage, String? name, String? description}) {
+  ProductCart(
+      {int? id,
+      int? price,
+      int? priceOffer,
+      int? quantity,
+      String? productUnit,
+      int? merchantId,
+      String? merchantName,
+      String? mainImage,
+      String? name,
+      String? description}) {
     if (id != null) {
-      this._id = id;
+      _id = id;
     }
     if (price != null) {
-      this._price = price;
+      _price = price;
     }
     if (priceOffer != null) {
-      this._priceOffer = priceOffer;
+      _priceOffer = priceOffer;
     }
     if (quantity != null) {
-      this._quantity = quantity;
+      _quantity = quantity;
     }
     if (productUnit != null) {
-      this._productUnit = productUnit;
+      _productUnit = productUnit;
     }
     if (merchantId != null) {
       _merchantId = merchantId;
     }
     if (name != null) {
-      this._name = name;
+      _name = name;
     }
     if (merchantName != null) {
-      this._merchantName = merchantName;
+      _merchantName = merchantName;
     }
     if (mainImage != null) {
-      this._mainImage = mainImage;
+      _mainImage = mainImage;
     }
     if (description != null) {
-      this._description = description;
+      _description = description;
     }
   }
 
@@ -97,17 +107,17 @@ class ProductCart {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['price'] = this._price;
-    data['price_offer'] = this._priceOffer;
-    data['quantity'] = this._quantity;
-    data['product_unit'] = this._productUnit;
-    data['merchant_id'] = this._merchantId;
-    data['merchant_name'] = this._merchantName;
-    data['main_image'] = this._mainImage;
-    data['name'] = this._name;
-    data['description'] = this._description;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = _id;
+    data['price'] = _price;
+    data['price_offer'] = _priceOffer;
+    data['quantity'] = _quantity;
+    data['product_unit'] = _productUnit;
+    data['merchant_id'] = _merchantId;
+    data['merchant_name'] = _merchantName;
+    data['main_image'] = _mainImage;
+    data['name'] = _name;
+    data['description'] = _description;
     return data;
   }
 }
