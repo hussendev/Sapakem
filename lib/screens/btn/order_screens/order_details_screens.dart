@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sapakem/cubit/order_details_cubit.dart';
+import 'package:sapakem/cubit/orders/orders_cubit.dart';
 import 'package:sapakem/model/order.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/app_text.dart';
@@ -15,26 +15,26 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OrderDetailsCubit>(
-      create: (context) => OrderDetailsCubit()..getOrders('${order.id!}'),
+    return BlocProvider<OrdersCubit>(
+      create: (context) => OrdersCubit()..getOrderDetails('${order.id!}'),
       child: Scaffold(
         body: Column(
           children: [
             CustomAppBar(title: context.localizations.my_requests),
             Center(
-              child: BlocBuilder<OrderDetailsCubit, OrderDetailsState>(
+              child: BlocBuilder<OrdersCubit, OrdersState>(
                 builder: (context, state) {
-                  if (state is OrderDetailsSuccess) {
+                  if (state is OrderDetailsSuccessful) {
                     return OrderList(
                       order: order,
-                      ordersDetails: state.orderDetails,
+                      ordersDetails: state.orders,
                     );
-                  } else if (state is OrderDetailsLoading) {
+                  } else if (state is OrdersLoading) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state is OrderDetailsError) {
-                    return AppText(text: state.error, fontSize: 14.sp, color: Colors.black54);
+                  } else if (state is OrdersError) {
+                    return AppText(text: state.message, fontSize: 14.sp, color: Colors.black54);
                   }
                   return AppText(text: 'I don\'t know why this happen!!', fontSize: 14.sp, color: Colors.black54);
                 },

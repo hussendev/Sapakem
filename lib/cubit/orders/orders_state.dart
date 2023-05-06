@@ -16,3 +16,17 @@ class OrdersSuccessful extends OrdersState {
 
   OrdersSuccessful(this.orders);
 }
+
+class OrderDetailsSuccessful extends OrdersState {
+  final List<OrderDetails> orders;
+
+  OrderDetailsSuccessful(this.orders);
+}
+
+enum PayMethod { cash, delivery, none }
+
+class PayWayState extends OrdersState {
+  final PayMethod payMethod;
+
+  PayWayState(this.payMethod);
+}

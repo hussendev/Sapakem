@@ -82,5 +82,6 @@
   "subtotal": "المجموع الفرعي",
   "the_total_amount": "المبلغ الكلي",
   "proceed_to_payment": "البدء بالدفع",
-  "sorry_no_data_to_show": "نأسف لا يوجد بيانات لعرضها"
+  "sorry_no_data_to_show": "نأسف لا يوجد بيانات لعرضها",
+  "cash": "نقداً"
 }
