@@ -36,7 +36,11 @@ class SharedPrefController {
   saveToken(String token) async {
     await _sharedPreferences.setString(PrefKeys.token.name, 'Bearer $token');
   }
+  
 
+  saveLanguage(String language) async {
+    await _sharedPreferences.setString(PrefKeys.language.name, language);
+  }
   void saveFcmTokenAndLatLongAndDeviceType({required String fcmToken, required double lat, required double lng, required int deviceType}) {
     _sharedPreferences.setString(PrefKeys.fcmToken.name, fcmToken);
     _sharedPreferences.setString(PrefKeys.lat.name, lat.toString());

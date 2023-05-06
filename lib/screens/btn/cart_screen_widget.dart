@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/util/context_extenssion.dart';
@@ -160,17 +161,17 @@ class CartScreenWidget extends StatelessWidget {
                       ],
                     ),
                   )
-                : Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(Icons.error,
-                          color: Colors.grey.shade400, size: 100.sp),
-                      const Center(
-                        child: Text('No Data'),
-                      ),
-                    ],
-                  );
+                : Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/delivery/empty_cart.jpg'),
+                         AppText(text: 'You don\'t have any items. Please go for shopping', fontSize: 18.sp, color: Colors.black),
+                      ],
+                    ),
+                );
           },
           buildWhen: (previous, current) {
             if (current is ProcessProductState ||

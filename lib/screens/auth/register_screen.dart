@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/logger.dart';
+import 'package:sapakem/cubit/auth/city/city_cubit.dart';
+import 'package:sapakem/cubit/auth/city/city_states.dart';
 import 'package:sapakem/cubit/auth/register/register_cubit.dart';
 import 'package:sapakem/cubit/auth/register/register_states.dart';
+import 'package:sapakem/model/city.dart';
 import 'package:sapakem/model/user_register.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
@@ -22,6 +26,8 @@ class RegisterScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+
+  List<City> cities = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,44 +166,236 @@ class RegisterScreen extends StatelessWidget {
                                     controller: emailController,
                                     obscureText: false),
                                 10.ph(),
-                                AppText(text: 'City', fontSize: 20.sp, color: Colors.black),
+                                AppText(
+                                    text: 'City',
+                                    fontSize: 20.sp,
+                                    color: Colors.black),
                                 10.ph(),
-                                DropdownButtonFormField(
-                                  items: [] ,
-                                
-                                 onChanged: (value) {
-                                   
-                                 },
-                                 )
-                                 ,
-                               
-                               // DropdownButtonFormField(items:, onChanged: onChanged)
-                                AppTextField(
-                                    text: context.localizations.password,
-                                    hinttext: '***********',
-                                    labeltext: 'labeltext',
-                                    keyboardType: TextInputType.visiblePassword,
-                                    controller: passwordController,
-                                    suffixIcon: const Icon(
-                                      Icons.visibility_off_outlined,
-                                      size: 25,
-                                      color: const Color(0xff1E2434),
-                                    ),
-                                    obscureText: true),
+                                BlocBuilder<CityCubit, CityStates>(
+                                  builder: (context, state) {
+                                    if (state is CityLoadingState) {
+                                      return DropdownButtonFormField<String>(
+                                          decoration: const InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xff1C8ABB)),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xff1C8ABB)),
+                                              )),
+                                          value: 'Loading...',
+                                          items: const [],
+                                          onChanged: (value) {});
+                                    } else if (state is CitySuccessState) {
+                                      return DropdownButtonFormField<City>(
+                                          decoration: const InputDecoration(
+                                              hintText: 'Please Select City',
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xff1C8ABB)),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(10)),
+                                                borderSide: BorderSide(
+                                                    color: Color(0xff1C8ABB)),
+                                              )),
+                                          value: state.cities.first,
+                                          items: state.cities
+                                              .map((e) => DropdownMenuItem(
+                                                    value: e,
+                                                    child: Text(e.name ?? ''),
+                                                  ))
+                                              .toList(),
+                                          onChanged: (value) {
+                                            context
+                                                .read<CityCubit>()
+                                                .ChangeCity(value!);
+                                          });
+                                    } else {
+                                      state as CityErrorState;
+                                      return Text(state.error);
+                                    }
+                                  },
+                                  buildWhen: (previous, current) {
+                                    if (current is CitySuccessState ||
+                                        state is CityInitialState) {
+                                      return true;
+                                    }
+                                    return false;
+                                  },
+                                ),
                                 10.ph(),
-                                AppTextField(
-                                    text:
-                                        context.localizations.confirm_password,
-                                    hinttext: '***********',
-                                    labeltext: 'labeltext',
-                                    keyboardType: TextInputType.visiblePassword,
-                                    controller: confirmPasswordController,
-                                    suffixIcon: const Icon(
-                                      Icons.visibility_off_outlined,
-                                      size: 25,
-                                      color: const Color(0xff1E2434),
-                                    ),
-                                    obscureText: true),
+                                // DropdownButtonFormField(items:, onChanged: onChanged)
+                                BlocBuilder<RegisterCubit, RegisterStates>(
+                                  builder: (context, state) {
+                                    if (state is initialRegisterState) {
+                                      return Column(
+                                        children: [
+                                          AppTextField(
+                                              text: context
+                                                  .localizations.password,
+                                              hinttext: '********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller: passwordController,
+                                              obscureText: true,
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  Logger().i('message');
+                                                  context
+                                                      .read<RegisterCubit>()
+                                                      .changePasswordVisibilityForPassword();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.visibility_off_outlined,
+                                                  color: Colors.grey,
+                                                ),
+                                              )),
+                                          10.ph(),
+                                          AppTextField(
+                                              text: context.localizations
+                                                  .confirm_password,
+                                              hinttext: '***********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller:
+                                                  confirmPasswordController,
+                                              suffixIcon: const Icon(
+                                                Icons.visibility_off_outlined,
+                                                size: 25,
+                                                color: Colors.grey,
+                                              ),
+                                              obscureText: true),
+                                        ],
+                                      );
+                                    } else if (state
+                                        is ChangePasswordVisibilityForPassword) {
+                                      return Column(
+                                        children: [
+                                          AppTextField(
+                                              text: context
+                                                  .localizations.password,
+                                              hinttext: '********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller: passwordController,
+                                              obscureText: state
+                                                  .visiblePasswordForPassword,
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  Logger().i('message');
+                                                  context
+                                                      .read<RegisterCubit>()
+                                                      .changePasswordVisibilityForPassword();
+                                                },
+                                                icon: Icon(
+                                                  state.visiblePasswordForPassword
+                                                      ? Icons
+                                                          .visibility_off_outlined
+                                                      : Icons.visibility,
+                                                  color: Colors.grey,
+                                                ),
+                                              )),
+                                          10.ph(),
+                                          AppTextField(
+                                              text: context.localizations
+                                                  .confirm_password,
+                                              hinttext: '***********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller:
+                                                  confirmPasswordController,
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  Logger().i('message');
+                                                  context
+                                                      .read<RegisterCubit>()
+                                                      .changePasswordVisibilityForPassword();
+                                                },
+                                                icon: Icon(
+                                                  state.visiblePasswordForPassword
+                                                      ? Icons
+                                                          .visibility_off_outlined
+                                                      : Icons.visibility,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              obscureText: state
+                                                  .visiblePasswordForPassword),
+                                        ],
+                                      );
+                                    } else {
+                                      return Column(
+                                        children: [
+                                          AppTextField(
+                                              text: context
+                                                  .localizations.password,
+                                              hinttext: '********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller: passwordController,
+                                              obscureText: true,
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  Logger().i('message');
+                                                  context
+                                                      .read<RegisterCubit>()
+                                                      .changePasswordVisibilityForPassword();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.visibility_off_outlined,
+                                                  color: Colors.grey,
+                                                ),
+                                              )),
+                                          10.ph(),
+                                          AppTextField(
+                                              text: context.localizations
+                                                  .confirm_password,
+                                              hinttext: '***********',
+                                              labeltext: 'labeltext',
+                                              keyboardType:
+                                                  TextInputType.visiblePassword,
+                                              controller:
+                                                  confirmPasswordController,
+                                              suffixIcon: IconButton(
+                                                onPressed: () {
+                                                  Logger().i('message');
+                                                  context
+                                                      .read<RegisterCubit>()
+                                                      .changePasswordVisibilityForPassword();
+                                                },
+                                                icon: const Icon(
+                                                  Icons.visibility_off_outlined,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              obscureText: true),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                  buildWhen: (previous, current) {
+                                    if (current
+                                        is ChangePasswordVisibilityForPassword) {
+                                      return true;
+                                    }
+                                    return false;
+                                  },
+                                ),
+
                                 9.ph(),
                                 25.ph(),
                                 AppButton(
@@ -240,7 +438,7 @@ class RegisterScreen extends StatelessWidget {
             if (state is SuccessRegisterState) {
               context.showSnackBar(
                   message: state.message, error: !state.success);
-              Navigator.pushReplacementNamed(context, '/otp_screen');
+              Navigator.pushReplacementNamed(context, '/login_screen');
             } else if (state is ErrorDataRegisterState) {
               context.showSnackBar(
                   message: state.message, error: !state.success);
@@ -282,23 +480,23 @@ class RegisterScreen extends StatelessWidget {
   }
 
   void _register(BuildContext context) async {
-    RegisterCubit.get(context).userRegister(user: user, context: context);
+    // Logger().i(user(context).toJson());
+    RegisterCubit.get(context)
+        .userRegister(user: user(context), context: context);
   }
 
-  UserRegister get user {
+  UserRegister user(BuildContext context) {
     UserRegister userRegister = UserRegister();
     userRegister.name =
         "${firstNameController.text} ${lastNameController.text}";
     userRegister.email = emailController.text;
     userRegister.password = passwordController.text;
     userRegister.mobile = int.parse(phoneController.text);
-    userRegister.lat =
-        double.parse(SharedPrefController().getValueFor(PrefKeys.lat.name));
-    userRegister.lng =
-        double.parse(SharedPrefController().getValueFor(PrefKeys.lng.name));
     userRegister.fcmToken =
         SharedPrefController().getValueFor(PrefKeys.fcmToken.name);
-    userRegister.deviceType = 1;
+    userRegister.deviceType =
+        int.parse(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
+    userRegister.cityId = CityCubit.get(context).cityId;
     return userRegister;
   }
 //1560

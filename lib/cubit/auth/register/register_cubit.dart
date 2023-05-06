@@ -20,6 +20,35 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
   //sign in with phone number
 
+  //change visible password
+
+  bool visiblePasswordForPassword = true;
+  bool visiblePasswordForConfirmPassword = true;
+  IconData suffixForPassword = Icons.visibility_off_outlined;
+  IconData suffixForConfirmPassword = Icons.visibility_off_outlined;
+  void changePasswordVisibilityForPassword() {
+    Logger().i("message");
+    visiblePasswordForPassword = !visiblePasswordForPassword;
+    suffixForPassword = visiblePasswordForPassword
+        ? Icons.visibility_off_outlined
+        : Icons.visibility;
+
+    emit(ChangePasswordVisibilityForPassword(
+        visiblePasswordForPassword, suffixForPassword));
+  }
+
+  void changePasswordVisibilityForConfirmPassword() {
+    Logger().i("message");
+    visiblePasswordForConfirmPassword = !visiblePasswordForConfirmPassword;
+    suffixForConfirmPassword = visiblePasswordForConfirmPassword
+        ? Icons.visibility_off_outlined
+        : Icons.visibility;
+    // Logger().i(visiblePassword,suffix);
+
+    emit(ChangePasswordVisibilityForConfirmPassword(
+        visiblePasswordForConfirmPassword, suffixForConfirmPassword));
+  }
+
   signInWithPhoneNumber({
     required String phone,
     required BuildContext context,
@@ -29,12 +58,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
         phoneNumber: '+972$phone',
         verificationCompleted: (PhoneAuthCredential credential) async {
           // await auth.signInWithCredential(credential);
-          
         },
         verificationFailed: (FirebaseAuthException e) {
           Logger().i(e);
 
-          emit(ErrorRegisterState('something went wrong'));
+          emit(const ErrorRegisterState('something went wrong'));
         },
         codeSent: (String verificationId, int? resendToken) async {
           this.verificationId = verificationId;
@@ -58,8 +86,9 @@ class RegisterCubit extends Cubit<RegisterStates> {
       usersApiController.register(user).then((value) {
         Logger().i(value.success);
         if (value.success) {
-          signInWithPhoneNumber(
-              phone: user.mobile!.toString(), context: context);
+          emit(SuccessRegisterState(value.success, value.message));
+          // signInWithPhoneNumber(
+          //     phone: user.mobile!.toString(), context: context);
         } else {
           emit(ErrorDataRegisterState(value.message, value.success));
         }
@@ -69,7 +98,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
       // });
     } catch (e) {
-      emit(ErrorRegisterState("حدث خطأ ما"));
+      emit(const ErrorRegisterState("حدث خطأ ما"));
     }
   }
 }
