@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
@@ -28,17 +29,13 @@ class InformationMerchantWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   merchant.storeName!,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 10.pw(),
                 SizedBox(
@@ -49,11 +46,7 @@ class InformationMerchantWidget extends StatelessWidget {
                       Container(
                         height: 10.h,
                         width: 10.w,
-                        decoration: BoxDecoration(
-                            color: merchant.isOpen!
-                                ? const Color(0xff69DF57)
-                                : Colors.red,
-                            shape: BoxShape.circle),
+                        decoration: BoxDecoration(color: merchant.isOpen! ? const Color(0xff69DF57) : Colors.red, shape: BoxShape.circle),
                       ),
                       10.pw(),
                       InkWell(
@@ -61,8 +54,7 @@ class InformationMerchantWidget extends StatelessWidget {
                           shareMerchant(context);
                         },
                         child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.blue, shape: BoxShape.circle),
+                          decoration: const BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
                           height: 25.h,
                           width: 25.w,
                           child: const Icon(
@@ -77,26 +69,16 @@ class InformationMerchantWidget extends StatelessWidget {
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
-                              context
-                                  .read<MerchantCubit>()
-                                  .addMerchantToFavorites(merchant);
+                              context.read<MerchantCubit>().addMerchantToFavorites(merchant);
                             },
                             child: Icon(
-                              MerchantCubit.get(context)
-                                      .isMerchantFavorite(merchant)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              size: 15,
-                              color: MerchantCubit.get(context)
-                                      .isMerchantFavorite(merchant)
-                                  ? Colors.red
-                                  : Colors.black,
+                              MerchantCubit.get(context).isMerchantFavorite(merchant) ? Icons.favorite : Icons.favorite_border,
+                              size: 25,
+                              color: MerchantCubit.get(context).isMerchantFavorite(merchant) ? Colors.red : Colors.black,
                             ),
                           );
                         },
-                        buildWhen: (previous, current) =>
-                            current is FavoriteMerchantState ||
-                            current is InitialFavoriteMerchantState,
+                        buildWhen: (previous, current) => current is FavoriteMerchantState || current is InitialFavoriteMerchantState,
                       ),
                     ],
                   ),
@@ -138,8 +120,7 @@ class InformationMerchantWidget extends StatelessWidget {
                     size: 20,
                   ),
                   AppText(
-                    text:
-                        "${merchant.businesHour!.first.from!} - ${merchant.businesHour!.first.to!}",
+                    text: "${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)} - ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}",
                     fontSize: 14.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -155,8 +136,7 @@ class InformationMerchantWidget extends StatelessWidget {
             ),
             8.ph(),
             BlocBuilder<MerchantCubit, MerchantStates>(
-              bloc: MerchantCubit.get(context)
-                ..getStatusForMerchant(context, merchant.id.toString()),
+              bloc: MerchantCubit.get(context)..getStatusForMerchant(context, merchant.id.toString()),
               builder: (context, state) {
                 if (state is InitialMerchantState) {
                   return AppButton(
@@ -171,9 +151,7 @@ class InformationMerchantWidget extends StatelessWidget {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state is SendRequestForMerchantState &&
-                    state.merchantFreindStatus ==
-                        MerchantFreindStatus.pending) {
+                } else if (state is SendRequestForMerchantState && state.merchantFreindStatus == MerchantFreindStatus.pending) {
                   return AppButton(
                     height: 30.h,
                     width: 107.w,
@@ -182,9 +160,7 @@ class InformationMerchantWidget extends StatelessWidget {
                     },
                     text: 'cancel request',
                   );
-                } else if (state is SendRequestForMerchantState &&
-                    state.merchantFreindStatus ==
-                        MerchantFreindStatus.notFreind) {
+                } else if (state is SendRequestForMerchantState && state.merchantFreindStatus == MerchantFreindStatus.notFreind) {
                   return AppButton(
                     height: 30.h,
                     width: 107.w,
@@ -193,8 +169,7 @@ class InformationMerchantWidget extends StatelessWidget {
                     },
                     text: 'Request to be freinds',
                   );
-                } else if (state is SendRequestForMerchantState &&
-                    state.merchantFreindStatus == MerchantFreindStatus.freind) {
+                } else if (state is SendRequestForMerchantState && state.merchantFreindStatus == MerchantFreindStatus.freind) {
                   return AppButton(
                     height: 30.h,
                     width: 107.w,
@@ -208,9 +183,7 @@ class InformationMerchantWidget extends StatelessWidget {
                   return Text(state.error);
                 }
               },
-              buildWhen: (previous, current) =>
-                  current is SendRequestForMerchantState ||
-                  current is InitialMerchantState,
+              buildWhen: (previous, current) => current is SendRequestForMerchantState || current is InitialMerchantState,
             )
           ]),
         ),
@@ -229,26 +202,14 @@ class InformationMerchantWidget extends StatelessWidget {
                   bottomRight: Radius.circular(30),
                 ),
               ),
-              child: AppText(
-                  textAlign: TextAlign.center,
-                  text: context
-                      .localizations.estimated_time_of_arrival_of_your_order,
-                  fontSize: 12.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
+              child: AppText(textAlign: TextAlign.center, text: context.localizations.estimated_time_of_arrival_of_your_order, fontSize: 12.sp, color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Container(
               height: 70.h,
               width: 70.w,
-              decoration: const BoxDecoration(
-                  color: Colors.white, shape: BoxShape.circle),
+              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
               child: Center(
-                child: AppText(
-                    textAlign: TextAlign.center,
-                    text: ' ₪ 30.0',
-                    fontSize: 18.sp,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold),
+                child: AppText(textAlign: TextAlign.center, text: ' ₪ 30.0', fontSize: 18.sp, color: Colors.blue, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -258,6 +219,7 @@ class InformationMerchantWidget extends StatelessWidget {
   }
 
   void shareMerchant(BuildContext context) async {
+    Logger().i((merchant.businesHour![(DateTime.now().day + 1) % 7].from!));
     context.showIndicator();
     String urlImage = merchant.merchantLogo!;
     final url = Uri.parse(urlImage);
@@ -273,14 +235,23 @@ class InformationMerchantWidget extends StatelessWidget {
           'Address: ${merchant.address}\n'
           'Mobile: ${merchant.mobile}\n'
           'Is Open: ${merchant.isOpen}\n'
-          'Business Hour : ${merchant.businesHour}',
+          'Today Open From: ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)}, To: ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}',
     );
+
     Navigator.pop(context);
   }
 
   performSendRequestForMerchant(BuildContext context) async {
-    context
-        .read<MerchantCubit>()
-        .sendRequestForMerchant(context, merchant.id.toString());
+    context.read<MerchantCubit>().sendRequestForMerchant(context, merchant.id.toString());
+  }
+
+  getHour(String hour) {
+    List<String> newHour = hour.split(':');
+    int hourAsInt = int.parse(newHour[0]);
+    int hourAs12 = hourAsInt % 12 == 0 ? 12 : hourAsInt % 12;
+
+    bool isPm = hourAsInt >= 12;
+
+    return '$hourAs12:${newHour[1]}${isPm ? ' PM' : ' AM'}';
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
+import 'package:sapakem/widgets/cart/app_dialog.dart';
 import 'package:sapakem/widgets/cart/cart_item_widget.dart';
 import 'package:sapakem/widgets/cart/cart_widget.dart';
 import 'package:sapakem/widgets/custom_app_bar.dart';
@@ -38,8 +38,7 @@ class CartScreenWidget extends StatelessWidget {
                           child: ListView.builder(
                               itemBuilder: (context, index) {
                                 String merchantID = data.keys.elementAt(index);
-                                List<Map<String, dynamic>> value =
-                                    data[merchantID];
+                                List<Map<String, dynamic>> value = data[merchantID];
                                 return Container(
                                   margin: const EdgeInsets.all(8),
                                   height: 263.h,
@@ -53,8 +52,7 @@ class CartScreenWidget extends StatelessWidget {
                                       ),
                                     ],
                                     color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
+                                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                                   ),
                                   child: Column(
                                     children: [
@@ -63,8 +61,7 @@ class CartScreenWidget extends StatelessWidget {
                                         height: 10,
                                         color: Color(0xff909090),
                                       ),
-                                      CartItemWidget(
-                                          length: value.length, data: value),
+                                      CartItemWidget(length: value.length, data: value),
                                     ],
                                   ),
                                 );
@@ -78,41 +75,21 @@ class CartScreenWidget extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppText(
-                                  fontWeight: FontWeight.bold,
-                                  text: context.localizations.payment_summary,
-                                  fontSize: 15.sp,
-                                  color: Colors.black),
+                              AppText(fontWeight: FontWeight.bold, text: context.localizations.payment_summary, fontSize: 15.sp, color: Colors.black),
                               10.ph(),
                               Row(
                                 children: [
-                                  AppText(
-                                      text: context.localizations.subtotal,
-                                      fontSize: 13.sp,
-                                      color: const Color(0xff3F4446),
-                                      fontWeight: FontWeight.bold),
+                                  AppText(text: context.localizations.subtotal, fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                                   const Spacer(),
-                                  AppText(
-                                      text: '₪ 0',
-                                      fontSize: 13.sp,
-                                      color: const Color(0xff3F4446),
-                                      fontWeight: FontWeight.bold),
+                                  AppText(text: '₪ 0', fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                                 ],
                               ),
                               10.ph(),
                               Row(
                                 children: [
-                                  AppText(
-                                      text: context.localizations.total,
-                                      fontSize: 13.sp,
-                                      color: const Color(0xff3F4446),
-                                      fontWeight: FontWeight.bold),
+                                  AppText(text: context.localizations.total, fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                                   const Spacer(),
-                                  AppText(
-                                      text: getSubTotal(data).toString(),
-                                      fontSize: 13.sp,
-                                      color: const Color(0xff3F4446),
-                                      fontWeight: FontWeight.bold),
+                                  AppText(text: getSubTotal(data).toString(), fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                                 ],
                               ),
                             ],
@@ -125,17 +102,9 @@ class CartScreenWidget extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            AppText(
-                                text: context.localizations.the_total_amount,
-                                fontSize: 13.sp,
-                                color: const Color(0xff3F4446),
-                                fontWeight: FontWeight.bold),
+                            AppText(text: context.localizations.the_total_amount, fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                             const Spacer(),
-                            AppText(
-                                text: getSubTotal(data).toString(),
-                                fontSize: 13.sp,
-                                color: const Color(0xff3F4446),
-                                fontWeight: FontWeight.bold),
+                            AppText(text: getSubTotal(data).toString(), fontSize: 13.sp, color: const Color(0xff3F4446), fontWeight: FontWeight.bold),
                           ],
                         ),
                         29.ph(),
@@ -143,18 +112,16 @@ class CartScreenWidget extends StatelessWidget {
                           height: 50.h,
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              AppDialog.productOrder(context, data, getSubTotal(data));
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xff1C8ABB),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            child: AppText(
-                                text: context.localizations.proceed_to_payment,
-                                fontSize: 15.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                            child: AppText(text: context.localizations.proceed_to_payment, fontSize: 15.sp, color: Colors.white, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
@@ -164,8 +131,7 @@ class CartScreenWidget extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(Icons.error,
-                          color: Colors.grey.shade400, size: 100.sp),
+                      Icon(Icons.error, color: Colors.grey.shade400, size: 100.sp),
                       const Center(
                         child: Text('No Data'),
                       ),
@@ -173,8 +139,7 @@ class CartScreenWidget extends StatelessWidget {
                   );
           },
           buildWhen: (previous, current) {
-            if (current is ProcessProductState ||
-                current is ErrorAddProductState) {
+            if (current is ProcessProductState || current is ErrorAddProductState) {
               return true;
             }
             return false;
