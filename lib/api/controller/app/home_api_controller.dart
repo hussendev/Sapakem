@@ -28,7 +28,6 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true,
         isRefresh: isRefresh);
-    Logger().i(data);
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;

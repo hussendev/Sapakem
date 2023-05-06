@@ -18,6 +18,7 @@ class UsersApiController with Helpers {
   Future<ProcessResponse> login(
       {required String mobile, required String password}) async {
     Uri uri = Uri.parse(ApiSettings.login);
+    Logger().e(SharedPrefController().getValueFor(PrefKeys.fcmToken.name));
     Logger().e(SharedPrefController().getValueFor(PrefKeys.language.name));
     Logger().e(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
 
@@ -95,12 +96,14 @@ class UsersApiController with Helpers {
       HttpHeaders.authorizationHeader: token,
       HttpHeaders.acceptHeader: 'application/json',
     });
+    Logger().i(response.body);
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-      SharedPrefController().clear();
+      SharedPrefController().clearUser();
       return ProcessResponse(message: json['message'], success: true);
     }
+    SharedPrefController().clearUser();
 
     return errorResponse;
   }

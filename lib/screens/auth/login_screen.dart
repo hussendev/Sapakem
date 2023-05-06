@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/auth/login/login_cubit.dart';
 import 'package:sapakem/cubit/auth/login/login_states.dart';
 import 'package:sapakem/util/context_extenssion.dart' as c;
@@ -16,7 +15,7 @@ import '../../widgets/app_text_field.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _phoneController =
-      TextEditingController(text: '0592197258');
+      TextEditingController(text: '11111117000');
   final TextEditingController _passwordController =
       TextEditingController(text: '123456');
 
@@ -140,7 +139,8 @@ class LoginScreen extends StatelessWidget {
                                             suffixIcon: IconButton(
                                               onPressed: () {
                                                 // Logger().i('message');
-                                                context.read<LoginCubit>()
+                                                context
+                                                    .read<LoginCubit>()
                                                     .changePasswordVisibility();
                                               },
                                               icon: const Icon(
@@ -148,8 +148,8 @@ class LoginScreen extends StatelessWidget {
                                                 color: Colors.grey,
                                               ),
                                             ));
-                                      } else if(state is ChangePasswordVisibilityState){
-
+                                      } else if (state
+                                          is ChangePasswordVisibilityState) {
                                         return AppTextField(
                                             text:
                                                 context.localizations.password,
@@ -162,7 +162,8 @@ class LoginScreen extends StatelessWidget {
                                             suffixIcon: IconButton(
                                               onPressed: () {
                                                 // Logger().i('message');
-                                                context.read<LoginCubit>()
+                                                context
+                                                    .read<LoginCubit>()
                                                     .changePasswordVisibility();
                                               },
                                               icon: Icon(
@@ -170,8 +171,8 @@ class LoginScreen extends StatelessWidget {
                                                 color: Colors.grey,
                                               ),
                                             ));
-                                      }else{
-                                      return AppTextField(
+                                      } else {
+                                        return AppTextField(
                                             text:
                                                 context.localizations.password,
                                             hinttext: '********',
@@ -183,7 +184,8 @@ class LoginScreen extends StatelessWidget {
                                             suffixIcon: IconButton(
                                               onPressed: () {
                                                 // Logger().i('message');
-                                                context.read<LoginCubit>()
+                                                context
+                                                    .read<LoginCubit>()
                                                     .changePasswordVisibility();
                                               },
                                               icon: const Icon(
@@ -277,15 +279,26 @@ class LoginScreen extends StatelessWidget {
               }
             },
             listener: (context, state) {
-              if (state is ErrorDataLoginState) {
+              if (state is SuccessLoginState) {
                 context.showSnackBar(
-                    message: state.error.toString(), error: !state.success);
+                    message: state.message.toString(), error: !state.success);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home_screen', (route) => false);
               } else if (state is ErrorLoginState) {
                 context.showSnackBar(
                     message: state.error.toString(), error: !state.success);
-              } else if (state is SuccessLoginState) {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/home_screen', (route) => false);
+              } else if (state is ErrorDataLoginState) {
+                context.showSnackBar(
+                    message: state.error.toString(), error: !state.success);
+              }
+            },
+            listenWhen: (previous, current) {
+              if (current is ErrorDataLoginState ||
+                  current is LoadingLoginState ||
+                  current is SuccessLoginState) {
+                return true;
+              } else {
+                return false;
               }
             },
             buildWhen: (previous, current) {
@@ -324,5 +337,5 @@ class LoginScreen extends StatelessWidget {
         password: _passwordController.text,
         context: context);
   }
-  //
+  
 }

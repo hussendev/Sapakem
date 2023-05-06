@@ -49,85 +49,90 @@ class UserData {
   String? _name;
   String? _email;
   String? _mobile;
-  double? _lat;
-  double? _lng;
+  String? _lat;
+  String? _lng;
   String? _status;
   String? _userType;
   String? _createdAt;
+  String? _image;
   String? _token;
+  String? _cityName;
 
-  UserData({int? id, String? name, String? email, String? mobile, double? lat, double? lng, String? status, String? userType, String? createdAt, String? token}) {
+  UserData(
+      {int? id,
+      String? name,
+      String? email,
+      String? mobile,
+      String? lat,
+      String? lng,
+      String? status,
+      String? userType,
+      String? createdAt,
+      String? image,
+      String? token,
+      String? cityName}) {
     if (id != null) {
-      _id = id;
+      this._id = id;
     }
     if (name != null) {
-      _name = name;
+      this._name = name;
     }
     if (email != null) {
-      _email = email;
+      this._email = email;
     }
     if (mobile != null) {
-      _mobile = mobile;
+      this._mobile = mobile;
     }
     if (lat != null) {
-      _lat = lat;
+      this._lat = lat;
     }
     if (lng != null) {
-      _lng = lng;
+      this._lng = lng;
     }
     if (status != null) {
-      _status = status;
+      this._status = status;
     }
     if (userType != null) {
-      _userType = userType;
+      this._userType = userType;
     }
     if (createdAt != null) {
-      _createdAt = createdAt;
+      this._createdAt = createdAt;
+    }
+    if (image != null) {
+      this._image = image;
     }
     if (token != null) {
-      _token = token;
+      this._token = token;
+    }
+    if (cityName != null) {
+      this._cityName = cityName;
     }
   }
 
   int? get id => _id;
-
   set id(int? id) => _id = id;
-
   String? get name => _name;
-
   set name(String? name) => _name = name;
-
   String? get email => _email;
-
   set email(String? email) => _email = email;
-
   String? get mobile => _mobile;
-
   set mobile(String? mobile) => _mobile = mobile;
-
-  double? get lat => _lat;
-
-  set lat(double? lat) => _lat = lat;
-
-  double? get lng => _lng;
-
-  set lng(double? lng) => _lng = lng;
-
+  String? get lat => _lat;
+  set lat(String? lat) => _lat = lat;
+  String? get lng => _lng;
+  set lng(String? lng) => _lng = lng;
   String? get status => _status;
-
   set status(String? status) => _status = status;
-
   String? get userType => _userType;
-
   set userType(String? userType) => _userType = userType;
-
   String? get createdAt => _createdAt;
-
   set createdAt(String? createdAt) => _createdAt = createdAt;
-
+  String? get image => _image;
+  set image(String? image) => _image = image;
   String? get token => _token;
-
   set token(String? token) => _token = token;
+  String? get cityName => _cityName;
+  set cityName(String? cityName) => _cityName = cityName;
 
   UserData.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -139,21 +144,25 @@ class UserData {
     _status = json['status'];
     _userType = json['user_type'];
     _createdAt = json['created_at'];
+    _image = json['image'];
     _token = json['token'];
+    _cityName = json['city_name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = _id;
-    data['name'] = _name;
-    data['email'] = _email;
-    data['mobile'] = _mobile;
-    data['lat'] = _lat;
-    data['lng'] = _lng;
-    data['status'] = _status;
-    data['user_type'] = _userType;
-    data['created_at'] = _createdAt;
-    data['token'] = _token;
+    data['id'] = this._id;
+    data['name'] = this._name;
+    data['email'] = this._email;
+    data['mobile'] = this._mobile;
+    data['lat'] = this._lat;
+    data['lng'] = this._lng;
+    data['status'] = this._status;
+    data['user_type'] = this._userType;
+    data['created_at'] = this._createdAt;
+    data['image'] = this._image;
+    data['token'] = this._token;
+    data['city_name'] = this._cityName;
     return data;
   }
 }
