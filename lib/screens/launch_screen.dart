@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/cubit/auth/city/city_cubit.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 
@@ -15,8 +16,12 @@ class _LunchScreenState extends State<LunchScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    CityCubit.get(context).getCities();
 
-    String route = SharedPrefController().getValueFor<String>(PrefKeys.token.name) == null ? '/chose_language' : '/home_screen';
+    String route =
+        SharedPrefController().getValueFor<String>(PrefKeys.token.name) == null
+            ? '/chose_language'
+            : '/home_screen';
 
     Future.delayed(const Duration(seconds: 1), () async {
       // await SharedPrefController().saveToken(

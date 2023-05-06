@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/api_controller.dart';
 import 'package:sapakem/model/home/merchant.dart';
 import 'package:sapakem/model/home/status_merchant.dart';
@@ -16,6 +17,7 @@ class HomeApiController {
   ApiController apiController = ApiController();
 
   Future<HomeResponse> getHomeData({bool isRefresh = false}) async {
+    Logger().e('hu');
     var data = await apiController.get(Uri.parse(ApiSettings.home),
         headers: {
           HttpHeaders.authorizationHeader:
@@ -26,6 +28,7 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true,
         isRefresh: isRefresh);
+    Logger().i(data);
 
     HomeResponse home = HomeResponse.fromJson(data!);
     return home;

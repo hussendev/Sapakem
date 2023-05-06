@@ -4,21 +4,31 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/api_setting.dart';
+import 'package:sapakem/model/city.dart';
 import 'package:sapakem/model/process_response.dart';
 import 'package:sapakem/model/user.dart';
 import 'package:sapakem/model/user_register.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/helpers.dart';
 
+import '../api_controller.dart';
+
 class UsersApiController with Helpers {
   // login
   Future<ProcessResponse> login(
       {required String mobile, required String password}) async {
-
-
     Uri uri = Uri.parse(ApiSettings.login);
-    var response =
-        await http.post(uri, body: {'mobile': mobile, 'password': password});
+    Logger().e(SharedPrefController().getValueFor(PrefKeys.language.name));
+    Logger().e(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
+
+    var response = await http.post(uri, body: {
+      'mobile': mobile,
+      'password': password,
+      'fcm_token': SharedPrefController().getValueFor(PrefKeys.fcmToken.name),
+      'device_type':
+          SharedPrefController().getValueFor(PrefKeys.deviceType.name),
+      'lang': SharedPrefController().getValueFor(PrefKeys.language.name)
+    });
     Logger().i(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
@@ -45,14 +55,12 @@ class UsersApiController with Helpers {
       'password': user.password.toString(),
       'fcm_token': user.fcmToken,
       'device_type': user.deviceType.toString(),
-      "lat": user.lat.toString(),
-      "lng": user.lng.toString()
+      'city_id': user.cityId.toString(),
     });
     Logger().i(response.body);
 
     if (response.statusCode == 201 || response.statusCode == 400) {
       var json = jsonDecode(response.body);
-      Logger().i(json);
 
       if (response.statusCode != 400) {
         // SharedPrefController().saveOtp(json['code'].toString());
@@ -135,27 +143,28 @@ class UsersApiController with Helpers {
     }
   }
 
+  Future<List<City>> getCities() async {
+    List<City> cities = [];
+    Uri uri = Uri.parse(ApiSettings.cities);
+    var response = await ApiController()
+        .get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
+
+    if (response != null) {
+      response['list'].forEach((v) {
+        cities.add(City.fromJson(v));
+      });
+      return cities;
+    }
+    return [];
+  }
+
 //qemu-system
 
 //
 //
 
 //
-// Future<List<City>> getCities() async {
-//   Uri uri = Uri.parse(ApiSettings.cities);
-//   var response = await http
-//       .get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
-//   print(response.statusCode);
-//   if (response.statusCode == 200 || response.statusCode == 400) {
-//     var json = jsonDecode(response.body);
-//     var jsonDataObject = json['list'] as List;
-//     return jsonDataObject
-//         .map((jsonObject) => City.fromJson(jsonObject))
-//         .toList();
-//   }
-//   return [];
-// }
-//
+
 //
 // Future<Home> getHome() async {
 //   var response = await http.get(Uri.parse(ApiSettings.home), headers: {

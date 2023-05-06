@@ -16,7 +16,9 @@ class HomeCubit extends Cubit<HomeStates> {
   void getHomeData({bool isRefresh = false}) async {
     emit(LoadingHomeState());
     try {
-      HomeResponse homeResponse = await homeApiController.getHomeData(isRefresh: isRefresh);
+     
+      HomeResponse homeResponse =
+          await homeApiController.getHomeData(isRefresh: isRefresh);
       if (homeResponse.homeData != null) {
         emit(SuccessHomeState(homeResponse.homeData!));
       } else {
@@ -28,7 +30,6 @@ class HomeCubit extends Cubit<HomeStates> {
         }
       }
     } catch (e) {
-      Logger().e(e.toString());
       emit(ErrorHomeState(e.toString()));
     }
   }
@@ -36,7 +37,8 @@ class HomeCubit extends Cubit<HomeStates> {
   void getMerchantByCategory(int categoryId) async {
     emit(LoadingMerchantByCategoryState());
     try {
-      List<Merchant> merchants = await homeApiController.getMerchantByCategory(categoryId);
+      List<Merchant> merchants =
+          await homeApiController.getMerchantByCategory(categoryId);
       if (merchants.isNotEmpty) {
         emit(SuccessMerchantByCategoryState(merchants));
       } else {
@@ -67,7 +69,8 @@ class HomeCubit extends Cubit<HomeStates> {
   void getMerchantById(int merchantId, {bool isRefresh = false}) async {
     emit(LoadingMerchantsState());
     try {
-      Merchant merchant = await homeApiController.getMerchant(merchantId, isRefresh: isRefresh);
+      Merchant merchant =
+          await homeApiController.getMerchant(merchantId, isRefresh: isRefresh);
 
       if (merchant.id != null) {
         emit(SuccessMerchantState(merchant));

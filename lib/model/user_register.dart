@@ -7,16 +7,18 @@ class UserRegister {
   double? _lat;
   double? _lng;
   int? _deviceType;
+  int? _cityId;
 
   UserRegister(
       {String? name,
-        String? email,
-        int? mobile,
-        String? password,
-        String? fcmToken,
-        double? lat,
-        double? lng,
-        int? deviceType}) {
+      String? email,
+      int? mobile,
+      String? password,
+      String? fcmToken,
+      double? lat,
+      double? lng,
+      int? deviceType,
+      int? cityId}) {
     if (name != null) {
       this._name = name;
     }
@@ -41,6 +43,9 @@ class UserRegister {
     if (deviceType != null) {
       this._deviceType = deviceType;
     }
+    if (cityId != null) {
+      this._cityId = cityId;
+    }
   }
 
   String? get name => _name;
@@ -60,6 +65,9 @@ class UserRegister {
   int? get deviceType => _deviceType;
   set deviceType(int? deviceType) => _deviceType = deviceType;
 
+  int? get cityId => _cityId;
+  set cityId(int? cityId) => _cityId = cityId;
+
   UserRegister.fromJson(Map<String, dynamic> json) {
     _name = json['name'];
     _email = json['email'];
@@ -69,6 +77,7 @@ class UserRegister {
     _lat = json['lat'];
     _lng = json['lng'];
     _deviceType = json['device_type'];
+    _cityId = json['city_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -81,6 +90,7 @@ class UserRegister {
     data['lat'] = this._lat;
     data['lng'] = this._lng;
     data['device_type'] = this._deviceType;
+    data['city_id'] = this._cityId;
     return data;
   }
 }

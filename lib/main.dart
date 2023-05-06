@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:sapakem/cubit/auth/city/city_cubit.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
@@ -44,6 +45,9 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
 
+
+
+
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
   LocationPermission permission = await Geolocator.checkPermission();
@@ -52,8 +56,8 @@ void main() async {
   }
 
   await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
-    Logger().i(position.latitude);
-    Logger().i(position.longitude);
+    // Logger().i(position.latitude);
+    // Logger().i(position.longitude);
     SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!, lat: position.latitude, lng: position.longitude, deviceType: deviceType);
   }).catchError((e) {
     Logger().wtf(e);
@@ -86,6 +90,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<OrdersCubit>(
           create: (context) => OrdersCubit()..getOrders(),
+        ),
+        BlocProvider<CityCubit>(
+          create: (context) => CityCubit()..getCities(),
         ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
