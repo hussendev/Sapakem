@@ -8,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:share_plus/share_plus.dart';
@@ -69,12 +70,12 @@ class InformationMerchantWidget extends StatelessWidget {
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
-                              context.read<MerchantCubit>().addMerchantToFavorites(merchant);
+                              context.read<MerchantCubit>().addMerchantToFavorites(merchant,SharedPrefController().getUserId().toString());
                             },
                             child: Icon(
-                              MerchantCubit.get(context).isMerchantFavorite(merchant) ? Icons.favorite : Icons.favorite_border,
+                              MerchantCubit.get(context).isMerchantFavorite(merchant,SharedPrefController().getUserId().toString()) ? Icons.favorite : Icons.favorite_border,
                               size: 25,
-                              color: MerchantCubit.get(context).isMerchantFavorite(merchant) ? Colors.red : Colors.black,
+                              color: MerchantCubit.get(context).isMerchantFavorite(merchant,SharedPrefController().getUserId().toString()) ? Colors.red : Colors.black,
                             ),
                           );
                         },

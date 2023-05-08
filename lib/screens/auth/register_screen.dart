@@ -126,7 +126,7 @@ class RegisterScreen extends StatelessWidget {
                                           child: AppTextField(
                                               text: context
                                                   .localizations.first_name,
-                                              hinttext: '594  358  404',
+                                              hinttext: 'first name',
                                               labeltext: 'labeltext',
                                               keyboardType: TextInputType.name,
                                               controller: firstNameController,
@@ -138,7 +138,7 @@ class RegisterScreen extends StatelessWidget {
                                           child: AppTextField(
                                               text: context
                                                   .localizations.last_name,
-                                              hinttext: 'moh',
+                                              hinttext: 'last name',
                                               labeltext: 'labeltext',
                                               keyboardType: TextInputType.name,
                                               controller: lastNameController,
@@ -152,7 +152,7 @@ class RegisterScreen extends StatelessWidget {
                                 10.ph(),
                                 AppTextField(
                                     text: context.localizations.mobile,
-                                    hinttext: "594  358  404",
+                                    hinttext: "Phone Number",
                                     labeltext: 'labeltext',
                                     keyboardType: TextInputType.phone,
                                     controller: phoneController,
@@ -160,7 +160,7 @@ class RegisterScreen extends StatelessWidget {
                                 10.ph(),
                                 AppTextField(
                                     text: context.localizations.email,
-                                    hinttext: "test@gmail.com",
+                                    hinttext: "Email",
                                     labeltext: 'labeltext',
                                     keyboardType: TextInputType.emailAddress,
                                     controller: emailController,
@@ -242,7 +242,7 @@ class RegisterScreen extends StatelessWidget {
                                           AppTextField(
                                               text: context
                                                   .localizations.password,
-                                              hinttext: '********',
+                                              hinttext: 'Password',
                                               labeltext: 'labeltext',
                                               keyboardType:
                                                   TextInputType.visiblePassword,
@@ -264,7 +264,7 @@ class RegisterScreen extends StatelessWidget {
                                           AppTextField(
                                               text: context.localizations
                                                   .confirm_password,
-                                              hinttext: '***********',
+                                              hinttext: 'Confirm Password',
                                               labeltext: 'labeltext',
                                               keyboardType:
                                                   TextInputType.visiblePassword,

@@ -7,6 +7,7 @@ import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
 import 'package:sapakem/model/home/merchant.dart';
 
+import '../../prefs/shared_pref_controller.dart';
 import '../../screens/app/merchant/merchant_screen.dart';
 
 class MerchantWidget extends StatelessWidget {
@@ -124,7 +125,7 @@ class MerchantWidget extends StatelessWidget {
                         return InkWell(
                           child: context
                                   .read<MerchantCubit>()
-                                  .isMerchantFavorite(merchant)
+                                  .isMerchantFavorite(merchant,SharedPrefController().getUserId().toString())
                               ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
@@ -136,7 +137,7 @@ class MerchantWidget extends StatelessWidget {
                           onTap: () {
                             context
                                 .read<MerchantCubit>()
-                                .addMerchantToFavorites(merchant);
+                                .addMerchantToFavorites(merchant,SharedPrefController().getUserId().toString());
                           },
                         );
                       },

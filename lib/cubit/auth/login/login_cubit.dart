@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
@@ -6,6 +5,7 @@ import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/login/login_states.dart';
 
 import '../../../model/process_response.dart';
+import '../../../prefs/shared_pref_controller.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(initialLoginState());
@@ -17,13 +17,13 @@ class LoginCubit extends Cubit<LoginStates> {
   // bool visi = true;
   bool visiblePassword = true;
   IconData suffix = Icons.visibility_off_outlined;
-  void changePasswordVisibility(){
+  void changePasswordVisibility() {
     Logger().i("message");
-    visiblePassword= !visiblePassword;
-    suffix = visiblePassword? Icons.visibility_off_outlined : Icons.visibility;
+    visiblePassword = !visiblePassword;
+    suffix = visiblePassword ? Icons.visibility_off_outlined : Icons.visibility;
     // Logger().i(visiblePassword,suffix);
 
-    emit(ChangePasswordVisibilityState(visiblePassword,suffix));
+    emit(ChangePasswordVisibilityState(visiblePassword, suffix));
   }
 
   void userLogin({
@@ -33,11 +33,11 @@ class LoginCubit extends Cubit<LoginStates> {
   }) async {
     emit(LoadingLoginState());
     try {
-      ProcessResponse response = await usersApiController.login(mobile: phone, password: password);
+      Logger().i(SharedPrefController().getValueFor(PrefKeys.fcmToken.name));
+      ProcessResponse response =
+          await usersApiController.login(mobile: phone, password: password);
       if (response.success) {
         emit(SuccessLoginState(response.message, response.success));
-        if (context.mounted) return;
-        Navigator.pushReplacementNamed(context, '/home_screen');
       } else {
         emit(ErrorDataLoginState(response.message, response.success));
       }
@@ -47,3 +47,9 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 }
+/**
+ * 
+ * 11111117000
+ * 
+ * 123456
+ */

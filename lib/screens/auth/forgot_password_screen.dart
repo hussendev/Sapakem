@@ -11,6 +11,8 @@ import '../../widgets/app_text_field.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +87,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   15.ph(),
                   AppTextField(
                       text: context.localizations.mobile,
-                      hinttext: "594  358  404",
+                      hinttext: "Phone Number",
                       labeltext: 'labeltext',
                       keyboardType: TextInputType.phone,
                       controller: TextEditingController(),
