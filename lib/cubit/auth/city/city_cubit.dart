@@ -29,7 +29,6 @@ class CityCubit extends Cubit<CityStates> {
   }
 
   ChangeCity(City city) {
-
     cityId = city.id!;
     cities.where((element) => element.id == cityId).first;
     emit(CitySuccessState(cities));

@@ -509,14 +509,11 @@ class LoginScreen extends StatelessWidget {
             },
             listener: (context, state) {
               if (state is ErrorDataLoginState) {
-                context.showSnackBar(
-                    message: state.error.toString(), error: !state.success);
+                context.showSnackBar(message: state.error.toString(), error: !state.success);
               } else if (state is ErrorLoginState) {
-                context.showSnackBar(
-                    message: state.error.toString(), error: !state.success);
+                context.showSnackBar(message: state.error.toString(), error: !state.success);
               } else if (state is SuccessLoginState) {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/home_screen', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context, '/home_screen', (route) => false);
               }
             },
             buildWhen: (previous, current) {
@@ -555,5 +552,5 @@ class LoginScreen extends StatelessWidget {
         password: _passwordController.text,
         context: context);
   }
-  //
+  
 }

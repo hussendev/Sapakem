@@ -30,6 +30,12 @@ class ProfileScreenWidget extends StatelessWidget {
         SharedPrefController().getValueFor(PrefKeys.email.name);
     phoneController.text =
         SharedPrefController().getValueFor(PrefKeys.mobile.name);
+    nameController.text =
+        SharedPrefController().getValueFor(PrefKeys.name.name);
+    emailController.text =
+        SharedPrefController().getValueFor(PrefKeys.email.name);
+    phoneController.text =
+        SharedPrefController().getValueFor(PrefKeys.mobile.name);
     return Scaffold(
         body: BlocProvider<UpdateProfileCubit>(
       create: (context) => UpdateProfileCubit(),
@@ -315,16 +321,10 @@ class ProfileScreenWidget extends StatelessWidget {
                             ProfileInformationWidget(
                                 icon: Icons.login_outlined,
                                 text: context.localizations.logout,
-                                onTap: () async {
-                                  ProcessResponse logout =
-                                      await UsersApiController().logout();
-
-                                  if (logout.success) {
-                                    return Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/login_screen',
-                                        (route) => false);
-                                  }
+                                onTap: () {
+                                  UsersApiController().logout();
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      '/login_screen', (route) => false);
                                 }),
                             20.ph(),
                           ],

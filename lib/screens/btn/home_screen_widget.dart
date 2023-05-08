@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/screens/app/home/show_more.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -45,7 +46,9 @@ class HomeScreenWidget extends StatelessWidget {
               child: Column(
                 children: [
                   CustomAppBar(
-                      isHome: true, title: context.localizations.location),
+                      isHome: true,
+                      title: SharedPrefController()
+                          .getValueFor(PrefKeys.cityName.name)),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(

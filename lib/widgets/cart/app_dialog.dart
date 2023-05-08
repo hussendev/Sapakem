@@ -138,7 +138,8 @@ class AppDialog {
   //   );
   // }
 
-  static void productOrder(BuildContext context, Map<String, dynamic> data, double subTotal) {
+  static void productOrder(
+      BuildContext context, Map<String, dynamic> data, double subTotal) {
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -164,7 +165,9 @@ class AppDialog {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                context.read<OrdersCubit>().getPayWay(PayMethod.delivery);
+                                context
+                                    .read<OrdersCubit>()
+                                    .getPayWay(PayMethod.delivery);
                               },
                               child: Container(
                                 // width: 150.w,
@@ -172,19 +175,23 @@ class AppDialog {
                                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                                 padding: EdgeInsets.all(10.w),
                                 decoration: BoxDecoration(
-                                  color: state.payMethod == PayMethod.delivery ? app_primary : Colors.white,
+                                  color: state.payMethod == PayMethod.delivery
+                                      ? app_primary
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.5),
                                       spreadRadius: 5,
                                       blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
                                 ),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     SvgPicture.asset(
                                       'assets/delivery/arrive_order.svg',
@@ -194,7 +201,10 @@ class AppDialog {
                                     AppText(
                                       text: 'Delivery',
                                       fontSize: 14.sp,
-                                      color: state.payMethod == PayMethod.delivery ? Colors.white : Colors.black38,
+                                      color:
+                                          state.payMethod == PayMethod.delivery
+                                              ? Colors.white
+                                              : Colors.black38,
                                       textAlign: TextAlign.center,
                                     )
                                   ],
@@ -205,7 +215,9 @@ class AppDialog {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                context.read<OrdersCubit>().getPayWay(PayMethod.cash);
+                                context
+                                    .read<OrdersCubit>()
+                                    .getPayWay(PayMethod.cash);
                               },
                               child: Container(
                                 // width: 150.w,
@@ -213,30 +225,38 @@ class AppDialog {
                                 margin: EdgeInsets.symmetric(horizontal: 10.w),
                                 padding: EdgeInsets.all(10.w),
                                 decoration: BoxDecoration(
-                                  color: state.payMethod == PayMethod.cash ? app_primary : Colors.white,
+                                  color: state.payMethod == PayMethod.cash
+                                      ? app_primary
+                                      : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.withOpacity(0.5),
                                       spreadRadius: 5,
                                       blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
+                                      offset: const Offset(
+                                          0, 3), // changes position of shadow
                                     ),
                                   ],
                                 ),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     SvgPicture.asset(
                                       'assets/delivery/order.svg',
                                       width: 45.w,
                                       height: 45.h,
-                                      color: state.payMethod == PayMethod.cash ? Colors.white : Colors.black38,
+                                      color: state.payMethod == PayMethod.cash
+                                          ? Colors.white
+                                          : Colors.black38,
                                     ),
                                     AppText(
                                       text: context.localizations.cash,
                                       fontSize: 13.sp,
-                                      color: state.payMethod == PayMethod.cash ? Colors.white : Colors.black54,
+                                      color: state.payMethod == PayMethod.cash
+                                          ? Colors.white
+                                          : Colors.black54,
                                       textAlign: TextAlign.center,
                                     )
                                   ],
@@ -366,7 +386,8 @@ class AppDialog {
                         onTap: () {
                           if (state.payMethod != PayMethod.none) {
                             _choseDate(context, (p0) {
-                              Future.delayed(const Duration(milliseconds: 0), () {
+                              Future.delayed(const Duration(milliseconds: 0),
+                                  () {
                                 Navigator.of(context).pop();
                                 _finalDialog(context);
                               });
@@ -377,7 +398,9 @@ class AppDialog {
                           height: 40.h,
                           margin: EdgeInsets.symmetric(horizontal: 50.w),
                           decoration: BoxDecoration(
-                            color: state.payMethod == PayMethod.none ? Colors.grey : app_primary,
+                            color: state.payMethod == PayMethod.none
+                                ? Colors.grey
+                                : app_primary,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(
@@ -432,7 +455,11 @@ class AppDialog {
               mainAxisSize: MainAxisSize.min,
               children: [
                 18.ph(),
-                AppText(text: context.localizations.the_order_will_be_sent_within_15_seconds, fontSize: 18.sp, color: Colors.black),
+                AppText(
+                    text: context
+                        .localizations.the_order_will_be_sent_within_15_seconds,
+                    fontSize: 18.sp,
+                    color: Colors.black),
                 18.ph(),
                 Container(
                   height: 40.h,
@@ -445,9 +472,10 @@ class AppDialog {
                     children: [
                       Expanded(
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(10)),
+                            borderRadius: BorderRadiusDirectional.horizontal(
+                                start: Radius.circular(10)),
                           ),
                           child: Center(
                             child: AppText(
@@ -466,7 +494,8 @@ class AppDialog {
                           child: Container(
                             decoration: BoxDecoration(
                               color: app_primary,
-                              borderRadius: const BorderRadiusDirectional.horizontal(
+                              borderRadius:
+                                  const BorderRadiusDirectional.horizontal(
                                 end: Radius.circular(10),
                               ),
                               border: Border.all(color: app_primary),
@@ -497,7 +526,8 @@ class AppDialog {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 1,
-                        offset: const Offset(0, 1), // changes position of shadow
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
                       ),
                     ],
                   ),
@@ -548,7 +578,8 @@ class AppDialog {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 1,
-                        offset: const Offset(0, 1), // changes position of shadow
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
                       ),
                     ],
                   ),
@@ -613,7 +644,8 @@ class AppDialog {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50.w),
                   child: AppText(
-                    text: context.localizations.once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order,
+                    text: context.localizations
+                        .once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order,
                     fontSize: 20.sp,
                     color: Colors.red,
                     textAlign: TextAlign.center,
@@ -622,7 +654,10 @@ class AppDialog {
                 30.ph(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OrderScreenWidget()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OrderScreenWidget()));
                   },
                   child: Container(
                     height: 40.h,

@@ -38,8 +38,6 @@ class LoginCubit extends Cubit<LoginStates> {
           await usersApiController.login(mobile: phone, password: password);
       if (response.success) {
         emit(SuccessLoginState(response.message, response.success));
-        if (context.mounted) return;
-        Navigator.pushReplacementNamed(context, '/home_screen');
       } else {
         emit(ErrorDataLoginState(response.message, response.success));
       }
