@@ -16,7 +16,7 @@ import '../../widgets/app_text_field.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _phoneController =
-      TextEditingController(text: '11111117000');
+      TextEditingController(text: '11111117000'); //123456   11111117000
   final TextEditingController _passwordController =
       TextEditingController(text: '123456');
 
@@ -27,7 +27,9 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {},
             icon: Icon(
-              context.localizations.language == 'en' ? Icons.arrow_circle_left_outlined : Icons.arrow_circle_right_outlined,
+              context.localizations.language == 'en'
+                  ? Icons.arrow_circle_left_outlined
+                  : Icons.arrow_circle_right_outlined,
               color: Colors.white,
             ),
           ),
@@ -39,7 +41,9 @@ class LoginScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is LoadingLoginState) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is SuccessLoginState || state is ErrorDataLoginState || state is initialLoginState) {
+              } else if (state is SuccessLoginState ||
+                  state is ErrorDataLoginState ||
+                  state is initialLoginState) {
                 return CustomScrollView(
                   slivers: [
                     SliverFillRemaining(
@@ -76,10 +80,12 @@ class LoginScreen extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     // ignore: sort_child_properties_last
-                                    child: SvgPicture.asset('assets/logo.svg', semanticsLabel: 'A red up arrow'),
+                                    child: SvgPicture.asset('assets/logo.svg',
+                                        semanticsLabel: 'A red up arrow'),
 
                                     // ignore: prefer_const_constructors
-                                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
                                   ),
                                 ),
                               ],
@@ -88,25 +94,47 @@ class LoginScreen extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 36.w, vertical: 20.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [AppText(text: context.localizations.lets_start, fontSize: 35.sp, color: const Color(0xff1C8ABB)), 14.ph(), AppText(text: context.localizations.sing_in_to_your_account, fontSize: 18.sp, color: const Color(0xff222222))],
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(
+                                          text:
+                                              context.localizations.lets_start,
+                                          fontSize: 35.sp,
+                                          color: const Color(0xff1C8ABB)),
+                                      14.ph(),
+                                      AppText(
+                                          text: context.localizations
+                                              .sing_in_to_your_account,
+                                          fontSize: 18.sp,
+                                          color: const Color(0xff222222))
+                                    ],
                                   ),
                                   24.ph(),
-                                  AppTextField(text: context.localizations.mobile, hinttext: '594  358  404', labeltext: 'labeltext', keyboardType: TextInputType.phone, controller: _phoneController, obscureText: false),
+                                  AppTextField(
+                                      text: context.localizations.mobile,
+                                      hinttext: 'Phone Number',
+                                      labeltext: 'labeltext',
+                                      keyboardType: TextInputType.phone,
+                                      controller: _phoneController,
+                                      obscureText: false),
                                   11.ph(),
                                   BlocBuilder<LoginCubit, LoginStates>(
                                     builder: (context, state) {
                                       if (state is initialLoginState) {
                                         return AppTextField(
-                                            text: context.localizations.password,
-                                            hinttext: '********',
+                                            text:
+                                                context.localizations.password,
+                                            hinttext: 'Password',
                                             labeltext: 'labeltext',
-                                            keyboardType: TextInputType.visiblePassword,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: true,
                                             suffixIcon: IconButton(
@@ -124,10 +152,12 @@ class LoginScreen extends StatelessWidget {
                                       } else if (state
                                           is ChangePasswordVisibilityState) {
                                         return AppTextField(
-                                            text: context.localizations.password,
+                                            text:
+                                                context.localizations.password,
                                             hinttext: '********',
                                             labeltext: 'labeltext',
-                                            keyboardType: TextInputType.visiblePassword,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: state.visiblePassword,
                                             suffixIcon: IconButton(
@@ -148,7 +178,8 @@ class LoginScreen extends StatelessWidget {
                                                 context.localizations.password,
                                             hinttext: '********',
                                             labeltext: 'labeltext',
-                                            keyboardType: TextInputType.visiblePassword,
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: true,
                                             suffixIcon: IconButton(
@@ -180,10 +211,20 @@ class LoginScreen extends StatelessWidget {
                                     children: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(context, '/forgot_password_screen');
+                                          Navigator.pushNamed(context,
+                                              '/forgot_password_screen');
                                         },
-                                        style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 30), tapTargetSize: MaterialTapTargetSize.shrinkWrap, alignment: Alignment.centerLeft),
-                                        child: AppText(text: context.localizations.forgot_password, fontSize: 16.sp, color: const Color(0xff1C8ABB)),
+                                        style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero,
+                                            minimumSize: const Size(50, 30),
+                                            tapTargetSize: MaterialTapTargetSize
+                                                .shrinkWrap,
+                                            alignment: Alignment.centerLeft),
+                                        child: AppText(
+                                            text: context
+                                                .localizations.forgot_password,
+                                            fontSize: 16.sp,
+                                            color: const Color(0xff1C8ABB)),
                                       ),
                                       // TextButton(
                                       //   style:
@@ -202,7 +243,11 @@ class LoginScreen extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      AppText(text: context.localizations.dont_have_an_account, fontSize: 16.sp, color: const Color(0xff222222)),
+                                      AppText(
+                                          text: context.localizations
+                                              .dont_have_an_account,
+                                          fontSize: 16.sp,
+                                          color: const Color(0xff222222)),
                                       10.ph(),
                                       TextButton(
                                           style: TextButton.styleFrom(
@@ -210,9 +255,14 @@ class LoginScreen extends StatelessWidget {
                                           ),
                                           clipBehavior: Clip.none,
                                           onPressed: () {
-                                            Navigator.pushNamed(context, '/register_screen');
+                                            Navigator.pushNamed(
+                                                context, '/register_screen');
                                           },
-                                          child: AppText(text: context.localizations.sign_up, fontSize: 16.sp, color: const Color(0xff1C8ABB))),
+                                          child: AppText(
+                                              text:
+                                                  context.localizations.sign_up,
+                                              fontSize: 16.sp,
+                                              color: const Color(0xff1C8ABB))),
                                     ],
                                   )
                                 ],
@@ -225,35 +275,252 @@ class LoginScreen extends StatelessWidget {
                   ],
                 );
               } else {
-                state as ErrorLoginState;
-                return Center(child: Text(state.error.toString()));
+                return CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            // height: 270.h,
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Positioned(
+                                  top: -215.h,
+                                  child: Container(
+                                    height: 430.h,
+                                    width: 430.w,
+                                    // ignore: prefer_const_constructors
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(200),
+                                        bottomRight: Radius.circular(200),
+                                      ),
+                                      color: Colors.blue,
+                                      // shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 170.h,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    height: 100.h,
+                                    width: 100.w,
+                                    // ignore: sort_child_properties_last
+                                    child: SvgPicture.asset('assets/logo.svg',
+                                        semanticsLabel: 'A red up arrow'),
+
+                                    // ignore: prefer_const_constructors
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 36.w, vertical: 20.h),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(
+                                          text:
+                                              context.localizations.lets_start,
+                                          fontSize: 35.sp,
+                                          color: const Color(0xff1C8ABB)),
+                                      14.ph(),
+                                      AppText(
+                                          text: context.localizations
+                                              .sing_in_to_your_account,
+                                          fontSize: 18.sp,
+                                          color: const Color(0xff222222))
+                                    ],
+                                  ),
+                                  24.ph(),
+                                  AppTextField(
+                                      text: context.localizations.mobile,
+                                      hinttext: 'Phone Number',
+                                      labeltext: 'labeltext',
+                                      keyboardType: TextInputType.phone,
+                                      controller: _phoneController,
+                                      obscureText: false),
+                                  11.ph(),
+                                  BlocBuilder<LoginCubit, LoginStates>(
+                                    builder: (context, state) {
+                                      if (state is initialLoginState) {
+                                        return AppTextField(
+                                            text:
+                                                context.localizations.password,
+                                            hinttext: 'Password',
+                                            labeltext: 'labeltext',
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            controller: _passwordController,
+                                            obscureText: true,
+                                            suffixIcon: IconButton(
+                                              onPressed: () {
+                                                // Logger().i('message');
+                                                context
+                                                    .read<LoginCubit>()
+                                                    .changePasswordVisibility();
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility_off_outlined,
+                                                color: Colors.grey,
+                                              ),
+                                            ));
+                                      } else if (state
+                                          is ChangePasswordVisibilityState) {
+                                        return AppTextField(
+                                            text:
+                                                context.localizations.password,
+                                            hinttext: '********',
+                                            labeltext: 'labeltext',
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            controller: _passwordController,
+                                            obscureText: state.visiblePassword,
+                                            suffixIcon: IconButton(
+                                              onPressed: () {
+                                                // Logger().i('message');
+                                                context
+                                                    .read<LoginCubit>()
+                                                    .changePasswordVisibility();
+                                              },
+                                              icon: Icon(
+                                                state.suffix,
+                                                color: Colors.grey,
+                                              ),
+                                            ));
+                                      } else {
+                                        return AppTextField(
+                                            text:
+                                                context.localizations.password,
+                                            hinttext: '********',
+                                            labeltext: 'labeltext',
+                                            keyboardType:
+                                                TextInputType.visiblePassword,
+                                            controller: _passwordController,
+                                            obscureText: true,
+                                            suffixIcon: IconButton(
+                                              onPressed: () {
+                                                // Logger().i('message');
+                                                context
+                                                    .read<LoginCubit>()
+                                                    .changePasswordVisibility();
+                                              },
+                                              icon: const Icon(
+                                                Icons.visibility_off_outlined,
+                                                color: Colors.grey,
+                                              ),
+                                            ));
+                                      }
+                                    },
+                                    // buildWhen: (previous, current) {
+                                    //   if (current
+                                    //       is ChangePasswordVisibilityState) {
+                                    //     return true;
+                                    //   } else {
+                                    //     return false;
+                                    //   }
+                                    // },
+                                  ),
+                                  10.ph(),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(context,
+                                              '/forgot_password_screen');
+                                        },
+                                        style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero,
+                                            minimumSize: const Size(50, 30),
+                                            tapTargetSize: MaterialTapTargetSize
+                                                .shrinkWrap,
+                                            alignment: Alignment.centerLeft),
+                                        child: AppText(
+                                            text: context
+                                                .localizations.forgot_password,
+                                            fontSize: 16.sp,
+                                            color: const Color(0xff1C8ABB)),
+                                      ),
+                                      // TextButton(
+                                      //   style:
+                                      //   onPressed: () {},
+                                      //   child:
+                                      // )
+                                    ],
+                                  ),
+                                  35.ph(),
+                                  AppButton(
+                                      text: context.localizations.login,
+                                      onPressed: () {
+                                        _performLogin(context);
+                                      }),
+                                  const Spacer(),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      AppText(
+                                          text: context.localizations
+                                              .dont_have_an_account,
+                                          fontSize: 16.sp,
+                                          color: const Color(0xff222222)),
+                                      10.ph(),
+                                      TextButton(
+                                          style: TextButton.styleFrom(
+                                            padding: EdgeInsets.zero,
+                                          ),
+                                          clipBehavior: Clip.none,
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, '/register_screen');
+                                          },
+                                          child: AppText(
+                                              text:
+                                                  context.localizations.sign_up,
+                                              fontSize: 16.sp,
+                                              color: const Color(0xff1C8ABB))),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
               }
             },
             listener: (context, state) {
-              if (state is SuccessLoginState) {
-                context.showSnackBar(
-                    message: state.message.toString(), error: !state.success);
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/home_screen', (route) => false);
+              if (state is ErrorDataLoginState) {
+                context.showSnackBar(message: state.error.toString(), error: !state.success);
               } else if (state is ErrorLoginState) {
-                context.showSnackBar(
-                    message: state.error.toString(), error: !state.success);
-              } else if (state is ErrorDataLoginState) {
-                context.showSnackBar(
-                    message: state.error.toString(), error: !state.success);
-              }
-            },
-            listenWhen: (previous, current) {
-              if (current is ErrorDataLoginState ||
-                  current is LoadingLoginState ||
-                  current is SuccessLoginState) {
-                return true;
-              } else {
-                return false;
+                context.showSnackBar(message: state.error.toString(), error: !state.success);
+              } else if (state is SuccessLoginState) {
+                Navigator.pushNamedAndRemoveUntil(context, '/home_screen', (route) => false);
               }
             },
             buildWhen: (previous, current) {
-              if (current is ErrorDataLoginState || current is LoadingLoginState || current is SuccessLoginState || current is ErrorLoginState) {
+              if (current is ErrorDataLoginState ||
+                  current is LoadingLoginState ||
+                  current is SuccessLoginState ||
+                  current is ErrorLoginState) {
                 return true;
               } else {
                 return false;
@@ -271,7 +538,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   bool _checkData(BuildContext context) {
-    if (_phoneController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+    if (_phoneController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
       return true;
     }
     context.showSnackBar(message: 'Enter Required Data!', error: true);
@@ -279,7 +547,10 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _login(BuildContext context) async {
-    LoginCubit.get(context).userLogin(phone: _phoneController.text, password: _passwordController.text, context: context);
+    LoginCubit.get(context).userLogin(
+        phone: _phoneController.text,
+        password: _passwordController.text,
+        context: context);
   }
   
 }

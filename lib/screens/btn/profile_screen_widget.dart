@@ -5,6 +5,7 @@ import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/update_profile/update_profile_cubit.dart';
 import 'package:sapakem/cubit/auth/update_profile/update_profile_state.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
+import 'package:sapakem/model/process_response.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -23,6 +24,12 @@ class ProfileScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    nameController.text =
+        SharedPrefController().getValueFor(PrefKeys.name.name);
+    emailController.text =
+        SharedPrefController().getValueFor(PrefKeys.email.name);
+    phoneController.text =
+        SharedPrefController().getValueFor(PrefKeys.mobile.name);
     nameController.text =
         SharedPrefController().getValueFor(PrefKeys.name.name);
     emailController.text =

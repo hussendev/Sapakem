@@ -43,7 +43,7 @@ class SharedPrefController {
     _sharedPreferences.setString(PrefKeys.email.name, user.userData!.email!);
     _sharedPreferences.setString(PrefKeys.mobile.name, user.userData!.mobile!);
     _sharedPreferences.setString(
-        PrefKeys.lat.name, user.userData!.lat.toString() );
+        PrefKeys.lat.name, user.userData!.lat.toString());
     _sharedPreferences.setString(
         PrefKeys.lng.name, user.userData!.lng.toString());
     _sharedPreferences.setString(PrefKeys.active.name, user.userData!.status!);
@@ -51,8 +51,8 @@ class SharedPrefController {
         PrefKeys.token.name, 'Bearer ${user.userData!.token!}');
     _sharedPreferences.setString(
         PrefKeys.cityName.name, user.userData!.cityName!);
-    _sharedPreferences.setString(PrefKeys.image.name, user.userData!.image ?? '');
-
+    _sharedPreferences.setString(
+        PrefKeys.image.name, user.userData!.image ?? '');
   }
 
   void savePhone(String mobile) {
@@ -113,7 +113,6 @@ class SharedPrefController {
     _sharedPreferences.remove(PrefKeys.lng.name);
     _sharedPreferences.remove(PrefKeys.cityName.name);
     _sharedPreferences.remove(PrefKeys.image.name);
-    
   }
 
   void updateProfile(
@@ -121,5 +120,18 @@ class SharedPrefController {
     _sharedPreferences.setString(PrefKeys.name.name, name);
     _sharedPreferences.setString(PrefKeys.email.name, email);
     _sharedPreferences.setString(PrefKeys.mobile.name, mobile);
+  }
+
+  void clearUserData() {
+    _sharedPreferences.remove(PrefKeys.id.name);
+    _sharedPreferences.remove(PrefKeys.name.name);
+    _sharedPreferences.remove(PrefKeys.email.name);
+    _sharedPreferences.remove(PrefKeys.mobile.name);
+    _sharedPreferences.remove(PrefKeys.active.name);
+    _sharedPreferences.remove(PrefKeys.token.name);
+    _sharedPreferences.remove(PrefKeys.lat.name);
+    _sharedPreferences.remove(PrefKeys.lng.name);
+    _sharedPreferences.remove(PrefKeys.verified.name);
+    _sharedPreferences.remove(PrefKeys.loggedIn.name);
   }
 }
