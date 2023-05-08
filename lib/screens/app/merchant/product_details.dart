@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
@@ -21,6 +19,7 @@ import 'package:share_plus/share_plus.dart';
 // import 'package:share_plus/share_plus.dart';
 
 import '../../../cubit/home/product/product_cubit.dart';
+import '../../../prefs/shared_pref_controller.dart';
 import '../../../widgets/app_text.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -353,11 +352,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
+                                        userId: SharedPrefController()
+                                            .getValueFor<String>(
+                                                PrefKeys.id.name)!,
                                         context: context,
                                         productCart: productCart,
                                         product: product!);
-
-
                                   },
                                 ),
                               );
@@ -373,10 +373,12 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
-                                      context: context,
+                                        userId: SharedPrefController()
+                                            .getValueFor<String>(
+                                                PrefKeys.id.name)!,
+                                        context: context,
                                         productCart: productCart,
                                         product: product!);
-
 
                                     // counter: ProductCubit.get(context).counter);
                                   },

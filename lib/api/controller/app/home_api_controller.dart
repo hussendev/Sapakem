@@ -17,7 +17,6 @@ class HomeApiController {
   ApiController apiController = ApiController();
 
   Future<HomeResponse> getHomeData({bool isRefresh = false}) async {
-    Logger().e('hu');
     var data = await apiController.get(Uri.parse(ApiSettings.home),
         headers: {
           HttpHeaders.authorizationHeader:

@@ -20,6 +20,9 @@ class ApiSettings {
 
   static const String cities = '${basedUrl}cities';
 
+  
+  static const String forgetpassword = '${basedUrl}auth/forget-password';
+
 // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
 // static const String profile = '${_basedUrl}User/GetProfile';
 // static const String services = '${_basedUrl}ItemServices/Service/Get';

@@ -78,6 +78,19 @@ class SharedPrefController {
     }
   }
 
+  void clearUserData() {
+    _sharedPreferences.remove(PrefKeys.id.name);
+    _sharedPreferences.remove(PrefKeys.name.name);
+    _sharedPreferences.remove(PrefKeys.email.name);
+    _sharedPreferences.remove(PrefKeys.mobile.name);
+    _sharedPreferences.remove(PrefKeys.active.name);
+    _sharedPreferences.remove(PrefKeys.token.name);
+    _sharedPreferences.remove(PrefKeys.lat.name);
+    _sharedPreferences.remove(PrefKeys.lng.name);
+    _sharedPreferences.remove(PrefKeys.verified.name);
+    _sharedPreferences.remove(PrefKeys.loggedIn.name);
+  }
+
   void updateProfile({required String name, required String email, required String mobile}) {
     _sharedPreferences.setString(PrefKeys.name.name, name);
     _sharedPreferences.setString(PrefKeys.email.name, email);
