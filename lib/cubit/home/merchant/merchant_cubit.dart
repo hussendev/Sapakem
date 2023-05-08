@@ -11,53 +11,54 @@ class MerchantCubit extends Cubit<MerchantStates> {
   MerchantCubit() : super(InitialMerchantState());
   bool isFavorite = false;
   // List<int> favoriteMerchants = [];
-  Map<int, dynamic> favoriteMerchants = {};
+  Map<String, dynamic> favoriteMerchants = {};
   HomeApiController homeApiController = HomeApiController();
   List<String> merchantsFriend =[];
 
   static MerchantCubit get(context) => BlocProvider.of(context);
 
-  Future<List<Merchant>> getMerchantsFavorite() async {
-    emit(LoadingMerchantState());
-    try {
-      List<Merchant> merchants = [];
-      favoriteMerchants.forEach((key, value) {
-        merchants.add(value);
-      });
-      if (merchants.isNotEmpty) {
-        emit(SuccessLoadedMerchantState(merchants));
-        return merchants;
-      } else {
-        emit(FavoriteMerchantEmptyState("No Data"));
-        return [];
-      }
-    } catch (e) {
-      emit(ErrorMerchantState(e.toString()));
+  Future<List<Merchant>> getMerchantsFavorite(String userId) async {
+  emit(LoadingMerchantState());
+  try {
+    List<Merchant> userFavoriteMerchants = [];
+    favoriteMerchants[userId]?.forEach((key, value) {
+      userFavoriteMerchants.add(value);
+    });
+    if (userFavoriteMerchants.isNotEmpty) {
+      emit(SuccessLoadedMerchantState(userFavoriteMerchants));
+      return userFavoriteMerchants;
+    } else {
+      emit(FavoriteMerchantEmptyState("No Data"));
+      return [];
     }
+  } catch (e) {
+    emit(ErrorMerchantState(e.toString()));
     return [];
   }
+}
 
-  void changeFavorite() {
-    isFavorite = !isFavorite;
-    emit(FavoriteMerchantState(isFavorite));
-  }
+void changeFavorite(Merchant merchant,String userId) {
+  bool isFavorite = !isMerchantFavorite(merchant,userId);
+  emit(FavoriteMerchantState(isFavorite));
+}
 
-  void addMerchantToFavorites(Merchant merchant) {
-    if (isMerchantFavorite(merchant)) {
-      favoriteMerchants.remove(merchant.id);
-      Logger().i(favoriteMerchants);
-      changeFavorite();
-      getMerchantsFavorite();
-    } else {
-      favoriteMerchants[merchant.id!] = merchant;
-      changeFavorite();
-      // getMerchantsFavorite();
-    }
+void addMerchantToFavorites(Merchant merchant, String userId) {
+  if (isMerchantFavorite(merchant, userId)) {
+    favoriteMerchants[userId]?.remove(merchant.id);
+    Logger().i(favoriteMerchants);
+    changeFavorite(merchant,userId);
+    getMerchantsFavorite(userId);
+  } else {
+    favoriteMerchants[userId] ??= {};
+    favoriteMerchants[userId]![merchant.id!] = merchant;
+    changeFavorite(merchant,userId);
+    getMerchantsFavorite(userId);
   }
+}
 
-  bool isMerchantFavorite(Merchant merchant) {
-    return favoriteMerchants.containsKey(merchant.id);
-  }
+bool isMerchantFavorite(Merchant merchant, String userId) {
+  return favoriteMerchants.containsKey(userId) && favoriteMerchants[userId]!.containsKey(merchant.id);
+}
 
   void sendRequestForMerchant(BuildContext context, String merchantId) async {
     try {
