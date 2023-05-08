@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_states.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
@@ -51,7 +52,7 @@ class FavoriteScreen extends StatelessWidget {
                 );
               }
             },
-            bloc: context.read<MerchantCubit>()..getMerchantsFavorite(),
+            bloc: context.read<MerchantCubit>()..getMerchantsFavorite(SharedPrefController().getUserId()!.toString()),
             buildWhen: (previous, current) =>
                 current is SuccessLoadedMerchantState ||
                 current is LoadingMerchantState ||

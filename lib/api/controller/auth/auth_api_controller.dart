@@ -18,12 +18,9 @@ class UsersApiController with Helpers {
   Future<ProcessResponse> login(
       {required String mobile, required String password}) async {
     Uri uri = Uri.parse(ApiSettings.login);
-<<<<<<< HEAD
-    Logger().e(SharedPrefController().getValueFor(PrefKeys.fcmToken.name));
-    Logger().e(SharedPrefController().getValueFor(PrefKeys.language.name));
-    Logger().e(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
-=======
->>>>>>> be1cb5b47e60666e522416029cdf2f59fa87efcd
+    // Logger().e(SharedPrefController().getValueFor(PrefKeys.fcmToken.name));
+    // Logger().e(SharedPrefController().getValueFor(PrefKeys.language.name));
+    // Logger().e(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
 
     var response = await http.post(uri, body: {
       'mobile': mobile,
@@ -102,11 +99,7 @@ class UsersApiController with Helpers {
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-<<<<<<< HEAD
       SharedPrefController().clearUser();
-=======
-      SharedPrefController().clearUserData();
->>>>>>> be1cb5b47e60666e522416029cdf2f59fa87efcd
       return ProcessResponse(message: json['message'], success: true);
     }
     SharedPrefController().clearUser();
@@ -167,22 +160,20 @@ class UsersApiController with Helpers {
     return [];
   }
 
-
-
   Future<ProcessResponse> forgetPassword({required int mobile}) async {
-  Uri uri = Uri.parse(ApiSettings.forgetpassword);
-  var response = await http.post(uri, body: {
-    'mobile': mobile.toString(),
-  });
-  if (response.statusCode == 200 || response.statusCode == 400) {
-    var json = jsonDecode(response.body);
-    return ProcessResponse(
-        message: json['message'] + ' ' + json['code'].toString(),
-        success: json['status']);
-  }
+    Uri uri = Uri.parse(ApiSettings.forgetpassword);
+    var response = await http.post(uri, body: {
+      'mobile': mobile.toString(),
+    });
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var json = jsonDecode(response.body);
+      return ProcessResponse(
+          message: json['message'] + ' ' + json['code'].toString(),
+          success: json['status']);
+    }
 
-  return errorResponse;
-}
+    return errorResponse;
+  }
 //qemu-system
 
 //

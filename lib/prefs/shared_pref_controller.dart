@@ -35,6 +35,15 @@ class SharedPrefController {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
 
+
+  // get userId
+  int? getUserId() {
+    if (_sharedPreferences.containsKey(PrefKeys.id.name)) {
+      return int.parse(_sharedPreferences.getString(PrefKeys.id.name)!);
+    }
+    return null;
+  }
+
   void save(User user) {
     _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     _sharedPreferences.setString(
@@ -120,18 +129,5 @@ class SharedPrefController {
     _sharedPreferences.setString(PrefKeys.name.name, name);
     _sharedPreferences.setString(PrefKeys.email.name, email);
     _sharedPreferences.setString(PrefKeys.mobile.name, mobile);
-  }
-
-  void clearUserData() {
-    _sharedPreferences.remove(PrefKeys.id.name);
-    _sharedPreferences.remove(PrefKeys.name.name);
-    _sharedPreferences.remove(PrefKeys.email.name);
-    _sharedPreferences.remove(PrefKeys.mobile.name);
-    _sharedPreferences.remove(PrefKeys.active.name);
-    _sharedPreferences.remove(PrefKeys.token.name);
-    _sharedPreferences.remove(PrefKeys.lat.name);
-    _sharedPreferences.remove(PrefKeys.lng.name);
-    _sharedPreferences.remove(PrefKeys.verified.name);
-    _sharedPreferences.remove(PrefKeys.loggedIn.name);
   }
 }
