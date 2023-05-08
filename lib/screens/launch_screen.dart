@@ -18,7 +18,6 @@ class _LunchScreenState extends State<LunchScreen> {
     // TODO: implement initState
     super.initState();
     CityCubit.get(context).getCities();
-    Logger().i(SharedPrefController().getValueFor(PrefKeys.token.name));
     String route =
         SharedPrefController().getValueFor<String>(PrefKeys.token.name) == null
             ? '/chose_language'
