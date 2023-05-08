@@ -9,6 +9,7 @@ import 'package:sapakem/cubit/auth/login/login_states.dart';
 import 'package:sapakem/util/context_extenssion.dart' as c;
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
+
 import '../../widgets/app_button_widget.dart';
 import '../../widgets/app_text_field.dart';
 
@@ -26,9 +27,7 @@ class LoginScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {},
             icon: Icon(
-              context.localizations.language == 'en'
-                  ? Icons.arrow_circle_left_outlined
-                  : Icons.arrow_circle_right_outlined,
+              context.localizations.language == 'en' ? Icons.arrow_circle_left_outlined : Icons.arrow_circle_right_outlined,
               color: Colors.white,
             ),
           ),
@@ -40,9 +39,7 @@ class LoginScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is LoadingLoginState) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is SuccessLoginState ||
-                  state is ErrorDataLoginState ||
-                  state is initialLoginState) {
+              } else if (state is SuccessLoginState || state is ErrorDataLoginState || state is initialLoginState) {
                 return CustomScrollView(
                   slivers: [
                     SliverFillRemaining(
@@ -79,12 +76,10 @@ class LoginScreen extends StatelessWidget {
                                     height: 100.h,
                                     width: 100.w,
                                     // ignore: sort_child_properties_last
-                                    child: SvgPicture.asset('assets/logo.svg',
-                                        semanticsLabel: 'A red up arrow'),
+                                    child: SvgPicture.asset('assets/logo.svg', semanticsLabel: 'A red up arrow'),
 
                                     // ignore: prefer_const_constructors
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle),
+                                    decoration: const BoxDecoration(shape: BoxShape.circle),
                                   ),
                                 ),
                               ],
@@ -93,47 +88,25 @@ class LoginScreen extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 36.w, vertical: 20.h),
+                              padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 20.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AppText(
-                                          text:
-                                              context.localizations.lets_start,
-                                          fontSize: 35.sp,
-                                          color: const Color(0xff1C8ABB)),
-                                      14.ph(),
-                                      AppText(
-                                          text: context.localizations
-                                              .sing_in_to_your_account,
-                                          fontSize: 18.sp,
-                                          color: const Color(0xff222222))
-                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [AppText(text: context.localizations.lets_start, fontSize: 35.sp, color: const Color(0xff1C8ABB)), 14.ph(), AppText(text: context.localizations.sing_in_to_your_account, fontSize: 18.sp, color: const Color(0xff222222))],
                                   ),
                                   24.ph(),
-                                  AppTextField(
-                                      text: context.localizations.mobile,
-                                      hinttext: '594  358  404',
-                                      labeltext: 'labeltext',
-                                      keyboardType: TextInputType.phone,
-                                      controller: _phoneController,
-                                      obscureText: false),
+                                  AppTextField(text: context.localizations.mobile, hinttext: '594  358  404', labeltext: 'labeltext', keyboardType: TextInputType.phone, controller: _phoneController, obscureText: false),
                                   11.ph(),
                                   BlocBuilder<LoginCubit, LoginStates>(
                                     builder: (context, state) {
                                       if (state is initialLoginState) {
                                         return AppTextField(
-                                            text:
-                                                context.localizations.password,
+                                            text: context.localizations.password,
                                             hinttext: '********',
                                             labeltext: 'labeltext',
-                                            keyboardType:
-                                                TextInputType.visiblePassword,
+                                            keyboardType: TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: true,
                                             suffixIcon: IconButton(
@@ -151,12 +124,10 @@ class LoginScreen extends StatelessWidget {
                                       } else if (state
                                           is ChangePasswordVisibilityState) {
                                         return AppTextField(
-                                            text:
-                                                context.localizations.password,
+                                            text: context.localizations.password,
                                             hinttext: '********',
                                             labeltext: 'labeltext',
-                                            keyboardType:
-                                                TextInputType.visiblePassword,
+                                            keyboardType: TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: state.visiblePassword,
                                             suffixIcon: IconButton(
@@ -177,8 +148,7 @@ class LoginScreen extends StatelessWidget {
                                                 context.localizations.password,
                                             hinttext: '********',
                                             labeltext: 'labeltext',
-                                            keyboardType:
-                                                TextInputType.visiblePassword,
+                                            keyboardType: TextInputType.visiblePassword,
                                             controller: _passwordController,
                                             obscureText: true,
                                             suffixIcon: IconButton(
@@ -210,20 +180,10 @@ class LoginScreen extends StatelessWidget {
                                     children: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(context,
-                                              '/forgot_password_screen');
+                                          Navigator.pushNamed(context, '/forgot_password_screen');
                                         },
-                                        style: TextButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                            minimumSize: const Size(50, 30),
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
-                                            alignment: Alignment.centerLeft),
-                                        child: AppText(
-                                            text: context
-                                                .localizations.forgot_password,
-                                            fontSize: 16.sp,
-                                            color: const Color(0xff1C8ABB)),
+                                        style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 30), tapTargetSize: MaterialTapTargetSize.shrinkWrap, alignment: Alignment.centerLeft),
+                                        child: AppText(text: context.localizations.forgot_password, fontSize: 16.sp, color: const Color(0xff1C8ABB)),
                                       ),
                                       // TextButton(
                                       //   style:
@@ -242,11 +202,7 @@ class LoginScreen extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      AppText(
-                                          text: context.localizations
-                                              .dont_have_an_account,
-                                          fontSize: 16.sp,
-                                          color: const Color(0xff222222)),
+                                      AppText(text: context.localizations.dont_have_an_account, fontSize: 16.sp, color: const Color(0xff222222)),
                                       10.ph(),
                                       TextButton(
                                           style: TextButton.styleFrom(
@@ -254,14 +210,9 @@ class LoginScreen extends StatelessWidget {
                                           ),
                                           clipBehavior: Clip.none,
                                           onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, '/register_screen');
+                                            Navigator.pushNamed(context, '/register_screen');
                                           },
-                                          child: AppText(
-                                              text:
-                                                  context.localizations.sign_up,
-                                              fontSize: 16.sp,
-                                              color: const Color(0xff1C8ABB))),
+                                          child: AppText(text: context.localizations.sign_up, fontSize: 16.sp, color: const Color(0xff1C8ABB))),
                                     ],
                                   )
                                 ],
@@ -302,10 +253,7 @@ class LoginScreen extends StatelessWidget {
               }
             },
             buildWhen: (previous, current) {
-              if (current is ErrorDataLoginState ||
-                  current is LoadingLoginState ||
-                  current is SuccessLoginState ||
-                  current is ErrorLoginState) {
+              if (current is ErrorDataLoginState || current is LoadingLoginState || current is SuccessLoginState || current is ErrorLoginState) {
                 return true;
               } else {
                 return false;
@@ -323,8 +271,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   bool _checkData(BuildContext context) {
-    if (_phoneController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
+    if (_phoneController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
       return true;
     }
     context.showSnackBar(message: 'Enter Required Data!', error: true);
@@ -332,10 +279,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   void _login(BuildContext context) async {
-    LoginCubit.get(context).userLogin(
-        phone: _phoneController.text,
-        password: _passwordController.text,
-        context: context);
+    LoginCubit.get(context).userLogin(phone: _phoneController.text, password: _passwordController.text, context: context);
   }
   
 }

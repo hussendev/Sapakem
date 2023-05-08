@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sapakem/cubit/auth/city/city_cubit.dart';
+import 'package:sapakem/cubit/auth/city/city_states.dart';
 import 'package:sapakem/cubit/orders/orders_cubit.dart';
+import 'package:sapakem/model/city.dart';
 import 'package:sapakem/screens/btn/order_screens/order_screen_widget.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 import 'package:sapakem/util/context_extenssion.dart';
@@ -263,7 +266,64 @@ class AppDialog {
                           ),
                         ],
                       ),
-                      10.ph(),
+                      if (state.payMethod == PayMethod.delivery)
+                        const Divider(
+                          color: Colors.black38,
+                          thickness: 1,
+                        ),
+                      if (state.payMethod == PayMethod.delivery)
+                        Row(
+                          children: [
+                            Expanded(child: AppText(text: 'Your City:', fontSize: 16.sp, color: Colors.black45)),
+                            Expanded(
+                              child: BlocBuilder<CityCubit, CityStates>(
+                                builder: (context, state) {
+                                  if (state is CityLoadingState) {
+                                    return DropdownButtonFormField<String>(
+                                        decoration: const InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                              borderSide: BorderSide(color: Color(0xff1C8ABB)),
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                              borderSide: BorderSide(color: Color(0xff1C8ABB)),
+                                            )),
+                                        value: 'Loading...',
+                                        items: const [],
+                                        onChanged: (value) {});
+                                  } else if (state is CitySuccessState) {
+                                    return DropdownButtonFormField<City>(
+                                        decoration: const InputDecoration(
+                                          hintText: 'Please Select City',
+                                          enabledBorder: InputBorder.none,
+                                          border: InputBorder.none,
+                                        ),
+                                        value: state.cities.first,
+                                        items: state.cities
+                                            .map((e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: AppText(text: e.name == null ? '' : e.name!, fontSize: 16.sp, color: Colors.black45),
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) {
+                                          context.read<CityCubit>().ChangeCity(value!);
+                                        });
+                                  } else {
+                                    state as CityErrorState;
+                                    return Text(state.error);
+                                  }
+                                },
+                                buildWhen: (previous, current) {
+                                  if (current is CitySuccessState || state is CityInitialState) {
+                                    return true;
+                                  }
+                                  return false;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       const Divider(
                         color: Colors.black38,
                         thickness: 1,
