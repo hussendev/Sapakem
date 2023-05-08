@@ -1,13 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sapakem/screens/app/home/merchants_by_category.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
-import '../cubit/home/home_cubit.dart';
 import '../model/home/categories.dart';
 
 class HomeSubCategoryWidget extends StatelessWidget {
@@ -33,11 +31,14 @@ class HomeSubCategoryWidget extends StatelessWidget {
                 onTap: () async {
                   // Logger().i(categories[index].id);
                   Future.delayed(Duration(milliseconds: 500), () {
-                    context.read<HomeCubit>().getMerchantByCategory(categories[index].id!);
+                    // context
+                    //     .read<HomeCubit>()
+                    //     .getMerchantByCategory(categories[index].id!);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MerchantsByCategory(category: categories[index]),
+                        builder: (context) =>
+                            MerchantsByCategory(category: categories[index]),
                       ),
                     );
                   });
@@ -51,12 +52,15 @@ class HomeSubCategoryWidget extends StatelessWidget {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                        left: context.localizations.language == 'en' ? 0.w : 10.w,
-                        right: context.localizations.language == 'en' ? 10.w : 0.w,
+                        left:
+                            context.localizations.language == 'en' ? 0.w : 10.w,
+                        right:
+                            context.localizations.language == 'en' ? 10.w : 0.w,
                       ),
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: CachedNetworkImageProvider(categories[index].image!),
+                          image: CachedNetworkImageProvider(
+                              categories[index].image!),
                           fit: BoxFit.cover,
                         ),
                         color: Colors.blue,

@@ -140,8 +140,8 @@ class AppDialog {
   //   );
   // }
 
-  static void productOrder(BuildContext context, Map<String, dynamic> data, double subTotal) {
-    Logger().i(data);
+  static void productOrder(
+      BuildContext context, Map<String, dynamic> data, double subTotal) {
     showDialog(
       context: context,
       builder: (context) => Dialog(
@@ -149,7 +149,9 @@ class AppDialog {
         elevation: 0,
         child: MultiBlocProvider(
           providers: [
-            BlocProvider<CitesPriceCubit>(create: (context) => CitesPriceCubit()..getCitesPrices(data.keys.toList(), 1)),
+            BlocProvider<CitesPriceCubit>(
+                create: (context) =>
+                    CitesPriceCubit()..getCitesPrices(data.keys.toList(), 1)),
             BlocProvider<OrdersCubit>(
               create: (context) => OrdersCubit()..getPayWay(PayMethod.none),
             ),
@@ -158,7 +160,8 @@ class AppDialog {
             builder: (context, state) {
               if (state is CitySuccessState) {
                 return Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
@@ -175,27 +178,35 @@ class AppDialog {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      context.read<OrdersCubit>().getPayWay(PayMethod.delivery);
+                                      context
+                                          .read<OrdersCubit>()
+                                          .getPayWay(PayMethod.Online);
                                     },
                                     child: Container(
                                       // width: 150.w,
                                       height: 150.h,
-                                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       padding: EdgeInsets.all(10.w),
                                       decoration: BoxDecoration(
-                                        color: orderState.payMethod == PayMethod.delivery ? app_primary : Colors.white,
+                                        color: orderState.payMethod ==
+                                                PayMethod.Online
+                                            ? app_primary
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(10),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: const Offset(0, 3), // changes position of shadow
+                                            offset: const Offset(0,
+                                                3), // changes position of shadow
                                           ),
                                         ],
                                       ),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           SvgPicture.asset(
                                             'assets/delivery/arrive_order.svg',
@@ -205,7 +216,10 @@ class AppDialog {
                                           AppText(
                                             text: 'Delivery',
                                             fontSize: 14.sp,
-                                            color: orderState.payMethod == PayMethod.delivery ? Colors.white : Colors.black38,
+                                            color: orderState.payMethod ==
+                                                    PayMethod.Online
+                                                ? Colors.white
+                                                : Colors.black38,
                                             textAlign: TextAlign.center,
                                           )
                                         ],
@@ -216,38 +230,52 @@ class AppDialog {
                                 Expanded(
                                   child: GestureDetector(
                                     onTap: () {
-                                      context.read<OrdersCubit>().getPayWay(PayMethod.cash);
+                                      context
+                                          .read<OrdersCubit>()
+                                          .getPayWay(PayMethod.Cash);
                                     },
                                     child: Container(
                                       // width: 150.w,
                                       height: 150.h,
-                                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       padding: EdgeInsets.all(10.w),
                                       decoration: BoxDecoration(
-                                        color: orderState.payMethod == PayMethod.cash ? app_primary : Colors.white,
+                                        color: orderState.payMethod ==
+                                                PayMethod.Cash
+                                            ? app_primary
+                                            : Colors.white,
                                         borderRadius: BorderRadius.circular(10),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 5,
                                             blurRadius: 7,
-                                            offset: const Offset(0, 3), // changes position of shadow
+                                            offset: const Offset(0,
+                                                3), // changes position of shadow
                                           ),
                                         ],
                                       ),
                                       child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
                                         children: [
                                           SvgPicture.asset(
                                             'assets/delivery/order.svg',
                                             width: 45.w,
                                             height: 45.h,
-                                            color: orderState.payMethod == PayMethod.cash ? Colors.white : Colors.black38,
+                                            color: orderState.payMethod ==
+                                                    PayMethod.Cash
+                                                ? Colors.white
+                                                : Colors.black38,
                                           ),
                                           AppText(
                                             text: context.localizations.cash,
                                             fontSize: 13.sp,
-                                            color: orderState.payMethod == PayMethod.cash ? Colors.white : Colors.black54,
+                                            color: orderState.payMethod ==
+                                                    PayMethod.Cash
+                                                ? Colors.white
+                                                : Colors.black54,
                                             textAlign: TextAlign.center,
                                           )
                                         ],
@@ -257,15 +285,19 @@ class AppDialog {
                                 ),
                               ],
                             ),
-                            if (orderState.payMethod == PayMethod.delivery)
+                            if (orderState.payMethod == PayMethod.Online)
                               const Divider(
                                 color: Colors.black38,
                                 thickness: 1,
                               ),
-                            if (orderState.payMethod == PayMethod.delivery)
+                            if (orderState.payMethod == PayMethod.Online)
                               Row(
                                 children: [
-                                  Expanded(child: AppText(text: 'Your City:', fontSize: 16.sp, color: Colors.black45)),
+                                  Expanded(
+                                      child: AppText(
+                                          text: 'Your City:',
+                                          fontSize: 16.sp,
+                                          color: Colors.black45)),
                                   Expanded(
                                     child: DropdownButtonFormField<City>(
                                         decoration: const InputDecoration(
@@ -277,12 +309,22 @@ class AppDialog {
                                         items: state.cities
                                             .map((e) => DropdownMenuItem(
                                                   value: e,
-                                                  child: AppText(text: e.name == null ? '' : e.name!, fontSize: 16.sp, color: Colors.black45),
+                                                  child: AppText(
+                                                      text: e.name == null
+                                                          ? ''
+                                                          : e.name!,
+                                                      fontSize: 16.sp,
+                                                      color: Colors.black45),
                                                 ))
                                             .toList(),
                                         onChanged: (value) {
-                                          context.read<CityCubit>().ChangeCity(value!);
-                                          context.read<CitesPriceCubit>().changeCity(value.id!, data.keys.toList());
+                                          context
+                                              .read<CityCubit>()
+                                              .ChangeCity(value!);
+                                          context
+                                              .read<CitesPriceCubit>()
+                                              .changeCity(value.id!,
+                                                  data.keys.toList());
                                         }),
                                   ),
                                 ],
@@ -310,25 +352,29 @@ class AppDialog {
                               color: Colors.black38,
                               thickness: 1,
                             ),
-                            BlocBuilder<CitesPriceCubit, CitesPriceState>(builder: (context, state2) {
+                            BlocBuilder<CitesPriceCubit, CitesPriceState>(
+                                builder: (context, state2) {
                               if (state2 is CitesPriceSuccessState) {
                                 return Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         AppText(
                                           text: 'Delivery',
                                           fontSize: 16.sp,
                                           color: Colors.black54,
                                         ),
-                                        if (orderState.payMethod == PayMethod.delivery)
+                                        if (orderState.payMethod ==
+                                            PayMethod.Online)
                                           AppText(
                                             text: '₪ ${state2.price}',
                                             fontSize: 20.sp,
                                             color: app_primary,
                                           ),
-                                        if (orderState.payMethod != PayMethod.delivery)
+                                        if (orderState.payMethod !=
+                                            PayMethod.Online)
                                           AppText(
                                             text: '-',
                                             fontSize: 20.sp,
@@ -341,20 +387,24 @@ class AppDialog {
                                       thickness: 1,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         AppText(
                                           text: 'Total',
                                           fontSize: 16.sp,
                                           color: Colors.black54,
                                         ),
-                                        if (orderState.payMethod == PayMethod.delivery)
+                                        if (orderState.payMethod ==
+                                            PayMethod.Online)
                                           AppText(
-                                            text: '₪ ${subTotal + state2.price}',
+                                            text:
+                                                '₪ ${subTotal + state2.price}',
                                             fontSize: 20.sp,
                                             color: app_primary,
                                           ),
-                                        if (orderState.payMethod != PayMethod.delivery)
+                                        if (orderState.payMethod !=
+                                            PayMethod.Online)
                                           AppText(
                                             text: '₪ ${subTotal}',
                                             fontSize: 20.sp,
@@ -373,9 +423,19 @@ class AppDialog {
                               onTap: () {
                                 if (orderState.payMethod != PayMethod.none) {
                                   _choseDate(context, (p0) {
-                                    Future.delayed(const Duration(milliseconds: 0), () {
+                                    Logger().i(p0);
+                                    Future.delayed(
+                                        const Duration(milliseconds: 0), () {
                                       Navigator.of(context).pop();
-                                      context.read<OrdersCubit>().createOrder(data, '${state.cities.first.id!}', orderState.payMethod.name, context);
+
+                                      context.read<OrdersCubit>().createOrder(
+                                            data,
+                                            context,
+                                            state.cities.first.id!,
+                                            p0.toString(),
+                                            p0.toString().substring(0, 10),
+                                            orderState.payMethod.name,
+                                          );
                                       // _finalDialog(context);
                                     });
                                   });
@@ -385,7 +445,9 @@ class AppDialog {
                                 height: 40.h,
                                 margin: EdgeInsets.symmetric(horizontal: 50.w),
                                 decoration: BoxDecoration(
-                                  color: orderState.payMethod == PayMethod.none ? Colors.grey : app_primary,
+                                  color: orderState.payMethod == PayMethod.none
+                                      ? Colors.grey
+                                      : app_primary,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
@@ -451,7 +513,11 @@ class AppDialog {
               mainAxisSize: MainAxisSize.min,
               children: [
                 18.ph(),
-                AppText(text: context.localizations.the_order_will_be_sent_within_15_seconds, fontSize: 18.sp, color: Colors.black),
+                AppText(
+                    text: context
+                        .localizations.the_order_will_be_sent_within_15_seconds,
+                    fontSize: 18.sp,
+                    color: Colors.black),
                 18.ph(),
                 Container(
                   height: 40.h,
@@ -466,7 +532,8 @@ class AppDialog {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(10)),
+                            borderRadius: BorderRadiusDirectional.horizontal(
+                                start: Radius.circular(10)),
                           ),
                           child: Center(
                             child: AppText(
@@ -485,7 +552,8 @@ class AppDialog {
                           child: Container(
                             decoration: BoxDecoration(
                               color: app_primary,
-                              borderRadius: const BorderRadiusDirectional.horizontal(
+                              borderRadius:
+                                  const BorderRadiusDirectional.horizontal(
                                 end: Radius.circular(10),
                               ),
                               border: Border.all(color: app_primary),
@@ -516,7 +584,8 @@ class AppDialog {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 1,
-                        offset: const Offset(0, 1), // changes position of shadow
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
                       ),
                     ],
                   ),
@@ -567,7 +636,8 @@ class AppDialog {
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 1,
-                        offset: const Offset(0, 1), // changes position of shadow
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
                       ),
                     ],
                   ),
@@ -632,7 +702,8 @@ class AppDialog {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 50.w),
                   child: AppText(
-                    text: context.localizations.once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order,
+                    text: context.localizations
+                        .once_the_order_has_been_sent_it_is_not_possible_to_reverse_or_change_the_order,
                     fontSize: 20.sp,
                     color: Colors.red,
                     textAlign: TextAlign.center,
@@ -641,7 +712,10 @@ class AppDialog {
                 30.ph(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OrderScreenWidget()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => OrderScreenWidget()));
                   },
                   child: Container(
                     height: 40.h,

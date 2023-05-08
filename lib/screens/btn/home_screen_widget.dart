@@ -14,6 +14,7 @@ import 'package:sapakem/widgets/custom_app_bar.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/home_category_widget.dart';
 import '../../widgets/home_merchant_category.dart';
+import '../app/merchant/merchant_screen.dart';
 
 class HomeScreenWidget extends StatelessWidget {
   const HomeScreenWidget({super.key});
@@ -69,6 +70,16 @@ class HomeScreenWidget extends StatelessWidget {
                                 items: state.homeDate.banners!.map((e) {
                                   return InkWell(
                                     onTap: () async {
+                                      //  context.read<HomeCubit>().getMerchantById(e.merchantId!);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MerchantScreen(
+                                            merchant: e.merchant,
+                                          ),
+                                        ),
+                                      );
+
                                       //
                                     },
                                     child: Container(
@@ -76,7 +87,7 @@ class HomeScreenWidget extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: CachedNetworkImageProvider(
-                                                e.image!),
+                                                e.bannerImg!),
                                             fit: BoxFit.fill),
                                         color: const Color(0xff1C8ABB),
                                         borderRadius: const BorderRadius.all(
@@ -132,17 +143,21 @@ class HomeScreenWidget extends StatelessWidget {
                               categories: state.homeDate.categories!),
                           17.ph(),
 
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return HomeMerchantCategory(
-                                titles: state.homeDate.titles![index],
-                              );
-                            },
-                            itemCount: state.homeDate.titles!.length,
-                          ),
-                          //  HomeMerchantCategory(),
+                          for (var i = 0;
+                              i < state.homeDate.titles!.length;
+                              i++)
+                            HomeMerchantCategory(
+                              titles: state.homeDate.titles![i],
+                            ),
+
+                          // ListView.builder(
+                          //   shrinkWrap: true,
+                          //   physics: const NeverScrollableScrollPhysics(),
+                          //   itemBuilder: (context, index) {
+
+                          //   },
+                          //   itemCount: state.homeDate.titles!.length,
+                          // ),
 
                           // const HomeMerchantCategory(),
                           20.ph()
