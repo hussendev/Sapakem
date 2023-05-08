@@ -21,6 +21,8 @@ class ApiSettings {
   static const String cities = '${basedUrl}cities';
 
   static const String citiesPrices = '${basedUrl}cities/getPrice';
+
+  
   static const String createOrder = '${basedUrl}orders';
 
 

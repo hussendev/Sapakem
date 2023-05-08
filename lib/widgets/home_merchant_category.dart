@@ -18,61 +18,72 @@ class HomeMerchantCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // color: Colors.black,
-      height: 370.h,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 33.h,
-            child: Row(
+    return titles.merchants!.isNotEmpty
+        ? Container(
+            height: 330.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(text: titles.title!, fontSize: 21.sp, color: Colors.blue),
-                const Spacer(),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ShowMore(merchants: titles.merchants!),
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                    height: 20.04.h,
-                    child: Row(
-                      children: [
-                        AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
-                        5.pw(),
-                        const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
-                      ],
+                SizedBox(
+                  height: 33.h,
+                  child: Row(
+                    children: [
+                      AppText(
+                          text: titles.title!,
+                          fontSize: 21.sp,
+                          color: Colors.blue),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ShowMore(merchants: titles.merchants!),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 20.04.h,
+                          child: Row(
+                            children: [
+                              AppText(
+                                  text: context.localizations.show_more,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
+                                  color: Colors.black),
+                              5.pw(),
+                              const Icon(Icons.arrow_forward_ios,
+                                  color: Colors.black, size: 10),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                20.ph(),
+                Container(
+                  child: Container(
+                    height: 240.h,
+                    child: ListView.builder(
+                      cacheExtent: 1000,
+                      scrollDirection: Axis.horizontal,
+                      // physics: const NeverScrollableScrollPhysics(),
+                      itemCount: titles.merchants!.length,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return MerchantWidget(
+                          merchant: titles.merchants![index],
+                        );
+                      },
+                      shrinkWrap: true,
                     ),
                   ),
                 )
               ],
             ),
-          ),
-          20.ph(),
-          Expanded(
-            child: GridView.builder(
-              itemCount: titles.merchants!.length,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return MerchantWidget(
-                  merchant: titles.merchants![index],
-                );
-              },
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 170 / 214,
-                crossAxisSpacing: 17.w,
-                mainAxisSpacing: 20.h,
-              ),
-            ),
           )
-        ],
-      ),
-    );
+        : SizedBox();
   }
 }

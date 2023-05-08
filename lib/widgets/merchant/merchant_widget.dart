@@ -33,11 +33,16 @@ class MerchantWidget extends StatelessWidget {
         );
       },
       child: Container(
+        margin: EdgeInsetsDirectional.only(
+          end: 10.w,
+          bottom: 10.h,
+        ),
         decoration: BoxDecoration(
           color: Colors.blue,
           borderRadius: BorderRadius.circular(10),
         ),
         height: 214.h,
+        width: 170.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -125,7 +130,11 @@ class MerchantWidget extends StatelessWidget {
                         return InkWell(
                           child: context
                                   .read<MerchantCubit>()
-                                  .isMerchantFavorite(merchant,SharedPrefController().getUserId().toString())
+                                  .isMerchantFavorite(
+                                      merchant,
+                                      SharedPrefController()
+                                          .getUserId()
+                                          .toString())
                               ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
@@ -137,7 +146,11 @@ class MerchantWidget extends StatelessWidget {
                           onTap: () {
                             context
                                 .read<MerchantCubit>()
-                                .addMerchantToFavorites(merchant,SharedPrefController().getUserId().toString());
+                                .addMerchantToFavorites(
+                                    merchant,
+                                    SharedPrefController()
+                                        .getUserId()
+                                        .toString());
                           },
                         );
                       },

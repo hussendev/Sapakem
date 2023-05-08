@@ -44,31 +44,11 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true);
 
-    List<Merchant> merchants =
-        (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
-    return merchants;
+    Logger().i(data);
 
-    // String url = ApiSettings.basedUrl +
-    //     'categories/' +
-    //     categoryId.toString() +
-    //     '/merchants';
-    // var response = await http.get(Uri.parse(url), headers: {
-    //   HttpHeaders.authorizationHeader:
-    //       SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-    //   'X-Requested-With': 'XMLHttpRequest',
-    //   'Accept': 'application/json'
-    // });
-    // Logger().i(url);
-    // if (response.statusCode == 200 || response.statusCode == 400) {
-    //   if (response.statusCode != 400) {
-    //     var json = jsonDecode(response.body);
-    //     List<Merchant> merchants =
-    //         (json['object'] as List).map((e) => Merchant.fromJson(e)).toList();
-    //
-    //     return merchants;
-    //   }
-    // }
-    // return [];
+    List<Merchant> merchants =
+        (data!['list'] as List).map((e) => Merchant.fromJson(e)).toList();
+    return merchants;
   }
 
   Future<List<Merchant>> getMerchants() async {
@@ -85,22 +65,6 @@ class HomeApiController {
     List<Merchant> merchants =
         (data!['object'] as List).map((e) => Merchant.fromJson(e)).toList();
     return merchants;
-
-    // var response = await http.get(Uri.parse(ApiSettings.merchant), headers: {
-    //   HttpHeaders.authorizationHeader:
-    //       SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-    //   'X-Requested-With': 'XMLHttpRequest',
-    //   'Accept': 'application/json'
-    // });
-    // if (response.statusCode == 200 || response.statusCode == 400) {
-    //   if (response.statusCode != 400) {
-    //     var json = jsonDecode(response.body);
-    //     List<Merchant> merchants =
-    //         (json['object'] as List).map((e) => Merchant.fromJson(e)).toList();
-    //     return merchants;
-    //   }
-    // }
-    // return [];
   }
 
   Future<Merchant> getMerchant(int id, {bool isRefresh = false}) async {

@@ -86,7 +86,7 @@ class UsersApiController with Helpers {
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
-      SharedPrefController().clear();
+      SharedPrefController().clearUser();
       return ProcessResponse(message: json['message'], success: true);
     }
 

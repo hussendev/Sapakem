@@ -11,6 +11,12 @@ class OrdersError extends OrdersState {
   OrdersError(this.message);
 }
 
+class OrderCreated extends OrdersState {
+  final ProcessResponse response;
+
+  OrderCreated(this.response);
+}
+
 class OrdersSuccessful extends OrdersState {
   final List<Order> orders;
 
@@ -23,7 +29,7 @@ class OrderDetailsSuccessful extends OrdersState {
   OrderDetailsSuccessful(this.orders);
 }
 
-enum PayMethod { cash, delivery, none }
+enum PayMethod { Cash, Online, none }
 
 class PayWayState extends OrdersState {
   final PayMethod payMethod;
