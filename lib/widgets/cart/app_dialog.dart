@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/auth/city/city_cubit.dart';
 import 'package:sapakem/cubit/auth/city/city_states.dart';
+import 'package:sapakem/cubit/city_price/cites_price_cubit.dart';
 import 'package:sapakem/cubit/orders/orders_cubit.dart';
 import 'package:sapakem/model/city.dart';
 import 'package:sapakem/screens/btn/order_screens/order_screen_widget.dart';
@@ -139,141 +141,133 @@ class AppDialog {
   // }
 
   static void productOrder(BuildContext context, Map<String, dynamic> data, double subTotal) {
+    Logger().i(data);
     showDialog(
       context: context,
       builder: (context) => Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        child: BlocProvider<OrdersCubit>(
-          create: (context) => OrdersCubit()..getPayWay(PayMethod.none),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<CitesPriceCubit>(create: (context) => CitesPriceCubit()..getCitesPrices(data.keys.toList(), 1)),
+            BlocProvider<OrdersCubit>(
+              create: (context) => OrdersCubit()..getPayWay(PayMethod.none),
             ),
-            child: BlocBuilder<OrdersCubit, OrdersState>(
-              builder: (context, state) {
-                if (state is PayWayState) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      10.ph(),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<OrdersCubit>().getPayWay(PayMethod.delivery);
-                              },
-                              child: Container(
-                                // width: 150.w,
-                                height: 150.h,
-                                margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                padding: EdgeInsets.all(10.w),
-                                decoration: BoxDecoration(
-                                  color: state.payMethod == PayMethod.delivery ? app_primary : Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/delivery/arrive_order.svg',
-                                      width: 45.w,
-                                      height: 45.h,
-                                    ),
-                                    AppText(
-                                      text: 'Delivery',
-                                      fontSize: 14.sp,
-                                      color: state.payMethod == PayMethod.delivery ? Colors.white : Colors.black38,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<OrdersCubit>().getPayWay(PayMethod.cash);
-                              },
-                              child: Container(
-                                // width: 150.w,
-                                height: 150.h,
-                                margin: EdgeInsets.symmetric(horizontal: 10.w),
-                                padding: EdgeInsets.all(10.w),
-                                decoration: BoxDecoration(
-                                  color: state.payMethod == PayMethod.cash ? app_primary : Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
-                                      offset: const Offset(0, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/delivery/order.svg',
-                                      width: 45.w,
-                                      height: 45.h,
-                                      color: state.payMethod == PayMethod.cash ? Colors.white : Colors.black38,
-                                    ),
-                                    AppText(
-                                      text: context.localizations.cash,
-                                      fontSize: 13.sp,
-                                      color: state.payMethod == PayMethod.cash ? Colors.white : Colors.black54,
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (state.payMethod == PayMethod.delivery)
-                        const Divider(
-                          color: Colors.black38,
-                          thickness: 1,
-                        ),
-                      if (state.payMethod == PayMethod.delivery)
-                        Row(
+          ],
+          child: BlocBuilder<CityCubit, CityStates>(
+            builder: (context, state) {
+              if (state is CitySuccessState) {
+                return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: BlocBuilder<OrdersCubit, OrdersState>(
+                    builder: (context, orderState) {
+                      if (orderState is PayWayState) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Expanded(child: AppText(text: 'Your City:', fontSize: 16.sp, color: Colors.black45)),
-                            Expanded(
-                              child: BlocBuilder<CityCubit, CityStates>(
-                                builder: (context, state) {
-                                  if (state is CityLoadingState) {
-                                    return DropdownButtonFormField<String>(
-                                        decoration: const InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                                              borderSide: BorderSide(color: Color(0xff1C8ABB)),
-                                            ),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                                              borderSide: BorderSide(color: Color(0xff1C8ABB)),
-                                            )),
-                                        value: 'Loading...',
-                                        items: const [],
-                                        onChanged: (value) {});
-                                  } else if (state is CitySuccessState) {
-                                    return DropdownButtonFormField<City>(
+                            10.ph(),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      context.read<OrdersCubit>().getPayWay(PayMethod.delivery);
+                                    },
+                                    child: Container(
+                                      // width: 150.w,
+                                      height: 150.h,
+                                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.all(10.w),
+                                      decoration: BoxDecoration(
+                                        color: orderState.payMethod == PayMethod.delivery ? app_primary : Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: const Offset(0, 3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/delivery/arrive_order.svg',
+                                            width: 45.w,
+                                            height: 45.h,
+                                          ),
+                                          AppText(
+                                            text: 'Delivery',
+                                            fontSize: 14.sp,
+                                            color: orderState.payMethod == PayMethod.delivery ? Colors.white : Colors.black38,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      context.read<OrdersCubit>().getPayWay(PayMethod.cash);
+                                    },
+                                    child: Container(
+                                      // width: 150.w,
+                                      height: 150.h,
+                                      margin: EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.all(10.w),
+                                      decoration: BoxDecoration(
+                                        color: orderState.payMethod == PayMethod.cash ? app_primary : Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                            offset: const Offset(0, 3), // changes position of shadow
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/delivery/order.svg',
+                                            width: 45.w,
+                                            height: 45.h,
+                                            color: orderState.payMethod == PayMethod.cash ? Colors.white : Colors.black38,
+                                          ),
+                                          AppText(
+                                            text: context.localizations.cash,
+                                            fontSize: 13.sp,
+                                            color: orderState.payMethod == PayMethod.cash ? Colors.white : Colors.black54,
+                                            textAlign: TextAlign.center,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (orderState.payMethod == PayMethod.delivery)
+                              const Divider(
+                                color: Colors.black38,
+                                thickness: 1,
+                              ),
+                            if (orderState.payMethod == PayMethod.delivery)
+                              Row(
+                                children: [
+                                  Expanded(child: AppText(text: 'Your City:', fontSize: 16.sp, color: Colors.black45)),
+                                  Expanded(
+                                    child: DropdownButtonFormField<City>(
                                         decoration: const InputDecoration(
                                           hintText: 'Please Select City',
                                           enabledBorder: InputBorder.none,
@@ -288,113 +282,138 @@ class AppDialog {
                                             .toList(),
                                         onChanged: (value) {
                                           context.read<CityCubit>().ChangeCity(value!);
-                                        });
-                                  } else {
-                                    state as CityErrorState;
-                                    return Text(state.error);
-                                  }
-                                },
-                                buildWhen: (previous, current) {
-                                  if (current is CitySuccessState || state is CityInitialState) {
-                                    return true;
-                                  }
-                                  return false;
-                                },
+                                          context.read<CitesPriceCubit>().changeCity(value.id!, data.keys.toList());
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            const Divider(
+                              color: Colors.black38,
+                              thickness: 1,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AppText(
+                                  text: context.localizations.order_cost,
+                                  fontSize: 16.sp,
+                                  color: Colors.black54,
+                                ),
+                                AppText(
+                                  text: '₪ $subTotal',
+                                  fontSize: 20.sp,
+                                  color: app_primary,
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              color: Colors.black38,
+                              thickness: 1,
+                            ),
+                            BlocBuilder<CitesPriceCubit, CitesPriceState>(builder: (context, state2) {
+                              if (state2 is CitesPriceSuccessState) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        AppText(
+                                          text: 'Delivery',
+                                          fontSize: 16.sp,
+                                          color: Colors.black54,
+                                        ),
+                                        if (orderState.payMethod == PayMethod.delivery)
+                                          AppText(
+                                            text: '₪ ${state2.price}',
+                                            fontSize: 20.sp,
+                                            color: app_primary,
+                                          ),
+                                        if (orderState.payMethod != PayMethod.delivery)
+                                          AppText(
+                                            text: '-',
+                                            fontSize: 20.sp,
+                                            color: app_primary,
+                                          ),
+                                      ],
+                                    ),
+                                    const Divider(
+                                      color: Colors.black38,
+                                      thickness: 1,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        AppText(
+                                          text: 'Total',
+                                          fontSize: 16.sp,
+                                          color: Colors.black54,
+                                        ),
+                                        if (orderState.payMethod == PayMethod.delivery)
+                                          AppText(
+                                            text: '₪ ${subTotal + state2.price}',
+                                            fontSize: 20.sp,
+                                            color: app_primary,
+                                          ),
+                                        if (orderState.payMethod != PayMethod.delivery)
+                                          AppText(
+                                            text: '₪ ${subTotal}',
+                                            fontSize: 20.sp,
+                                            color: app_primary,
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
+                            }),
+                            50.ph(),
+                            GestureDetector(
+                              onTap: () {
+                                if (orderState.payMethod != PayMethod.none) {
+                                  _choseDate(context, (p0) {
+                                    Future.delayed(const Duration(milliseconds: 0), () {
+                                      Navigator.of(context).pop();
+                                      context.read<OrdersCubit>().createOrder(data, '${state.cities.first.id!}', orderState.payMethod.name, context);
+                                      // _finalDialog(context);
+                                    });
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 40.h,
+                                margin: EdgeInsets.symmetric(horizontal: 50.w),
+                                decoration: BoxDecoration(
+                                  color: orderState.payMethod == PayMethod.none ? Colors.grey : app_primary,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: AppText(
+                                    text: 'Order Now',
+                                    fontSize: 20.sp,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
-                        ),
-                      const Divider(
-                        color: Colors.black38,
-                        thickness: 1,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText(
-                            text: context.localizations.order_cost,
-                            fontSize: 16.sp,
-                            color: Colors.black54,
-                          ),
-                          AppText(
-                            text: '₪ $subTotal',
-                            fontSize: 20.sp,
-                            color: app_primary,
-                          ),
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.black38,
-                        thickness: 1,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText(
-                            text: 'Delivery',
-                            fontSize: 16.sp,
-                            color: Colors.black54,
-                          ),
-                          AppText(
-                            text: '-',
-                            fontSize: 20.sp,
-                            color: app_primary,
-                          ),
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.black38,
-                        thickness: 1,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText(
-                            text: 'Total',
-                            fontSize: 16.sp,
-                            color: Colors.black54,
-                          ),
-                          AppText(
-                            text: '₪ ${subTotal + 0}',
-                            fontSize: 20.sp,
-                            color: app_primary,
-                          ),
-                        ],
-                      ),
-                      50.ph(),
-                      GestureDetector(
-                        onTap: () {
-                          if (state.payMethod != PayMethod.none) {
-                            _choseDate(context, (p0) {
-                              Future.delayed(const Duration(milliseconds: 0), () {
-                                Navigator.of(context).pop();
-                                _finalDialog(context);
-                              });
-                            });
-                          }
-                        },
-                        child: Container(
-                          height: 40.h,
-                          margin: EdgeInsets.symmetric(horizontal: 50.w),
-                          decoration: BoxDecoration(
-                            color: state.payMethod == PayMethod.none ? Colors.grey : app_primary,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: AppText(
-                              text: 'Order Now',
-                              fontSize: 20.sp,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-                return const SizedBox();
-              },
-            ),
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                );
+              } else if (state is CityErrorState) {
+                return AppText(
+                  text: state.error,
+                  fontSize: 16.sp,
+                  color: Colors.black54,
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
           ),
         ),
       ),

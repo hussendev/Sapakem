@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/city/city_states.dart';
@@ -12,7 +11,6 @@ class CityCubit extends Cubit<CityStates> {
   CityCubit() : super(CityInitialState());
 
   int cityId = 0;
-
 
   static CityCubit get(context) => BlocProvider.of(context);
 
@@ -29,7 +27,6 @@ class CityCubit extends Cubit<CityStates> {
   }
 
   ChangeCity(City city) {
-
     cityId = city.id!;
     cities.where((element) => element.id == cityId).first;
     emit(CitySuccessState(cities));

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
-import 'package:meta/meta.dart';
 import 'package:sapakem/api/controller/order/orders_api_controller.dart';
 import 'package:sapakem/model/order.dart';
 import 'package:sapakem/model/orderDetails.dart';
@@ -35,5 +35,24 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   getPayWay(PayMethod payMethod) {
     emit(PayWayState(payMethod));
+  }
+
+  createOrder(dynamic data, String cityId, String paymentType, BuildContext context) async {
+    try {
+      List<Map> a = [
+        {
+          "store_id": 1,
+          "address_id": 2,
+          "payment_type": "Cash",
+          "cart": [
+            {"product_id": 992, "quantity": 2},
+            {"product_id": 1001, "quantity": 1}
+          ]
+        },
+      ];
+      await controller.createOrder(context, a);
+    } catch (e) {
+      Logger().e(e);
+    }
   }
 }

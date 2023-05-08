@@ -20,6 +20,9 @@ class ApiSettings {
 
   static const String cities = '${basedUrl}cities';
 
+  static const String citiesPrices = '${basedUrl}cities/getPrice';
+  static const String createOrder = '${basedUrl}orders';
+
 // static const String messages = '${_basedUrl}Messages/GetSallonMessages';
 // static const String profile = '${_basedUrl}User/GetProfile';
 // static const String services = '${_basedUrl}ItemServices/Service/Get';

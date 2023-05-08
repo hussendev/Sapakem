@@ -2,6 +2,8 @@ import 'package:sapakem/model/city.dart';
 
 abstract class CityStates {}
 
+double thePrice = 0;
+
 class CityInitialState extends CityStates {}
 
 class CityLoadingState extends CityStates {}

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/api_setting.dart';
 import 'package:sapakem/api/controller/api_controller.dart';
@@ -52,5 +53,19 @@ class OrdersApiController {
       orders.add(OrderDetails.fromJson(data['products'][i]));
     }
     return orders;
+  }
+
+  createOrder(BuildContext context, List data) async {
+    dynamic response = await ApiController().post(
+      Uri.parse('${ApiSettings.createOrder}?orders=$data'),
+      context: context,
+      headers: {
+        HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json',
+      },
+    );
+    Logger().i(response);
+    return response;
   }
 }
