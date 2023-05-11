@@ -19,6 +19,7 @@ enum PrefKeys {
   otp,
   cityName,
   image,
+  seen
 }
 
 class SharedPrefController {
@@ -44,6 +45,18 @@ class SharedPrefController {
     return null;
   }
 
+  // return if it first time to open app or not
+  bool? getSeen() {
+    if (_sharedPreferences.containsKey(PrefKeys.seen.name)) {
+      return _sharedPreferences.getBool(PrefKeys.seen.name);
+    }
+    return null;
+  }
+
+  // save if it first time to open app or not
+  void saveSeen(bool seen) {
+    _sharedPreferences.setBool(PrefKeys.seen.name, seen);
+  }
   void save(User user) {
     _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     _sharedPreferences.setString(

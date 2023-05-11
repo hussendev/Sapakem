@@ -69,9 +69,8 @@ class HomeMerchantCategory extends StatelessWidget {
                     child: ListView.builder(
                       cacheExtent: 1000,
                       scrollDirection: Axis.horizontal,
-                      // physics: const NeverScrollableScrollPhysics(),
+                      physics: BouncingScrollPhysics(),
                       itemCount: titles.merchants!.length,
-                      physics: const AlwaysScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return MerchantWidget(
                           merchant: titles.merchants![index],
@@ -84,6 +83,6 @@ class HomeMerchantCategory extends StatelessWidget {
               ],
             ),
           )
-        : SizedBox();
+        : SizedBox.shrink();
   }
 }

@@ -1,4 +1,4 @@
-enum ProcessState { ADD, DELETE, cantBeZero, cantBeMoreThanStock,existInCart,errorAddProduct,notAllowed }
+enum ProcessState { ADD, DELETE, cantBeZero,change, cantBeMoreThanStock,existInCart,errorAddProduct,notAllowed }
 class ProductStates {}
 
 class LoadingProductState extends ProductStates {}
@@ -15,6 +15,13 @@ class ProcessProductState extends ProductStates {
 //   String message;
 //   AlraedyInCartProductState(this.message);
 // }
+
+class ChangeQuantityProductState extends ProductStates {
+  Map<String,dynamic> products;
+  ProcessState processState;
+  int quantity;
+  ChangeQuantityProductState(this.products,this.processState,this.quantity);
+}
 
 class ErrorAddProductState extends ProductStates {
   ProcessState processState;
