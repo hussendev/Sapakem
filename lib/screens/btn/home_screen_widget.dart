@@ -54,9 +54,10 @@ class HomeScreenWidget extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         start: 26.4.w,
-                        end: 38.6.w,
+end: 26.4.w,
                       ),
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           SizedBox(
                             height: 184.h,
@@ -142,24 +143,12 @@ class HomeScreenWidget extends StatelessWidget {
                           HomeSubCategoryWidget(
                               categories: state.homeDate.categories!),
                           17.ph(),
-
                           for (var i = 0;
                               i < state.homeDate.titles!.length;
                               i++)
                             HomeMerchantCategory(
                               titles: state.homeDate.titles![i],
                             ),
-
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   physics: const NeverScrollableScrollPhysics(),
-                          //   itemBuilder: (context, index) {
-
-                          //   },
-                          //   itemCount: state.homeDate.titles!.length,
-                          // ),
-
-                          // const HomeMerchantCategory(),
                           20.ph()
                         ],
                       ),

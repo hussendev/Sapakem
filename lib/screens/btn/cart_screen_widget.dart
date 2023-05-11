@@ -18,8 +18,7 @@ class CartScreenWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = getCartForUser(context.read<ProductCubit>().cart,
-        SharedPrefController().getValueFor(PrefKeys.id.name));
+    var data = context.read<ProductCubit>().cart;
     return Scaffold(
         body: Column(
       children: [
@@ -182,8 +181,8 @@ class CartScreenWidget extends StatelessWidget {
                   );
           },
           buildWhen: (previous, current) {
-            if (current is ProcessProductState ||
-                current is ErrorAddProductState) {
+            if (current is ProcessProductState || current is ChangeQuantityProductState && current.processState== ProcessState.change||
+            current is ErrorAddProductState) {
               return true;
             }
             return false;
