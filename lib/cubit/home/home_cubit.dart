@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/app/home_api_controller.dart';
@@ -13,12 +14,12 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeApiController homeApiController = HomeApiController();
   int count = 0;
 
-  void getHomeData({bool isRefresh = false}) async {
+  void getHomeData({bool isRefresh = false,required BuildContext context}) async {
     emit(LoadingHomeState());
     try {
      
       HomeResponse homeResponse =
-          await homeApiController.getHomeData(isRefresh: isRefresh);
+          await homeApiController.getHomeData(isRefresh: isRefresh,context: context);
       if (homeResponse.homeData != null) {
         emit(SuccessHomeState(homeResponse.homeData!));
       } else {
