@@ -28,8 +28,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   void getOrderDetails(String orderId, {bool isRefresh = true}) async {
     emit(OrdersLoading());
     try {
-      List<OrderDetails> data = await controller.getOrderDetails(
-          orderId: orderId, isRefresh: isRefresh);
+      List<OrderDetails> data = await controller.getOrderDetails(orderId: orderId, isRefresh: isRefresh);
 
       emit(OrderDetailsSuccessful(data));
     } catch (e) {
@@ -42,8 +41,9 @@ class OrdersCubit extends Cubit<OrdersState> {
     emit(PayWayState(payMethod));
   }
 
+// ignore: slash_for_doc_comments
 /**
- * 
+ *
  * {
         "cart": jsonEncode([
           {
@@ -59,8 +59,7 @@ class OrdersCubit extends Cubit<OrdersState> {
         "hour": "12:34:56"
       }
  */
-  createOrder(Map<String, dynamic> data, BuildContext context, int cityId,
-      String date, String hour, String paymentType) async {
+  createOrder(Map<String, dynamic> data, BuildContext context, int cityId, String date, String hour, String paymentType) async {
     Logger().i(convertData(data, cityId, date, hour, paymentType));
     emit(OrdersLoading());
 
@@ -75,8 +74,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     }
   }
 
-  Map<String, dynamic> convertData(Map<String, dynamic> cart, int cityId,
-      String date, String hour, String paymentType) {
+  Map<String, dynamic> convertData(Map<String, dynamic> cart, int cityId, String date, String hour, String paymentType) {
     List<Map<String, dynamic>> cartItems = [];
     cart.forEach((merchantId, products) {
       List<Map<String, dynamic>> convertedProducts = [];
@@ -93,13 +91,7 @@ class OrdersCubit extends Cubit<OrdersState> {
       });
     });
 
-    Map<String, dynamic> desiredFormat = {
-      "cart": jsonEncode(cartItems),
-      "payment_type": paymentType,
-      "date_received": date,
-      "city_id": cityId.toString(),
-      "hour": hour
-    };
+    Map<String, dynamic> desiredFormat = {"cart": jsonEncode(cartItems), "payment_type": paymentType, "date_received": date, "city_id": cityId.toString(), "hour": hour};
 
     return desiredFormat;
   }

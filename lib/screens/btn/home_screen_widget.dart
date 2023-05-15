@@ -46,10 +46,7 @@ class HomeScreenWidget extends StatelessWidget {
               },
               child: Column(
                 children: [
-                  CustomAppBar(
-                      isHome: true,
-                      title: SharedPrefController()
-                          .getValueFor(PrefKeys.cityName.name)),
+                  CustomAppBar(isHome: true, title: SharedPrefController().getValueFor(PrefKeys.cityName.name) ?? ''),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
@@ -85,13 +82,9 @@ class HomeScreenWidget extends StatelessWidget {
                                     child: Container(
                                       height: 184.h,
                                       decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: CachedNetworkImageProvider(
-                                                e.bannerImg!),
-                                            fit: BoxFit.fill),
+                                        image: DecorationImage(image: CachedNetworkImageProvider(e.bannerImg!), fit: BoxFit.fill),
                                         color: const Color(0xff1C8ABB),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
                                       ),
                                     ),
                                   );
@@ -102,19 +95,14 @@ class HomeScreenWidget extends StatelessWidget {
                             height: 33.h,
                             child: Row(
                               children: [
-                                AppText(
-                                    text: context.localizations.main_meals,
-                                    fontSize: 21.sp,
-                                    color: Colors.blue),
+                                AppText(text: context.localizations.main_meals, fontSize: 21.sp, color: Colors.blue),
                                 const Spacer(),
                                 InkWell(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ShowMore(
-                                            categories:
-                                                state.homeDate.categories!),
+                                        builder: (context) => ShowMore(categories: state.homeDate.categories!),
                                       ),
                                     );
                                   },
@@ -122,15 +110,9 @@ class HomeScreenWidget extends StatelessWidget {
                                     height: 20.04.h,
                                     child: Row(
                                       children: [
-                                        AppText(
-                                            text:
-                                                context.localizations.show_more,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12.sp,
-                                            color: Colors.black),
+                                        AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
                                         5.pw(),
-                                        const Icon(Icons.arrow_forward_ios,
-                                            color: Colors.black, size: 10),
+                                        const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
                                       ],
                                     ),
                                   ),
@@ -139,13 +121,10 @@ class HomeScreenWidget extends StatelessWidget {
                             ),
                           ),
                           9.ph(),
-                          HomeSubCategoryWidget(
-                              categories: state.homeDate.categories!),
+                          HomeSubCategoryWidget(categories: state.homeDate.categories!),
                           17.ph(),
 
-                          for (var i = 0;
-                              i < state.homeDate.titles!.length;
-                              i++)
+                          for (var i = 0; i < state.homeDate.titles!.length; i++)
                             HomeMerchantCategory(
                               titles: state.homeDate.titles![i],
                             ),

@@ -18,9 +18,20 @@ class OrderCreated extends OrdersState {
 }
 
 class OrdersSuccessful extends OrdersState {
-  final List<Order> orders;
+  final Map<String, List<Order>> orders = {
+    'previous': [],
+    'current': [],
+  };
 
-  OrdersSuccessful(this.orders);
+  OrdersSuccessful(List<Order> orders) {
+    for (int i = 0; i < orders.length; i++) {
+      if (orders[i].status! == '4' || orders[i].status! == '5') {
+        this.orders['previous']!.add(orders[i]);
+      } else {
+        this.orders['current']!.add(orders[i]);
+      }
+    }
+  }
 }
 
 class OrderDetailsSuccessful extends OrdersState {

@@ -20,13 +20,11 @@ class OrderDetailsScreen extends StatelessWidget {
       child: Scaffold(
         body: RefreshIndicator(
           onRefresh: () async {
-            context
-                .read<OrdersCubit>()
-                .getOrderDetails('${order.id!}', isRefresh: true);
+            context.read<OrdersCubit>().getOrderDetails('${order.id!}', isRefresh: true);
           },
           child: Column(
             children: [
-              CustomAppBar(title: context.localizations.my_requests),
+              CustomAppBar(title: context.localizations.my_orders),
               Center(
                 child: BlocBuilder<OrdersCubit, OrdersState>(
                   builder: (context, state) {
@@ -36,26 +34,24 @@ class OrderDetailsScreen extends StatelessWidget {
                         ordersDetails: state.orders,
                       );
                     } else if (state is OrdersLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return SizedBox(
+                        height: 0.7.sh,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
                       );
                     } else if (state is OrdersError) {
                       return RefreshIndicator(
                         onRefresh: () async {
-                          context
-                              .read<OrdersCubit>()
-                              .getOrderDetails('${order.id!}', isRefresh: true);
+                          context.read<OrdersCubit>().getOrderDetails('${order.id!}', isRefresh: true);
                         },
-                        child: AppText(
-                            text: state.message,
-                            fontSize: 14.sp,
-                            color: Colors.black54),
+                        child: AppText(text: state.message, fontSize: 14.sp, color: Colors.black54),
                       );
                     }
-                    return AppText(
-                        text: 'I don\'t know why this happen!!',
-                        fontSize: 14.sp,
-                        color: Colors.black54);
+                    return AppText(text: 'I don\'t know why this happen!!', fontSize: 14.sp, color: Colors.black54);
                   },
                 ),
               ),
