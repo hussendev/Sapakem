@@ -16,7 +16,7 @@ import '../../api_setting.dart';
 class HomeApiController {
   ApiController apiController = ApiController();
 
-  Future<HomeResponse> getHomeData({bool isRefresh = false}) async {
+  Future<HomeResponse> getHomeData({bool isRefresh = false,required BuildContext context}) async {
     var data = await apiController.get(Uri.parse(ApiSettings.home),
         headers: {
           HttpHeaders.authorizationHeader:
@@ -27,8 +27,14 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true,
         isRefresh: isRefresh);
-
-    HomeResponse home = HomeResponse.fromJson(data!);
+    if(data!['message'] == 'api.unauthenticated'){
+      context.showSnackBar(message: 'Session Expired Please Login Again',error: true);
+      Navigator.pushReplacementNamed(
+          context, '/login_screen',
+      );
+      return Future.error('Session Expired');
+    }
+    HomeResponse home = HomeResponse.fromJson(data);
     return home;
   }
 

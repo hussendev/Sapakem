@@ -22,7 +22,7 @@ class HomeScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeCubit()..getHomeData(),
+      create: (context) => HomeCubit()..getHomeData(context: context),
       lazy: true,
       child: BlocBuilder<HomeCubit, HomeStates>(
         buildWhen: (previous, current) {
@@ -42,7 +42,7 @@ class HomeScreenWidget extends StatelessWidget {
           } else if (state is SuccessHomeState) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<HomeCubit>().getHomeData(isRefresh: true);
+                context.read<HomeCubit>().getHomeData(isRefresh: true,context: context);
               },
               child: Column(
                 children: [

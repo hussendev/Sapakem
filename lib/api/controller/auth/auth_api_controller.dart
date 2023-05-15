@@ -168,6 +168,21 @@ class UsersApiController with Helpers {
     return counter;
   }
 
+   Future<ProcessResponse> forgetPassword({required int mobile}) async {
+  Uri uri = Uri.parse(ApiSettings.forgetpassword);
+  var response = await http.post(uri, body: {
+    'mobile': mobile.toString(),
+  });
+  if (response.statusCode == 200 || response.statusCode == 400) {
+    var json = jsonDecode(response.body);
+    return ProcessResponse(
+        message: json['message'] + ' ' + json['code'].toString(),
+        success: json['status']);
+  }
+
+  return errorResponse;
+}}
+
 //qemu-system
 
 //
@@ -215,20 +230,7 @@ class UsersApiController with Helpers {
 //   return errorResponse;
 // }
 //
-// Future<ProcessResponse> forgetPassword({required int mobile}) async {
-//   Uri uri = Uri.parse(ApiSettings.forgetpassword);
-//   var response = await http.post(uri, body: {
-//     'mobile': mobile.toString(),
-//   });
-//   if (response.statusCode == 200 || response.statusCode == 400) {
-//     var json = jsonDecode(response.body);
-//     return ProcessResponse(
-//         message: json['message'] + ' ' + json['code'].toString(),
-//         success: json['status']);
-//   }
-//
-//   return errorResponse;
-// }
+
 //
 // Future<ProcessResponse> resetPassword( {required int mobile,
 //   required int code,
@@ -279,4 +281,4 @@ class UsersApiController with Helpers {
 //   }
 //   return errorResponse;
 // }
-}
+
