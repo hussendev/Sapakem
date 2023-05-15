@@ -70,12 +70,12 @@ class InformationMerchantWidget extends StatelessWidget {
                         builder: (context, state) {
                           return InkWell(
                             onTap: () {
-                              context.read<MerchantCubit>().addMerchantToFavorites(merchant,SharedPrefController().getUserId().toString());
+                              context.read<MerchantCubit>().addMerchantToFavorites(merchant, SharedPrefController().getUserId().toString());
                             },
                             child: Icon(
-                              MerchantCubit.get(context).isMerchantFavorite(merchant,SharedPrefController().getUserId().toString()) ? Icons.favorite : Icons.favorite_border,
+                              MerchantCubit.get(context).isMerchantFavorite(merchant, SharedPrefController().getUserId().toString()) ? Icons.favorite : Icons.favorite_border,
                               size: 25,
-                              color: MerchantCubit.get(context).isMerchantFavorite(merchant,SharedPrefController().getUserId().toString()) ? Colors.red : Colors.black,
+                              color: MerchantCubit.get(context).isMerchantFavorite(merchant, SharedPrefController().getUserId().toString()) ? Colors.red : Colors.black,
                             ),
                           );
                         },
