@@ -22,6 +22,7 @@ class HomeSubCategoryWidget extends StatelessWidget {
     return SizedBox(
       height: 100.h,
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
         itemBuilder: (context, index) {

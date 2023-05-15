@@ -51,9 +51,10 @@ class HomeScreenWidget extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         start: 26.4.w,
-                        end: 38.6.w,
+end: 26.4.w,
                       ),
                       child: ListView(
+                        physics: const BouncingScrollPhysics(),
                         children: [
                           SizedBox(
                             height: 184.h,
@@ -102,7 +103,9 @@ class HomeScreenWidget extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ShowMore(categories: state.homeDate.categories!),
+                                        builder: (context) => ShowMore(
+                                            categories:
+                                                state.homeDate.categories!),
                                       ),
                                     );
                                   },
@@ -110,9 +113,15 @@ class HomeScreenWidget extends StatelessWidget {
                                     height: 20.04.h,
                                     child: Row(
                                       children: [
-                                        AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
+                                        AppText(
+                                            text:
+                                                context.localizations.show_more,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 12.sp,
+                                            color: Colors.black),
                                         5.pw(),
-                                        const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
+                                        const Icon(Icons.arrow_forward_ios,
+                                            color: Colors.black, size: 10),
                                       ],
                                     ),
                                   ),
@@ -128,17 +137,6 @@ class HomeScreenWidget extends StatelessWidget {
                             HomeMerchantCategory(
                               titles: state.homeDate.titles![i],
                             ),
-
-                          // ListView.builder(
-                          //   shrinkWrap: true,
-                          //   physics: const NeverScrollableScrollPhysics(),
-                          //   itemBuilder: (context, index) {
-
-                          //   },
-                          //   itemCount: state.homeDate.titles!.length,
-                          // ),
-
-                          // const HomeMerchantCategory(),
                           20.ph()
                         ],
                       ),

@@ -6,6 +6,8 @@ import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/model/home/product_cart.dart';
+import 'package:sapakem/prefs/shared_pref_controller.dart';
+import 'package:sapakem/widgets/cart/cart_item_widget.dart';
 
 class ProductCubit extends Cubit<ProductStates> {
   ProductCubit() : super(InitialProductState());
@@ -43,11 +45,75 @@ class ProductCubit extends Cubit<ProductStates> {
   //
   // }
 
+  changeQuantity(ProductCart product, int quantity, States state) {
+    List dataInCash = ApiController().cacheData[
+            "https://mstore.nahal2.me/api/merchants/${product.merchantId}"]
+        ['object']['products'];
+
+    // Logger().i();
+    if(quantity==0){
+      removeProductFromCart(product.id!, product.merchantId!);
+      return;
+    }
+
+
+
+
+
+
+
+    if (state == States.decrease) {
+      for (int i = 0; i <cart[product.merchantId.toString()].length; i++) {
+        if (cart[product.merchantId.toString()][i]['id'] == product.id) {
+          cart[product.merchantId.toString()][i]['quantity'] = quantity;
+        }
+      }
+
+      for (int i = 0; i < dataInCash.length; i++) {
+        if (dataInCash[i]['id'] == product.id) {
+          dataInCash[i]['quantity'] +=product.quantity! - quantity ;
+        }
+      if(quantity==0){
+        removeProductFromCart(product.id!, product.merchantId!);
+      }
+      }
+
+      emit(ChangeQuantityProductState(
+        cart,
+        ProcessState.change,
+        quantity,
+      ));
+    }
+    else {
+
+      for (int i = 0; i < cart[product.merchantId.toString()].length; i++) {
+        if (cart[product.merchantId.toString()][i]['id'] == product.id) {
+          cart[product.merchantId.toString()][i]['quantity'] = quantity;
+        }
+      }
+
+      for (int i = 0; i < dataInCash.length; i++) {
+        if (dataInCash[i]['id'] == product.id) {
+          dataInCash[i]['quantity'] -=quantity - product.quantity!;
+        }
+      }
+
+      emit(ChangeQuantityProductState(
+        cart,
+        ProcessState.change,
+        quantity,
+      ));
+    }
+
+    Logger().i(product.toJson());
+    Logger().i(quantity);
+    Logger().i(dataInCash);
+  }
+
   void addToCart(
       {required ProductCart productCart,
       required Product product,
-      required BuildContext context,
-      required String userId}) {
+      required BuildContext context}) {
     bool isExist = MerchantCubit.get(context)
         .merchantsFriend
         .where((element) => element == product.merchantId.toString())
@@ -55,12 +121,9 @@ class ProductCubit extends Cubit<ProductStates> {
         .isNotEmpty;
     if (!isExist) {
       emit(ErrorAddProductState(
-          'You cannot buy from this merchant', ProcessState.notAllowed));
+          'You can not buy from this merchant', ProcessState.notAllowed));
       return;
     }
-
-    // Create a user-specific cart for the given userId
-    Map<String, dynamic> userCart = cart[userId] as Map<String, dynamic>? ?? {};
 
     List data = ApiController().cacheData[
             "https://mstore.nahal2.me/api/merchants/${product.merchantId}"]
@@ -72,7 +135,7 @@ class ProductCubit extends Cubit<ProductStates> {
     try {
       if (productCart.quantity == 0) {
         emit(ErrorAddProductState(
-            'Please select quantity', ProcessState.cantBeZero));
+            'Please Select Quantity', ProcessState.cantBeZero));
         return;
       }
       if (productCart.quantity! > product.quantity!) {
@@ -81,26 +144,23 @@ class ProductCubit extends Cubit<ProductStates> {
         return;
       }
 
-      if (userCart.containsKey(productCart.merchantId.toString())) {
+      if (cart.containsKey(productCart.merchantId.toString())) {
         bool isProductInCart = false;
-        List<Map<String, dynamic>> cartItems =
-            userCart[productCart.merchantId.toString()]
-                as List<Map<String, dynamic>>;
-
-        Logger().i(cartItems);
-        for (int i = 0; i < cartItems.length; i++) {
-          if (cartItems[i]['id'].toString() == productCart.id.toString()) {
+        List data = cart[productCart.merchantId.toString()]
+            as List<Map<String, dynamic>>;
+        for (int i = 0; i < data.length; i++) {
+          if (data[i]['id'].toString() == productCart.id.toString()) {
             isProductInCart = true;
-            emit(ErrorAddProductState('This product is already in the cart',
-                ProcessState.existInCart));
+            emit(ErrorAddProductState(
+                "this product is already in cart", ProcessState.existInCart));
             break;
           }
         }
         if (!isProductInCart) {
           List<Map<String, dynamic>> products =
-              userCart[productCart.merchantId.toString()] ?? [];
+              cart[productCart.merchantId.toString()] ?? [];
           products.add(productCart.toJson());
-          userCart[productCart.merchantId.toString()] = products;
+          cart[productCart.merchantId.toString()] = products;
           product.quantity = (product.quantity! - productCart.quantity!);
           prod['quantity'] = (prod['quantity']! - productCart.quantity!);
           emit(ProcessProductState(
@@ -109,7 +169,7 @@ class ProductCubit extends Cubit<ProductStates> {
         }
       } else {
         List<Map<String, dynamic>> products = [productCart.toJson()];
-        userCart[productCart.merchantId.toString()] = products;
+        cart[productCart.merchantId.toString()] = products;
         product.quantity = (product.quantity! - productCart.quantity!);
         prod['quantity'] = (prod['quantity']! - productCart.quantity!);
         emit(
@@ -117,12 +177,9 @@ class ProductCubit extends Cubit<ProductStates> {
         emit(InitialProductState());
       }
       Logger().i(prod);
-
-      // Update the cart for the given userId
-      cart[userId] = userCart;
     } catch (e) {
       emit(ErrorAddProductState(
-          'Error adding product', ProcessState.errorAddProduct));
+          'Error Add Product', ProcessState.errorAddProduct));
     }
   }
 
@@ -142,12 +199,6 @@ class ProductCubit extends Cubit<ProductStates> {
     return isExit;
   }
 
-  Product getProduct(int id) {
-    Product product = Product();
-
-    return product;
-  }
-
   void removeMerchantFromCart(int merchantId) {
     List dataInCash = ApiController()
             .cacheData["https://mstore.nahal2.me/api/merchants/$merchantId"]
@@ -156,14 +207,20 @@ class ProductCubit extends Cubit<ProductStates> {
     List data = cart[merchantId.toString()] as List<Map<String, dynamic>>;
     for (int i = 0; i < data.length; i++) {
       var prod = dataInCash
-          .where((element) => element['id'] == data[i]['id'])
+          .where((element) {
+            Logger().i(element);
+            return element['id'] == data[i]['id'];
+          })
           .toList()
           .first;
 
       prod['quantity'] = (prod['quantity']! + data[i]['quantity']);
+      cart.removeWhere(
+        (key, value) => key == merchantId.toString(),
+      );
+      break;
     }
 
-    cart.remove(merchantId.toString());
     emit(ProcessProductState(
         cart, 'Remove Merchant Success', ProcessState.DELETE));
   }
@@ -177,6 +234,7 @@ class ProductCubit extends Cubit<ProductStates> {
         .toList()
         .first;
     List data = cart[merchantId.toString()] as List<Map<String, dynamic>>;
+
     if (data.length == 1) {
       removeMerchantFromCart(merchantId);
       emit(ProcessProductState(

@@ -33,7 +33,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }) async {
     emit(LoadingLoginState());
     try {
-      Logger().i(SharedPrefController().getValueFor(PrefKeys.fcmToken.name));
+
       ProcessResponse response =
           await usersApiController.login(mobile: phone, password: password);
       if (response.success) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sapakem/cubit/home/product/product_state.dart';
 import 'package:sapakem/model/home/product.dart';
@@ -31,6 +32,8 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logger().i(product!.quantity!);
+    // Logger().i(productCart!.quantity!);
     return WillPopScope(
       onWillPop: () async {
         ProductCubit.get(context).resetCounter();
@@ -352,9 +355,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
-                                        userId: SharedPrefController()
-                                            .getValueFor<String>(
-                                                PrefKeys.id.name)!,
+                                        // userId: SharedPrefController()
+                                        //     .getValueFor<String>(
+                                        //         PrefKeys.id.name)!,
                                         context: context,
                                         productCart: productCart,
                                         product: product!);
@@ -373,9 +376,9 @@ class ProductDetailsScreen extends StatelessWidget {
                                     productCart.quantity =
                                         context.read<ProductCubit>().quantity;
                                     context.read<ProductCubit>().addToCart(
-                                        userId: SharedPrefController()
-                                            .getValueFor<String>(
-                                                PrefKeys.id.name)!,
+                                        // userId: SharedPrefController()
+                                        //     .getValueFor<String>(
+                                        //         PrefKeys.id.name)!,
                                         context: context,
                                         productCart: productCart,
                                         product: product!);

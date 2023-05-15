@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/auth/city/city_cubit.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
+import 'package:sapakem/screens/app/home/home_screen.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 
 class LunchScreen extends StatefulWidget {
@@ -18,14 +19,40 @@ class _LunchScreenState extends State<LunchScreen> {
     // TODO: implement initState
     super.initState();
     CityCubit.get(context).getCities();
-    String route =
-        SharedPrefController().getValueFor<String>(PrefKeys.token.name) == null
-            ? '/chose_language'
-            : '/home_screen';
 
-    Future.delayed(const Duration(seconds: 1), () async {
-      Navigator.pushReplacementNamed(context, route);
+    _checkFirstSeen().then((value){
+      if (value) {
+        String route =
+            SharedPrefController().getValueFor<String>(PrefKeys.token.name)==null
+                ? '/login_screen'
+                : '/home_screen';
+        Future.delayed(const Duration(seconds: 1), () async {
+          Navigator.pushReplacementNamed(context, route);
+        });
+      } else {
+        Future.delayed(const Duration(seconds: 1), () async {
+          Navigator.pushReplacementNamed(context, '/chose_language');
+        });
+      }
+
+
     });
+
+    // Logger().d(_checkFirstSeen() == true);
+    // if (_checkFirstSeen() == true) {
+    //   Future.delayed(const Duration(seconds: 1), () async {
+    //     Navigator.pushReplacementNamed(context, '/home_screen');
+    //   });
+    // } else {
+    //   Future.delayed(const Duration(seconds: 1), () async {
+    //     Navigator.pushReplacementNamed(context, '/chose_language');
+    //   });
+    // }
+
+
+    // Future.delayed(const Duration(seconds: 1), () async {
+    //   Navigator.pushReplacementNamed(context, route);
+    // });
   }
 
   @override
@@ -49,4 +76,23 @@ class _LunchScreenState extends State<LunchScreen> {
       ),
     );
   }
+
+
+  //check if the user first time open the app or not
+
+  Future<bool> _checkFirstSeen() async {
+
+    bool _seen = (SharedPrefController().getValueFor(PrefKeys.seen.name) ?? false);
+
+    if (_seen) {
+      return true;
+    } else {
+       SharedPrefController().saveSeen(true);
+       return false;
+
+    }
+  }
+
+
+
 }
