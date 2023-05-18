@@ -58,19 +58,7 @@ class UserData {
   String? _token;
   String? _cityName;
 
-  UserData(
-      {int? id,
-      String? name,
-      String? email,
-      String? mobile,
-      String? lat,
-      String? lng,
-      String? status,
-      String? userType,
-      String? createdAt,
-      String? image,
-      String? token,
-      String? cityName}) {
+  UserData({int? id, String? name, String? email, String? mobile, String? lat, String? lng, String? status, String? userType, String? createdAt, String? image, String? token, String? cityName}) {
     if (id != null) {
       this._id = id;
     }
@@ -144,7 +132,7 @@ class UserData {
     _status = json['status'];
     _userType = json['user_type'];
     _createdAt = json['created_at'];
-    _image = json['image'];
+    _image = json['user_img'];
     _token = json['token'];
     _cityName = json['city_name'];
   }

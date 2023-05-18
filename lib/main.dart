@@ -30,10 +30,12 @@ import 'package:sapakem/screens/auth/new_password_screen.dart';
 import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
 import 'package:sapakem/screens/btn/cart_screen_widget.dart';
+import 'package:sapakem/screens/btn/profile_screen_widget.dart';
 import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
 import 'package:sapakem/screens/onboarding/on_boarding.dart';
 import 'package:sapakem/util/bloc_observer.dart';
+import 'package:sapakem/widgets/profile/image_upload_page.dart';
 
 import 'cubit/home/product/product_cubit.dart';
 
@@ -43,9 +45,6 @@ void main() async {
   await SharedPrefController().initPreferences();
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
-
-
-
 
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
@@ -109,7 +108,7 @@ class MyApp extends StatelessWidget {
                     titleTextStyle: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),
-                initialRoute: '/lunch_screen',
+                initialRoute: '/login_screen',
                 routes: {
                   '/login_screen': (context) => LoginScreen(),
                   '/register_screen': (context) => RegisterScreen(),
@@ -125,6 +124,8 @@ class MyApp extends StatelessWidget {
                   '/location': (context) => const LocationMap(),
                   '/cart_screen': (context) => const CartScreenWidget(),
                   '/favorite_screen': (context) => const FavoriteScreen(),
+                  '/profile_screen_widget': (context) => ProfileScreenWidget(),
+                  '/image_upload_page': (context) => ImageUploadPage(),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

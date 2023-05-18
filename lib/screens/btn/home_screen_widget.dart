@@ -42,7 +42,7 @@ class HomeScreenWidget extends StatelessWidget {
           } else if (state is SuccessHomeState) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<HomeCubit>().getHomeData(isRefresh: true,context: context);
+                context.read<HomeCubit>().getHomeData(isRefresh: true, context: context);
               },
               child: Column(
                 children: [
@@ -51,7 +51,7 @@ class HomeScreenWidget extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         start: 26.4.w,
-end: 26.4.w,
+                        end: 26.4.w,
                       ),
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
@@ -103,9 +103,7 @@ end: 26.4.w,
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => ShowMore(
-                                            categories:
-                                                state.homeDate.categories!),
+                                        builder: (context) => ShowMore(categories: state.homeDate.categories!),
                                       ),
                                     );
                                   },
@@ -113,15 +111,9 @@ end: 26.4.w,
                                     height: 20.04.h,
                                     child: Row(
                                       children: [
-                                        AppText(
-                                            text:
-                                                context.localizations.show_more,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12.sp,
-                                            color: Colors.black),
+                                        AppText(text: context.localizations.show_more, fontWeight: FontWeight.bold, fontSize: 12.sp, color: Colors.black),
                                         5.pw(),
-                                        const Icon(Icons.arrow_forward_ios,
-                                            color: Colors.black, size: 10),
+                                        const Icon(Icons.arrow_forward_ios, color: Colors.black, size: 10),
                                       ],
                                     ),
                                   ),
@@ -132,7 +124,6 @@ end: 26.4.w,
                           9.ph(),
                           HomeSubCategoryWidget(categories: state.homeDate.categories!),
                           17.ph(),
-
                           for (var i = 0; i < state.homeDate.titles!.length; i++)
                             HomeMerchantCategory(
                               titles: state.homeDate.titles![i],

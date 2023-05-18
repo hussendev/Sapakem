@@ -5,7 +5,6 @@ import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/login/login_states.dart';
 
 import '../../../model/process_response.dart';
-import '../../../prefs/shared_pref_controller.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(initialLoginState());
@@ -33,9 +32,7 @@ class LoginCubit extends Cubit<LoginStates> {
   }) async {
     emit(LoadingLoginState());
     try {
-
-      ProcessResponse response =
-          await usersApiController.login(mobile: phone, password: password);
+      ProcessResponse response = await usersApiController.login(mobile: phone, password: password);
       if (response.success) {
         emit(SuccessLoginState(response.message, response.success));
       } else {
