@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
@@ -47,7 +48,12 @@ class MerchantScreen extends StatelessWidget {
                             Container(
                               height: 248,
                               width: double.infinity,
-                              color: Colors.blue,
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          merchant!.merchantBackground!),
+                                      fit: BoxFit.cover)),
+
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [

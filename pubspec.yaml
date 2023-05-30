@@ -84,6 +84,7 @@ dependencies:
 
   #UI
   carousel_slider: ^4.2.1
+  lottie: ^2.3.2
 
   #Share Data To Another Apps
   share_plus: ^6.3.3
@@ -94,7 +95,7 @@ dependencies:
   
   flutter_native_splash: ^2.2.19
 
-  lottie: ^2.3.2
+
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

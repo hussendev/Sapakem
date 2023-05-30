@@ -24,7 +24,7 @@ class InformationMerchantWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Logger().i( context.read<MerchantCubit>().favoriteMerchants);
+    // Logger().i( merchant.merchantName!);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +87,7 @@ class InformationMerchantWidget extends StatelessWidget {
               ],
             ),
             AppText(
-              text: 'this.merchant.address',
+              text: this.merchant.address!.substring(0,15),
               fontSize: 14.sp,
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class InformationMerchantWidget extends StatelessWidget {
                     size: 20,
                   ),
                   AppText(
-                    text: "${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)} - ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}",
+                    text:merchant.businesHour!.length!=0? "${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)} - ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}": '',
                     fontSize: 14.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -247,12 +247,17 @@ class InformationMerchantWidget extends StatelessWidget {
   }
 
   getHour(String hour) {
-    List<String> newHour = hour.split(':');
-    int hourAsInt = int.parse(newHour[0]);
-    int hourAs12 = hourAsInt % 12 == 0 ? 12 : hourAsInt % 12;
+    if(hour.isNotEmpty){
+      List<String> newHour = hour.split(':');
+      int hourAsInt = int.parse(newHour[0]);
+      int hourAs12 = hourAsInt % 12 == 0 ? 12 : hourAsInt % 12;
 
-    bool isPm = hourAsInt >= 12;
+      bool isPm = hourAsInt >= 12;
 
-    return '$hourAs12:${newHour[1]}${isPm ? ' PM' : ' AM'}';
-  }
+      return '$hourAs12:${newHour[1]}${isPm ? ' PM' : ' AM'}';
+    }else{
+      return '';
+
+    }
+     }
 }

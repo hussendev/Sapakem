@@ -9,6 +9,7 @@ class Merchant {
   List<Product>? _products;
   String? _merchantName;
   String? _merchantLogo;
+  String? _merchantBackground;
   bool? _isOpen;
   List<BusinessHours>? _businesHour;
   String? _mobile;
@@ -26,7 +27,9 @@ class Merchant {
       List<BusinessHours>? businesHour,
       String? mobile,
       String? address,
-      String? storeName}) {
+      String? storeName,
+      String? merchantBackground
+      }) {
     if (id != null) {
       _id = id;
     }
@@ -60,6 +63,10 @@ class Merchant {
     if (storeName != null) {
       _storeName = storeName;
     }
+
+    if (merchantBackground != null) {
+      _merchantBackground = merchantBackground;
+    }
   }
 
   int? get id => _id;
@@ -87,6 +94,9 @@ class Merchant {
   String? get storeName => _storeName;
   set storeName(String? storeName) => _storeName = storeName;
 
+
+  String? get merchantBackground => _merchantBackground;
+  set merchantBackground(String? merchantBackground) => _merchantBackground = merchantBackground;
   Merchant.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _expireDate = json['expire_date'];
@@ -114,6 +124,7 @@ class Merchant {
     _mobile = json['mobile'];
     _address = json['address'];
     _storeName = json['store_name'];
+    _merchantBackground = json['background_image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -135,6 +146,7 @@ class Merchant {
     data['mobile'] = _mobile;
     data['address'] = _address;
     data['store_name'] = _storeName;
+    data['background_image'] = _merchantBackground;
     return data;
   }
 }

@@ -28,6 +28,8 @@ class UsersApiController with Helpers {
       if (response.statusCode != 400) {
         User user = User.fromJson(json);
         //TODO save user in shared preferences
+
+        Logger().i(user.toJson());
         SharedPrefController().save(user);
         return ProcessResponse(message: json['message'], success: json['status']);
       }

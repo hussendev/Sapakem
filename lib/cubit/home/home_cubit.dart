@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/app/home_api_controller.dart';
 import 'package:sapakem/model/home/home.dart';
+import 'package:sapakem/util/context_extenssion.dart';
 
 import '../../model/home/merchant.dart';
 import 'home_states.dart';
@@ -25,6 +26,11 @@ class HomeCubit extends Cubit<HomeStates> {
       } else {
         Logger().e(homeResponse.message);
         if (homeResponse.message == "api.unauthenticated.") {
+            context.showSnackBar(message: 'Session Expired Please Login Again',error: true);
+            Navigator.pushReplacementNamed(
+              context, '/login_screen',
+            );
+            // return Future.error('Session Expired');
           emit(ErrorHomeState("يجب تسجيل الدخول أولا"));
         } else {
           emit(ErrorHomeState("حدث خطأ ما"));

@@ -17,6 +17,8 @@ class HomeApiController {
   ApiController apiController = ApiController();
 
   Future<HomeResponse> getHomeData({bool isRefresh = false,required BuildContext context}) async {
+      Logger().i(SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+      );
     var data = await apiController.get(Uri.parse(ApiSettings.home),
         headers: {
           HttpHeaders.authorizationHeader:
@@ -27,14 +29,9 @@ class HomeApiController {
         timeToLive: 10,
         withoutToast: true,
         isRefresh: isRefresh);
-    if(data!['message'] == 'api.unauthenticated'){
-      context.showSnackBar(message: 'Session Expired Please Login Again',error: true);
-      Navigator.pushReplacementNamed(
-          context, '/login_screen',
-      );
-      return Future.error('Session Expired');
-    }
-    HomeResponse home = HomeResponse.fromJson(data);
+
+
+    HomeResponse home = HomeResponse.fromJson(data!);
     return home;
   }
 
