@@ -30,10 +30,12 @@ import 'package:sapakem/screens/auth/new_password_screen.dart';
 import 'package:sapakem/screens/auth/otp_screen.dart';
 import 'package:sapakem/screens/auth/register_screen.dart';
 import 'package:sapakem/screens/btn/cart_screen_widget.dart';
+import 'package:sapakem/screens/btn/profile_screen_widget.dart';
 import 'package:sapakem/screens/chose_language.dart';
 import 'package:sapakem/screens/launch_screen.dart';
 import 'package:sapakem/screens/onboarding/on_boarding.dart';
 import 'package:sapakem/util/bloc_observer.dart';
+import 'package:sapakem/widgets/profile/image_upload_page.dart';
 
 import 'cubit/home/product/product_cubit.dart';
 
@@ -44,9 +46,6 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   int deviceType = Platform.isAndroid ? 0 : 1;
 
-
-
-
   // Get the FCM token
   String? fcmToken = await FirebaseMessaging.instance.getToken();
   LocationPermission permission = await Geolocator.checkPermission();
@@ -54,8 +53,13 @@ void main() async {
     permission = await Geolocator.requestPermission();
   }
 
-  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) {
-    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(fcmToken: fcmToken!, lat: position.latitude, lng: position.longitude, deviceType: deviceType);
+  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+      .then((Position position) {
+    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(
+        fcmToken: fcmToken!,
+        lat: position.latitude,
+        lng: position.longitude,
+        deviceType: deviceType);
   }).catchError((e) {
     Logger().wtf(e);
   });
@@ -106,25 +110,34 @@ class MyApp extends StatelessWidget {
                     elevation: 0,
                     backgroundColor: Colors.transparent,
                     iconTheme: const IconThemeData(color: Colors.black),
-                    titleTextStyle: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                    titleTextStyle: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                 ),
-                initialRoute: '/lunch_screen',
+                initialRoute: '/login_screen',
                 routes: {
                   '/login_screen': (context) => LoginScreen(),
                   '/register_screen': (context) => RegisterScreen(),
-                  '/forgot_password_screen': (context) => const ForgetPasswordScreen(),
+                  '/forgot_password_screen': (context) =>
+                      const ForgetPasswordScreen(),
                   '/otp_screen': (context) => OTPScreen(),
-                  '/new_password_screen': (context) => const NewPasswordScreen(),
+                  '/new_password_screen': (context) =>
+                      const NewPasswordScreen(),
                   '/lunch_screen': (context) => const LunchScreen(),
                   '/on_boarding': (context) => OnBoarding(),
                   '/chose_language': (context) => const ChoseLanguage(),
-                  '/chose_sign_up_or_register': (context) => const ChoseSignUpOrRegister(),
+                  '/chose_sign_up_or_register': (context) =>
+                      const ChoseSignUpOrRegister(),
                   '/home_screen': (context) => HomeScreen(),
-                  '/merchants_by_category': (context) => MerchantsByCategory(category: Categories()),
-                  '/location': (context) => const LocationMap(),
+                  '/merchants_by_category': (context) =>
+                      MerchantsByCategory(category: Categories()),
+                  '/location': (context) => MyMapPage(),
                   '/cart_screen': (context) => const CartScreenWidget(),
                   '/favorite_screen': (context) => const FavoriteScreen(),
+                  '/profile_screen_widget': (context) => ProfileScreenWidget(),
+                  '/image_upload_page': (context) => ImageUploadPage(),
                 },
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,

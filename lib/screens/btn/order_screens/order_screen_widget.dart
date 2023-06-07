@@ -69,16 +69,23 @@ class OrderScreenWidget extends StatelessWidget {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.read<MyRequestsCubit>().convertToPreviousState();
+                                    context
+                                        .read<MyRequestsCubit>()
+                                        .convertToPreviousState();
                                   },
                                   child: Container(
                                     height: 56.h,
-                                    decoration: !state.isCurrentRequests ? decorationSelectedButton : null,
+                                    decoration: !state.isCurrentRequests
+                                        ? decorationSelectedButton
+                                        : null,
                                     child: Center(
                                       child: AppText(
-                                        text: AppLocalizations.of(context)!.my_current_orders,
+                                        text: AppLocalizations.of(context)!
+                                            .my_current_orders,
                                         fontSize: 14.sp,
-                                        color: !state.isCurrentRequests ? Colors.white : Colors.black,
+                                        color: !state.isCurrentRequests
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ),
@@ -87,16 +94,23 @@ class OrderScreenWidget extends StatelessWidget {
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () {
-                                    context.read<MyRequestsCubit>().convertToCurrentState();
+                                    context
+                                        .read<MyRequestsCubit>()
+                                        .convertToCurrentState();
                                   },
                                   child: Container(
                                     height: 56.h,
-                                    decoration: state.isCurrentRequests ? decorationSelectedButton : null,
+                                    decoration: state.isCurrentRequests
+                                        ? decorationSelectedButton
+                                        : null,
                                     child: Center(
                                       child: AppText(
-                                        text: AppLocalizations.of(context)!.my_previous_orders,
+                                        text: AppLocalizations.of(context)!
+                                            .my_previous_orders,
                                         fontSize: 14.sp,
-                                        color: state.isCurrentRequests ? Colors.white : Colors.black,
+                                        color: state.isCurrentRequests
+                                            ? Colors.white
+                                            : Colors.black,
                                       ),
                                     ),
                                   ),
@@ -120,63 +134,91 @@ class OrderScreenWidget extends StatelessWidget {
                           visible: state.isCurrentRequests,
 
                           /// my current requests
-                          replacement: Column(
-                            children: [
-                              for (int i = 0; i < state2.orders['current']!.length; i++)
-                                if (int.parse(state2.orders['current']![i].status!) <= 3)
-                                  Column(
-                                    children: [
-                                      CurrentRequestsWidget(orderStatus: int.parse(state2.orders['current']![i].status!) - 1),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 36.w),
-                                        child: ListTile(
-                                          leading: SvgPicture.asset(
-                                            'assets/delivery/order.svg',
-                                            height: 35.h,
-                                            width: 35.w,
-                                          ),
-                                          title: AppText(
-                                            text: AppLocalizations.of(context)!.service_type,
-                                            fontSize: 23.sp,
-                                            color: Colors.black,
-                                          ),
+                          replacement: state2.orders['current']!.isNotEmpty
+                              ? Column(
+                                  children: [
+                                    for (int i = 0;
+                                        i < state2.orders['current']!.length;
+                                        i++)
+                                      if (int.parse(state2
+                                              .orders['current']![i].status!) <=
+                                          3)
+                                        Column(
+                                          children: [
+                                            CurrentRequestsWidget(
+                                                orderStatus: int.parse(state2
+                                                        .orders['current']![i]
+                                                        .status!) -
+                                                    1),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 36.w),
+                                              child: ListTile(
+                                                leading: SvgPicture.asset(
+                                                  'assets/delivery/order.svg',
+                                                  height: 35.h,
+                                                  width: 35.w,
+                                                ),
+                                                title: AppText(
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .service_type,
+                                                  fontSize: 23.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 36.w),
+                                              child: ListTile(
+                                                leading: SvgPicture.asset(
+                                                  'assets/date.svg',
+                                                  height: 35.h,
+                                                  width: 35.w,
+                                                ),
+                                                title: AppText(
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .order_details,
+                                                  fontSize: 23.sp,
+                                                  color: Colors.black,
+                                                ),
+                                                subtitle: AppText(
+                                                  text:
+                                                      '${state2.orders['current']![i].hour!}  ${state2.orders['current']![i].createdAt!}',
+                                                  fontSize: 14.sp,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            OrderList(
+                                                order: state2
+                                                    .orders['current']![i]),
+                                            const Divider(
+                                                thickness: 1,
+                                                color: Colors.black45),
+                                            50.ph(),
+                                          ],
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 36.w),
-                                        child: ListTile(
-                                          leading: SvgPicture.asset(
-                                            'assets/date.svg',
-                                            height: 35.h,
-                                            width: 35.w,
-                                          ),
-                                          title: AppText(
-                                            text: AppLocalizations.of(context)!.order_details,
-                                            fontSize: 23.sp,
-                                            color: Colors.black,
-                                          ),
-                                          subtitle: AppText(
-                                            text: '${state2.orders['current']![i].hour!}  ${state2.orders['current']![i].createdAt!}',
-                                            fontSize: 14.sp,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      OrderList(order: state2.orders['current']![i]),
-                                      const Divider(thickness: 1, color: Colors.black45),
-                                      50.ph(),
-                                    ],
-                                  ),
-                            ],
-                          ),
+                                  ],
+                                )
+                              : Center(
+                                  child:
+                                      Lottie.asset('assets/lottie/empty.json'),
+                                ),
 
                           /// my previous requests
                           child: Column(
                             children: [
-                              for (int i = 0; i < state2.orders['previous']!.length; i++) OrderList(order: state2.orders['previous']![i]),
+                              for (int i = 0;
+                                  i < state2.orders['previous']!.length;
+                                  i++)
+                                OrderList(order: state2.orders['previous']![i]),
                               if (state2.orders['previous']!.isEmpty)
                                 Center(
-                                  child: Lottie.asset('assets/lottie/empty.json'),
+                                  child:
+                                      Lottie.asset('assets/lottie/empty.json'),
                                 ),
                               50.ph(),
                             ],

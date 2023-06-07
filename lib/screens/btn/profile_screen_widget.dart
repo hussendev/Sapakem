@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/update_profile/update_profile_cubit.dart';
 import 'package:sapakem/cubit/auth/update_profile/update_profile_state.dart';
 import 'package:sapakem/cubit/language/language_cubit.dart';
-import 'package:sapakem/model/process_response.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -22,6 +25,8 @@ class ProfileScreenWidget extends StatelessWidget {
 
   ProfileScreenWidget({super.key});
 
+  String? _imagePath;
+
   @override
   Widget build(BuildContext context) {
     nameController.text =
@@ -36,6 +41,8 @@ class ProfileScreenWidget extends StatelessWidget {
         SharedPrefController().getValueFor(PrefKeys.email.name);
     phoneController.text =
         SharedPrefController().getValueFor(PrefKeys.mobile.name);
+    _imagePath = SharedPrefController().getValueFor(PrefKeys.image.name);
+    Logger().i('_imagePath:' + _imagePath!);
     return Scaffold(
         body: BlocProvider<UpdateProfileCubit>(
       create: (context) => UpdateProfileCubit(),
@@ -185,7 +192,6 @@ class ProfileScreenWidget extends StatelessWidget {
                                                             mobile:
                                                                 phoneController
                                                                     .text,
-                                                            // context: context,
                                                           );
                                                       Navigator.pop(context2);
                                                     },
@@ -333,22 +339,27 @@ class ProfileScreenWidget extends StatelessWidget {
                     ),
                     Positioned(
                       top: 0,
-                      child: Container(
-                        height: 100.h,
-                        width: 100.w,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          border: Border(
-                            top: BorderSide(width: 1.0, color: Colors.grey),
-                            left: BorderSide(width: 1.0, color: Colors.grey),
-                            right: BorderSide(width: 1.0, color: Colors.grey),
-                            bottom: BorderSide(width: 1.0, color: Colors.grey),
+                      child: GestureDetector(
+                        onTap: () {
+                          _selectImage(context);
+                        },
+                        child: Container(
+                          height: 100.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border(
+                              top: BorderSide(width: 1.0, color: Colors.grey),
+                              left: BorderSide(width: 1.0, color: Colors.grey),
+                              right: BorderSide(width: 1.0, color: Colors.grey),
+                              bottom:
+                                  BorderSide(width: 1.0, color: Colors.grey),
+                            ),
+                            image: DecorationImage(
+                                image: NetworkImage(_imagePath.toString()),
+                                fit: BoxFit.fill),
                           ),
-                        ),
-                        child: const Icon(
-                          Icons.person,
-                          size: 50,
                         ),
                       ),
                     ),
@@ -369,5 +380,17 @@ class ProfileScreenWidget extends StatelessWidget {
         },
       ),
     ));
+  }
+
+  Future<void> _selectImage(BuildContext context) async {
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    File _image = File(pickedFile!.path);
+    context.read<UpdateProfileCubit>().updateProfile(
+          name: nameController.text,
+          email: emailController.text,
+          mobile: phoneController.text,
+          image: _image,
+        );
   }
 }

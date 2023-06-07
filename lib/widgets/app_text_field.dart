@@ -5,7 +5,7 @@ import 'package:sapakem/util/sized_box_extension.dart';
 import 'package:sapakem/widgets/app_text.dart';
 
 class AppTextField extends StatelessWidget {
-  const AppTextField({
+   AppTextField({
     Key? key,
     required this.hinttext,
     required this.text,
@@ -13,6 +13,8 @@ class AppTextField extends StatelessWidget {
     required this.keyboardType,
     required this.obscureText,
     required this.controller,
+    this.focusNode,
+    this.onSubmitted,
     this.suffixIcon,
   }) : super(key: key);
   final String text;
@@ -22,6 +24,8 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? suffixIcon;
   final bool obscureText;
+   FocusNode? focusNode = FocusNode();
+  final Function(String)? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,9 @@ class AppTextField extends StatelessWidget {
         AppText(text: text, fontSize: 14.sp, color: const Color(0xff222222)),
         10.ph(),
         TextField(
+          onSubmitted: onSubmitted ,
+          focusNode:
+             focusNode,
           controller: controller,
           keyboardType: keyboardType,
           obscureText: obscureText,
@@ -43,6 +50,7 @@ class AppTextField extends StatelessWidget {
                 color: const Color(0xFF7C7A7B)),
             hintMaxLines: 1,
             // suffixIconColor:const Color(0xffF3651F),
+            
             suffixIcon: suffixIcon,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

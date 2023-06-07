@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/model/home/product.dart';
 import 'package:sapakem/screens/app/merchant/product_details.dart';
 
@@ -14,6 +15,7 @@ class ProductWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logger().i(product);
     int counter = quantity;
     return GestureDetector(
       onTap: () {
@@ -76,7 +78,7 @@ class ProductWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          text: product.description!.length > 10
+                          text: product.name!.length > 10
                               ? '${product.name!.substring(0, 10)}...'
                               : product.name!,
                           fontSize: 13.sp,

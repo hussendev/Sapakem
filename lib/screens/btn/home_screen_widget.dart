@@ -42,16 +42,22 @@ class HomeScreenWidget extends StatelessWidget {
           } else if (state is SuccessHomeState) {
             return RefreshIndicator(
               onRefresh: () async {
-                context.read<HomeCubit>().getHomeData(isRefresh: true,context: context);
+                context
+                    .read<HomeCubit>()
+                    .getHomeData(isRefresh: true, context: context);
               },
               child: Column(
                 children: [
-                  CustomAppBar(isHome: true, title: SharedPrefController().getValueFor(PrefKeys.cityName.name) ?? ''),
+                  CustomAppBar(
+                      isHome: true,
+                      title: SharedPrefController()
+                              .getValueFor(PrefKeys.cityName.name) ??
+                          ''),
                   Expanded(
                     child: Padding(
                       padding: EdgeInsetsDirectional.only(
                         start: 26.4.w,
-end: 26.4.w,
+                        end: 26.4.w,
                       ),
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
@@ -83,9 +89,13 @@ end: 26.4.w,
                                     child: Container(
                                       height: 184.h,
                                       decoration: BoxDecoration(
-                                        image: DecorationImage(image: CachedNetworkImageProvider(e.bannerImg!), fit: BoxFit.fill),
+                                        image: DecorationImage(
+                                            image: CachedNetworkImageProvider(
+                                                e.bannerImg!),
+                                            fit: BoxFit.fill),
                                         color: const Color(0xff1C8ABB),
-                                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(10)),
                                       ),
                                     ),
                                   );
@@ -96,7 +106,10 @@ end: 26.4.w,
                             height: 33.h,
                             child: Row(
                               children: [
-                                AppText(text: context.localizations.main_meals, fontSize: 21.sp, color: Colors.blue),
+                                AppText(
+                                    text: context.localizations.main_meals,
+                                    fontSize: 21.sp,
+                                    color: Colors.blue),
                                 const Spacer(),
                                 InkWell(
                                   onTap: () {
@@ -130,10 +143,12 @@ end: 26.4.w,
                             ),
                           ),
                           9.ph(),
-                          HomeSubCategoryWidget(categories: state.homeDate.categories!),
+                          HomeSubCategoryWidget(
+                              categories: state.homeDate.categories!),
                           17.ph(),
-
-                          for (var i = 0; i < state.homeDate.titles!.length; i++)
+                          for (var i = 0;
+                              i < state.homeDate.titles!.length;
+                              i++)
                             HomeMerchantCategory(
                               titles: state.homeDate.titles![i],
                             ),

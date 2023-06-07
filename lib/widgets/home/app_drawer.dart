@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/prefs/shared_pref_controller.dart';
+import 'package:sapakem/screens/app/profile/location.dart';
 import 'package:sapakem/util/app_colors_extenssion.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
@@ -74,6 +75,14 @@ class AppDrawer extends StatelessWidget {
                 ProfileInformationWidget(
                   icon: Icons.location_on_outlined,
                   text: context.localizations.location,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyMapPage(),
+                      ),
+                    );
+                  },
                 ),
                 27.ph(),
                 ProfileInformationWidget(

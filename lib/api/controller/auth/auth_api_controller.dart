@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:path/path.dart' as path;
 import 'package:sapakem/api/api_setting.dart';
 import 'package:sapakem/model/city.dart';
 import 'package:sapakem/model/process_response.dart';
@@ -15,12 +16,23 @@ import '../api_controller.dart';
 
 class UsersApiController with Helpers {
   // login
-  Future<ProcessResponse> login({required String mobile, required String password}) async {
+  Future<ProcessResponse> login(
+      {required String mobile, required String password}) async {
     Uri uri = Uri.parse(ApiSettings.login);
     Logger().e(SharedPrefController().getValueFor(PrefKeys.language.name));
     Logger().e(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
 
-    var response = await http.post(uri, body: {'mobile': mobile, 'password': password, 'fcm_token': SharedPrefController().getValueFor(PrefKeys.fcmToken.name), 'device_type': SharedPrefController().getValueFor(PrefKeys.deviceType.name), 'lang': SharedPrefController().getValueFor(PrefKeys.language.name)});
+    var response = await http.post(uri, body: {
+      'mobile': mobile,
+      'password': password,
+      'fcm_token': SharedPrefController().getValueFor(
+            PrefKeys.fcmToken.name,
+          ) ??
+          '',
+      'device_type':
+          SharedPrefController().getValueFor(PrefKeys.deviceType.name) ?? '',
+      'lang': SharedPrefController().getValueFor(PrefKeys.language.name) ?? 'en'
+    });
     Logger().i(response.body);
 
     if (response.statusCode == 200 || response.statusCode == 400) {
@@ -31,8 +43,10 @@ class UsersApiController with Helpers {
 
         Logger().i(user.toJson());
         SharedPrefController().save(user);
-        return ProcessResponse(message: json['message'], success: json['status']);
+        return ProcessResponse(
+            message: json['message'], success: json['status']);
       }
+      Logger().i(json['message']);
       return ProcessResponse(message: json['message']);
     }
     Logger().e(response.body);
@@ -57,14 +71,16 @@ class UsersApiController with Helpers {
 
       if (response.statusCode != 400) {
         // SharedPrefController().saveOtp(json['code'].toString());
-        return ProcessResponse(message: json['message'], success: json['status']);
+        return ProcessResponse(
+            message: json['message'], success: json['status']);
       }
       return ProcessResponse(message: json['message'], success: json['status']);
     }
     return errorResponse;
   }
 
-  Future<ProcessResponse> activate({required int mobile, required int code}) async {
+  Future<ProcessResponse> activate(
+      {required int mobile, required int code}) async {
     Uri uri = Uri.parse(ApiSettings.activate);
     var response = await http.post(uri, body: {
       'mobile': mobile.toString(),
@@ -79,7 +95,8 @@ class UsersApiController with Helpers {
   }
 
   Future<ProcessResponse> logout() async {
-    String token = SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
+    String token =
+        SharedPrefController().getValueFor<String>(PrefKeys.token.name)!;
     Uri uri = Uri.parse(ApiSettings.logout);
     var response = await http.get(uri, headers: {
       HttpHeaders.authorizationHeader: token,
@@ -99,32 +116,45 @@ class UsersApiController with Helpers {
     required String mobile,
     required String email,
     required String name,
+    File? image,
   }) async {
     try {
       Uri uri = Uri.parse(ApiSettings.updateProfile);
-      var response = await http.put(
-        uri,
-        body: {
-          'mobile': mobile,
-          'email': email,
-          'name': name,
-        },
-        headers: {
-          HttpHeaders.authorizationHeader: SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
-          HttpHeaders.acceptHeader: 'application/json',
-        },
-      );
-      if (response.statusCode == 200 || response.statusCode == 400) {
-        var json = jsonDecode(response.body);
-        SharedPrefController().updateProfile(
-          mobile: mobile,
-          email: email,
-          name: name,
+      var request = http.MultipartRequest('POST', uri);
+      if (image != null) {
+        var multipartFile = await http.MultipartFile.fromPath(
+          'image',
+          image.path,
+          filename: path.basename(image.path),
         );
-        return ProcessResponse(message: json['message'], success: json['status']);
+
+        request.files.add(multipartFile);
       }
-      Logger().e(response.body);
-      return errorResponse;
+      request.fields.addAll({
+        'mobile': mobile,
+        'email': email,
+        'name': name,
+        '_method': 'PUT',
+      });
+      request.headers.addAll({
+        HttpHeaders.authorizationHeader:
+            SharedPrefController().getValueFor<String>(PrefKeys.token.name)!,
+        HttpHeaders.acceptHeader: 'application/json',
+      });
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        var json = jsonDecode(await response.stream.bytesToString());
+        // SharedPrefController().updateProfile(
+        //   mobile: mobile,
+        //   email: email,
+        //   name: name,
+        //   imageUrl: image != null ? image.path : null,
+        // );
+        return ProcessResponse(
+            message: json['message'], success: json['status']);
+      } else {
+        return errorResponse;
+      }
     } catch (e) {
       Logger().e(e);
       return errorResponse;
@@ -134,7 +164,8 @@ class UsersApiController with Helpers {
   Future<List<City>> getCities() async {
     List<City> cities = [];
     Uri uri = Uri.parse(ApiSettings.cities);
-    var response = await ApiController().get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
+    var response = await ApiController()
+        .get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
 
     if (response != null) {
       response['list'].forEach((v) {
@@ -154,7 +185,8 @@ class UsersApiController with Helpers {
     url += mar.toString();
     url += '&city_id=$cityId';
     Uri uri = Uri.parse(url);
-    var response = await ApiController().get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
+    var response = await ApiController()
+        .get(uri, headers: {HttpHeaders.acceptHeader: 'application/json'});
     double counter = 0;
     if (response != null) {
       List<dynamic> prices = (response['object'] as Map).values.toList();
@@ -170,20 +202,21 @@ class UsersApiController with Helpers {
     return counter;
   }
 
-   Future<ProcessResponse> forgetPassword({required int mobile}) async {
-  Uri uri = Uri.parse(ApiSettings.forgetpassword);
-  var response = await http.post(uri, body: {
-    'mobile': mobile.toString(),
-  });
-  if (response.statusCode == 200 || response.statusCode == 400) {
-    var json = jsonDecode(response.body);
-    return ProcessResponse(
-        message: json['message'] + ' ' + json['code'].toString(),
-        success: json['status']);
-  }
+  Future<ProcessResponse> forgetPassword({required int mobile}) async {
+    Uri uri = Uri.parse(ApiSettings.forgetpassword);
+    var response = await http.post(uri, body: {
+      'mobile': mobile.toString(),
+    });
+    if (response.statusCode == 200 || response.statusCode == 400) {
+      var json = jsonDecode(response.body);
+      return ProcessResponse(
+          message: json['message'] + ' ' + json['code'].toString(),
+          success: json['status']);
+    }
 
-  return errorResponse;
-}}
+    return errorResponse;
+  }
+}
 
 //qemu-system
 
@@ -283,4 +316,3 @@ class UsersApiController with Helpers {
 //   }
 //   return errorResponse;
 // }
-

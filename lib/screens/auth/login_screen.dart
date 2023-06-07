@@ -16,9 +16,10 @@ import '../../widgets/app_text_field.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
   final TextEditingController _phoneController =
-      TextEditingController(text: '592197258'); //123456   11111117000
-  final TextEditingController _passwordController =
-      TextEditingController(text: '123456');
+      TextEditingController(); //123456   11111117000
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _phoneNumberFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +42,7 @@ class LoginScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is LoadingLoginState) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is SuccessLoginState ||
-                  state is ErrorDataLoginState ||
+              } else if (state is ErrorDataLoginState ||
                   state is initialLoginState) {
                 return CustomScrollView(
                   slivers: [
@@ -118,6 +118,11 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   24.ph(),
                                   AppTextField(
+                                      onSubmitted: (value) {
+                                        _phoneNumberFocusNode.unfocus();
+                                        _passwordFocusNode.requestFocus();
+                                      },
+                                      focusNode: _phoneNumberFocusNode,
                                       text: context.localizations.mobile,
                                       hinttext: 'Phone Number',
                                       labeltext: 'labeltext',
@@ -129,6 +134,7 @@ class LoginScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       if (state is initialLoginState) {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: 'Password',
@@ -152,6 +158,7 @@ class LoginScreen extends StatelessWidget {
                                       } else if (state
                                           is ChangePasswordVisibilityState) {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: '********',
@@ -174,6 +181,7 @@ class LoginScreen extends StatelessWidget {
                                             ));
                                       } else {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: '********',
@@ -196,14 +204,6 @@ class LoginScreen extends StatelessWidget {
                                             ));
                                       }
                                     },
-                                    // buildWhen: (previous, current) {
-                                    //   if (current
-                                    //       is ChangePasswordVisibilityState) {
-                                    //     return true;
-                                    //   } else {
-                                    //     return false;
-                                    //   }
-                                    // },
                                   ),
                                   10.ph(),
                                   Row(
@@ -274,8 +274,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 );
-              } else {
-                return CustomScrollView(
+              } else if(state is ErrorLoginState) {
+                 return CustomScrollView(
                   slivers: [
                     SliverFillRemaining(
                       hasScrollBody: false,
@@ -349,6 +349,11 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   24.ph(),
                                   AppTextField(
+                                      onSubmitted: (value) {
+                                        _phoneNumberFocusNode.unfocus();
+                                        _passwordFocusNode.requestFocus();
+                                      },
+                                      focusNode: _phoneNumberFocusNode,
                                       text: context.localizations.mobile,
                                       hinttext: 'Phone Number',
                                       labeltext: 'labeltext',
@@ -360,6 +365,7 @@ class LoginScreen extends StatelessWidget {
                                     builder: (context, state) {
                                       if (state is initialLoginState) {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: 'Password',
@@ -383,6 +389,7 @@ class LoginScreen extends StatelessWidget {
                                       } else if (state
                                           is ChangePasswordVisibilityState) {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: '********',
@@ -405,6 +412,7 @@ class LoginScreen extends StatelessWidget {
                                             ));
                                       } else {
                                         return AppTextField(
+                                            focusNode: _passwordFocusNode,
                                             text:
                                                 context.localizations.password,
                                             hinttext: '********',
@@ -427,14 +435,6 @@ class LoginScreen extends StatelessWidget {
                                             ));
                                       }
                                     },
-                                    // buildWhen: (previous, current) {
-                                    //   if (current
-                                    //       is ChangePasswordVisibilityState) {
-                                    //     return true;
-                                    //   } else {
-                                    //     return false;
-                                    //   }
-                                    // },
                                   ),
                                   10.ph(),
                                   Row(
@@ -505,6 +505,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 );
+
+              
+              }else{
+                  return const Center(child: CircularProgressIndicator());
               }
             },
             listener: (context, state) {
@@ -516,7 +520,7 @@ class LoginScreen extends StatelessWidget {
                     message: state.error.toString(), error: !state.success);
               } else if (state is SuccessLoginState) {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/home_screen', (route) => false);
+                    context, '/home_screen', (route) => true);
               }
             },
             buildWhen: (previous, current) {

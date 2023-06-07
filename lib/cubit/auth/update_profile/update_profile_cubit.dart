@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
 import 'package:sapakem/api/controller/auth/auth_api_controller.dart';
 import 'package:sapakem/cubit/auth/update_profile/update_profile_state.dart';
-import 'package:sapakem/prefs/shared_pref_controller.dart';
 
 class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
   UpdateProfileCubit() : super(InitialUpdateProfileState());
 
   static UpdateProfileCubit get(context) => BlocProvider.of(context);
-
 
   UsersApiController usersApiController = UsersApiController();
 
@@ -17,6 +16,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
     required String name,
     required String email,
     required String mobile,
+    File? image,
   }) async {
     emit(LoadingUpdateProfileState());
     try {
@@ -24,6 +24,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
         email: email,
         mobile: mobile,
         name: name,
+        image: image,
       );
       if (response.success) {
         // ignore: use_build_context_synchronously

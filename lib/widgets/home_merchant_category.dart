@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:logger/logger.dart';
 import 'package:sapakem/model/home/titles.dart';
 import 'package:sapakem/screens/app/home/show_more.dart';
 import 'package:sapakem/util/context_extenssion.dart';
@@ -83,6 +84,8 @@ class HomeMerchantCategory extends StatelessWidget {
               ],
             ),
           )
-        : SizedBox.shrink();
+        : Center(
+            child: AppText(
+                text: 'No Titles ', color: Colors.black, fontSize: 20.sp));
   }
 }

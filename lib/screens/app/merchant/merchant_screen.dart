@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:logger/logger.dart';
 import 'package:sapakem/cubit/home/home_cubit.dart';
 import 'package:sapakem/cubit/home/home_states.dart';
 import 'package:sapakem/cubit/home/merchant/merchant_cubit.dart';
@@ -10,6 +9,7 @@ import 'package:sapakem/model/home/merchant.dart';
 import 'package:sapakem/util/context_extenssion.dart';
 import 'package:sapakem/util/sized_box_extension.dart';
 
+import '../../../widgets/app_text.dart';
 import '../../../widgets/merchant/information_merchant_widget.dart';
 import '../../../widgets/merchant/products_for_merchant_widget.dart';
 
@@ -17,7 +17,6 @@ class MerchantScreen extends StatelessWidget {
   MerchantScreen({super.key, required this.merchant});
 
   Merchant? merchant;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,6 @@ class MerchantScreen extends StatelessWidget {
                                       image: CachedNetworkImageProvider(
                                           merchant!.merchantBackground!),
                                       fit: BoxFit.cover)),
-
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -141,18 +139,26 @@ class MerchantScreen extends StatelessWidget {
                                 merchant: state.merchant,
                               ),
                               31.ph(),
-                              SizedBox(
-                                height: 250.h,
-                                child: ListView.builder(
-                                  itemBuilder: (context, index) {
-                                    return ProductsForMerchantWidget(
-                                      products: state.merchant.products!,
-                                    );
-                                  },
-                                  itemCount:
-                                      state.merchant.subcategories!.length,
-                                ),
-                              ),
+                              state.merchant.products!.isEmpty
+                                  ? Center(
+                                      child: AppText(
+                                          text:
+                                              ' No Products for this merchant',
+                                          fontSize: 20.sp,
+                                          color: Colors.black),
+                                    )
+                                  : SizedBox(
+                                      height: 250.h,
+                                      child: ListView.builder(
+                                        itemBuilder: (context, index) {
+                                          return ProductsForMerchantWidget(
+                                            products: state.merchant.products!,
+                                          );
+                                        },
+                                        itemCount: state
+                                            .merchant.subcategories!.length,
+                                      ),
+                                    ),
                               30.ph(),
                             ],
                           ),
