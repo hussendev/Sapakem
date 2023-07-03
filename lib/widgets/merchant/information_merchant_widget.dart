@@ -87,7 +87,7 @@ class InformationMerchantWidget extends StatelessWidget {
               ],
             ),
             AppText(
-              text: this.merchant.address!.substring(0,15),
+              text: this.merchant.address!.substring(0, 15),
               fontSize: 14.sp,
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -115,13 +115,14 @@ class InformationMerchantWidget extends StatelessWidget {
                     ],
                   ),
                   22.pw(),
-                  const Icon(
-                    Icons.watch_later_outlined,
-                    color: Colors.blue,
-                    size: 20,
-                  ),
+                  if (merchant.businesHour!.length > 0)
+                    const Icon(
+                      Icons.watch_later_outlined,
+                      color: Colors.blue,
+                      size: 20,
+                    ),
                   AppText(
-                    text:merchant.businesHour!.length!=0? "${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)} - ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}": '',
+                    text: merchant.businesHour!.length != 0 ? "${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].from!)} - ${getHour(merchant.businesHour![(DateTime.now().day + 1) % 7].to!)}" : '',
                     fontSize: 14.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -247,7 +248,7 @@ class InformationMerchantWidget extends StatelessWidget {
   }
 
   getHour(String hour) {
-    if(hour.isNotEmpty){
+    if (hour.isNotEmpty) {
       List<String> newHour = hour.split(':');
       int hourAsInt = int.parse(newHour[0]);
       int hourAs12 = hourAsInt % 12 == 0 ? 12 : hourAsInt % 12;
@@ -255,9 +256,8 @@ class InformationMerchantWidget extends StatelessWidget {
       bool isPm = hourAsInt >= 12;
 
       return '$hourAs12:${newHour[1]}${isPm ? ' PM' : ' AM'}';
-    }else{
+    } else {
       return '';
-
     }
-     }
+  }
 }

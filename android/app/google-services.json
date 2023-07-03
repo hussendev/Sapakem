@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:645975068070:android:cc840def6350ada909d367",
         "android_client_info": {
-          "package_name": "com.example.sapakem"
+          "package_name": "com.spakem.sapakem"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "645975068070-1sqp0dc9ulegmbo9g01dablo0gh9mk3k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.sapakem",
+            "package_name": "com.spakem.sapakem",
             "certificate_hash": "d87b30fc73df61dabfe1a123be61e622c363e761"
           }
         },
@@ -43,7 +43,7 @@
               "client_id": "645975068070-jjos60v0q3janh9fi4r7medpcg1dd84c.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.sapakem"
+                "bundle_id": "com.spakem.sapakem"
               }
             }
           ]
