@@ -42,7 +42,7 @@ class MerchantWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         height: 214.h,
-        width: 170.w,
+        // width: 170.w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -125,38 +125,40 @@ class MerchantWidget extends StatelessWidget {
                       ],
                     ),
                     // const Spacer(),
-                    BlocBuilder<MerchantCubit, MerchantStates>(
-                      builder: (context, state) {
-                        return InkWell(
-                          child: context
+                    Expanded(
+                      child: BlocBuilder<MerchantCubit, MerchantStates>(
+                        builder: (context, state) {
+                          return InkWell(
+                            child: context
+                                    .read<MerchantCubit>()
+                                    .isMerchantFavorite(
+                                        merchant,
+                                        SharedPrefController()
+                                            .getUserId()
+                                            .toString())
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : const Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                  ),
+                            onTap: () {
+                              context
                                   .read<MerchantCubit>()
-                                  .isMerchantFavorite(
+                                  .addMerchantToFavorites(
                                       merchant,
                                       SharedPrefController()
                                           .getUserId()
-                                          .toString())
-                              ? const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.white,
-                                ),
-                          onTap: () {
-                            context
-                                .read<MerchantCubit>()
-                                .addMerchantToFavorites(
-                                    merchant,
-                                    SharedPrefController()
-                                        .getUserId()
-                                        .toString());
-                          },
-                        );
-                      },
-                      buildWhen: (previous, current) =>
-                          current is FavoriteMerchantState ||
-                          current is InitialFavoriteMerchantState,
+                                          .toString());
+                            },
+                          );
+                        },
+                        buildWhen: (previous, current) =>
+                            current is FavoriteMerchantState ||
+                            current is InitialFavoriteMerchantState,
+                      ),
                     )
                   ],
                 ),

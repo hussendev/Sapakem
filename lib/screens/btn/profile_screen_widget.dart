@@ -170,17 +170,17 @@ class ProfileScreenWidget extends StatelessWidget {
                                 );
                               },
                             ),
-                            20.ph(),
-                            ProfileInformationWidget(
-                              icon: Icons.location_on_rounded,
-                              text: context.localizations.address,
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/location',
-                                );
-                              },
-                            ),
+                            // 20.ph(),
+                            // ProfileInformationWidget(
+                            //   icon: Icons.location_on_rounded,
+                            //   text: context.localizations.address,
+                            //   onTap: () {
+                            //     Navigator.pushNamed(
+                            //       context,
+                            //       '/location',
+                            //     );
+                            //   },
+                            // ),
                             20.ph(),
                             ProfileInformationWidget(icon: Icons.email_outlined, text: context.localizations.email),
                             20.ph(),

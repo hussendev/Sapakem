@@ -72,19 +72,19 @@ class AppDrawer extends StatelessWidget {
                     fontSize: 20.sp,
                     color: Colors.black),
                 20.ph(),
-                ProfileInformationWidget(
-                  icon: Icons.location_on_outlined,
-                  text: context.localizations.location,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyMapPage(),
-                      ),
-                    );
-                  },
-                ),
-                27.ph(),
+                // ProfileInformationWidget(
+                //   icon: Icons.location_on_outlined,
+                //   text: context.localizations.location,
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => MyMapPage(),
+                //       ),
+                //     );
+                //   },
+                // ),
+                // 27.ph(),
                 ProfileInformationWidget(
                   icon: Icons.language,
                   text: context.localizations.chose_language,
