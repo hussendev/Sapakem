@@ -28,9 +28,9 @@ class UsersApiController with Helpers {
       'fcm_token': SharedPrefController().getValueFor(
             PrefKeys.fcmToken.name,
           ) ??
-          '',
+          'sasas',
       'device_type':
-          SharedPrefController().getValueFor(PrefKeys.deviceType.name) ?? '',
+          '1',
       'lang': SharedPrefController().getValueFor(PrefKeys.language.name) ?? 'en'
     });
     Logger().i(response.body);

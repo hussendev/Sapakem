@@ -47,22 +47,22 @@ void main() async {
   int deviceType = Platform.isAndroid ? 0 : 1;
 
   // Get the FCM token
-  String? fcmToken = await FirebaseMessaging.instance.getToken();
-  LocationPermission permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-  }
-
-  await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-      .then((Position position) {
-    SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(
-        fcmToken: fcmToken!,
-        lat: position.latitude,
-        lng: position.longitude,
-        deviceType: deviceType);
-  }).catchError((e) {
-    Logger().wtf(e);
-  });
+  // String? fcmToken = await FirebaseMessaging.instance.getToken();
+  // LocationPermission permission = await Geolocator.checkPermission();
+  // if (permission == LocationPermission.denied) {
+  //   permission = await Geolocator.requestPermission();
+  // }
+  //
+  // await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+  //     .then((Position position) {
+  //   SharedPrefController().saveFcmTokenAndLatLongAndDeviceType(
+  //       fcmToken: fcmToken!,
+  //       lat: position.latitude,
+  //       lng: position.longitude,
+  //       deviceType: deviceType);
+  // }).catchError((e) {
+  //   Logger().wtf(e);
+  // });
 
   runApp(const MyApp());
 }
@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
                   '/register_screen': (context) => RegisterScreen(),
                   '/forgot_password_screen': (context) =>
                       const ForgetPasswordScreen(),
-                  '/otp_screen': (context) => OTPScreen(),
+                  // '/otp_screen': (context) => OTPScreen(),
                   '/new_password_screen': (context) =>
                       const NewPasswordScreen(),
                   '/lunch_screen': (context) => const LunchScreen(),

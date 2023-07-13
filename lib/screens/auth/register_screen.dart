@@ -495,7 +495,7 @@ class RegisterScreen extends StatelessWidget {
     userRegister.fcmToken =
         SharedPrefController().getValueFor(PrefKeys.fcmToken.name);
     userRegister.deviceType =
-        int.parse(SharedPrefController().getValueFor(PrefKeys.deviceType.name));
+        int.parse(SharedPrefController().getValueFor(PrefKeys.deviceType.name)??'0');
     userRegister.cityId = CityCubit.get(context).cityId;
     return userRegister;
   }
